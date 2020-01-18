@@ -35,7 +35,9 @@ justify-content: center;
 `;
 
 export const Avatar = styled.Image`
-
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
 `;
 
 export const Container = styled.ScrollView`
@@ -201,6 +203,7 @@ margin: 0 16px 0 0;
 export const ElencoFoto = styled.Image`
 width: 80px;
 height: 80px;
+border-radius: 40px;
 `;
 
 export const ElencoName = styled.Text.attrs({
@@ -227,14 +230,18 @@ border-radius: 8px;
 margin: 0 15px 0 0;
 `;
 
-export const NoticiasTitle = styled.Text`
+export const NoticiasTitle = styled.Text.attrs({
+  numberOfLines: 2,
+})`
 font-family: 'Axiforma';
 font-weight: bold;
-font-size: 15px;
+font-size: 14px;
 color: #000000;
 `;
 
-export const NoticiasDesc = styled.Text`
+export const NoticiasDesc = styled.Text.attrs({
+  numberOfLines: 2,
+})`
 font-family: 'Axiforma';
 font-weight: normal;
 font-size: 13px;

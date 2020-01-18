@@ -9,9 +9,14 @@ import { Header, HeaderTexts, HeaderTextName, HeaderTextDesc, AvatarContent, Ava
   ElencoContent, Noticias, NoticiasImg, NoticiasTitle, NoticiasDesc,
   JogoDetalhesView, JogoInfoTime, JogoInfoData, JogoLogo } from './styles';
 
-import fotoAvatar  from "../../../assets/img/avatar.png";
+import fotoAvatar  from "../../../assets/img/perfil-teste.jpg";
 import noticiaPlaceholder from "../../../assets/img/noticias-placeholder.jpg";
 import Brasao from "../../../assets/img/brasao.png";
+import Joao from "../../../assets/img/joao.jpg";
+import Img1 from "../../../assets/img/img1.jpg";
+import Img2 from "../../../assets/img/img2.jpg";
+import Img3 from "../../../assets/img/img3.jpg";
+import Img4 from "../../../assets/img/img4.jpg";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 Icon.loadFont()
@@ -21,31 +26,37 @@ export default function Home() {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#000000" }}>
       <Header>
         <HeaderTexts>
-          <HeaderTextName>Olá Maria</HeaderTextName>
+          <HeaderTextName>Olá João</HeaderTextName>
           <HeaderTextDesc>O que você quer fazer hoje?</HeaderTextDesc>
         </HeaderTexts>
         <AvatarContent>
-          <Avatar source={fotoAvatar} />
+          <Avatar source={Joao} />
         </AvatarContent>
       </Header>
       <Container>
         <Title>Destaque</Title>
         <Destaque>
-          <DestaqueBg source={fotoAvatar}>
-          <DestaqueTitle>Destaque</DestaqueTitle>
+          <DestaqueBg source={Img4}>
+          <DestaqueTitle>Notícias de destaque</DestaqueTitle>
           </DestaqueBg>
         </Destaque>
         <Title>Melhores momentos</Title>
         <MelhoresMomentos horizontal={true} showsHorizontalScrollIndicator={false}>
           <MelhoresMomentosItem underlayColor="#ffffff">
             <View>
-              <MelhoresMomentosImg source={fotoAvatar} />
+              <MelhoresMomentosImg source={Img1} />
               <MelhoresMomentosTitle>Lorem</MelhoresMomentosTitle>
             </View>
           </MelhoresMomentosItem>
           <MelhoresMomentosItem underlayColor="#ffffff">
             <View>
-              <MelhoresMomentosImg source={fotoAvatar} />
+              <MelhoresMomentosImg source={Img2} />
+              <MelhoresMomentosTitle>Lorem</MelhoresMomentosTitle>
+            </View>
+          </MelhoresMomentosItem>
+          <MelhoresMomentosItem underlayColor="#ffffff">
+            <View>
+              <MelhoresMomentosImg source={Img3} />
               <MelhoresMomentosTitle>Lorem</MelhoresMomentosTitle>
             </View>
           </MelhoresMomentosItem>
@@ -107,9 +118,9 @@ export default function Home() {
           </Elenco>
           <Title>Notícias</Title>
           <Noticias underlayColor="#ffffff">
-            <NoticiasImg source={noticiaPlaceholder} />
+            <NoticiasImg source={Img1} />
             <View style={{ flex: 1 }}>
-              <NoticiasTitle>Lorem ipsum in dolor</NoticiasTitle>
+              <NoticiasTitle>Adulto vence São José nos pênaltis, pela Copa do Brasil.</NoticiasTitle>
               <NoticiasDesc>Lorem ipsum in dolor</NoticiasDesc>
             </View>
             <View>
@@ -117,9 +128,9 @@ export default function Home() {
             </View>
           </Noticias>
           <Noticias underlayColor="#ffffff">
-            <NoticiasImg source={noticiaPlaceholder} />
+            <NoticiasImg source={Img3} />
             <View style={{ flex: 1 }}>
-              <NoticiasTitle>Lorem ipsum in dolor</NoticiasTitle>
+            <NoticiasTitle>Adulto vence São José nos pênaltis, pela Copa do Brasil.</NoticiasTitle>
               <NoticiasDesc>Lorem ipsum in dolor</NoticiasDesc>
             </View>
             <View>
