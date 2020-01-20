@@ -76,6 +76,10 @@
 		<string>Axiforma Regular.otf</string>
 		<string>Axiforma SemiBold.otf</string>
 		<string>Fontisto.ttf</string>
+		<string>Axiforma Bold.ttf</string>
+		<string>Axiforma Light.ttf</string>
+		<string>Axiforma Regular.ttf</string>
+		<string>Axiforma SemiBold.ttf</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Queremos acessar sua câmera para atualizar a foto de perfil</string>

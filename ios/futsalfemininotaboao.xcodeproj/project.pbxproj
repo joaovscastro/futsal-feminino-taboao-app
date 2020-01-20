@@ -41,6 +41,10 @@
 		ABC320C9AFFB4BBE8457EF49 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 439DB785999D47178AE9347F /* Octicons.ttf */; };
 		EB787233F27145E889023995 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BAAE3E762D944A095F90D83 /* SimpleLineIcons.ttf */; };
 		183DA26298554504B75065CF /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C506C7710A2348B79DF348F9 /* Zocial.ttf */; };
+		7529EA70453E4990A816DEBE /* Axiforma Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B627406125A47218CCE0C8E /* Axiforma Bold.ttf */; };
+		CA27B76D916847DF8006725B /* Axiforma Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E56941136682459EA814A4D1 /* Axiforma Light.ttf */; };
+		D862EB96D50547D190021A1F /* Axiforma Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EFFDD8B38A0C470EB7766920 /* Axiforma Regular.ttf */; };
+		763DA33D88514B56A3797F07 /* Axiforma SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A0195A32FE9F48BDBE849A4A /* Axiforma SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +113,10 @@
 		439DB785999D47178AE9347F /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		4BAAE3E762D944A095F90D83 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		C506C7710A2348B79DF348F9 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0B627406125A47218CCE0C8E /* Axiforma Bold.ttf */ = {isa = PBXFileReference; name = "Axiforma Bold.ttf"; path = "../assets/fonts/Axiforma Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E56941136682459EA814A4D1 /* Axiforma Light.ttf */ = {isa = PBXFileReference; name = "Axiforma Light.ttf"; path = "../assets/fonts/Axiforma Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EFFDD8B38A0C470EB7766920 /* Axiforma Regular.ttf */ = {isa = PBXFileReference; name = "Axiforma Regular.ttf"; path = "../assets/fonts/Axiforma Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A0195A32FE9F48BDBE849A4A /* Axiforma SemiBold.ttf */ = {isa = PBXFileReference; name = "Axiforma SemiBold.ttf"; path = "../assets/fonts/Axiforma SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +273,10 @@
 				439DB785999D47178AE9347F /* Octicons.ttf */,
 				4BAAE3E762D944A095F90D83 /* SimpleLineIcons.ttf */,
 				C506C7710A2348B79DF348F9 /* Zocial.ttf */,
+				0B627406125A47218CCE0C8E /* Axiforma Bold.ttf */,
+				E56941136682459EA814A4D1 /* Axiforma Light.ttf */,
+				EFFDD8B38A0C470EB7766920 /* Axiforma Regular.ttf */,
+				A0195A32FE9F48BDBE849A4A /* Axiforma SemiBold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -432,6 +444,10 @@
 				ABC320C9AFFB4BBE8457EF49 /* Octicons.ttf in Resources */,
 				EB787233F27145E889023995 /* SimpleLineIcons.ttf in Resources */,
 				183DA26298554504B75065CF /* Zocial.ttf in Resources */,
+				7529EA70453E4990A816DEBE /* Axiforma Bold.ttf in Resources */,
+				CA27B76D916847DF8006725B /* Axiforma Light.ttf in Resources */,
+				D862EB96D50547D190021A1F /* Axiforma Regular.ttf in Resources */,
+				763DA33D88514B56A3797F07 /* Axiforma SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

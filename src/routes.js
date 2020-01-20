@@ -13,11 +13,12 @@ import Jogos from "./pages/Jogos";
 import More from "./pages/More";
 import NewsSingle from "./pages/NewsSingle"
 import JogosSingle from "./pages/JogosSingle"
+import Login from "./pages/Login";
 
-const Routes = createAppContainer(
+export default (isSigned = false) => createAppContainer(
   createSwitchNavigator({
     Sign: createSwitchNavigator({
-      Home
+      Login
     }),
     App: createBottomTabNavigator({
       Home: {
@@ -86,8 +87,7 @@ const Routes = createAppContainer(
     }
     )
   }, {
-    initialRouteName: 'App',
+    initialRouteName: isSigned ? 'App' : 'Sign',
   })
 )
 
-export default Routes;

@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
+import { PersistGate } from 'redux-persist/integration/react';
 import { StatusBar, View } from 'react-native';
+import { Provider } from 'react-redux';
 
+import { store, persistor } from './store';
+import App from './App';
 
-import Routes from "./routes"
-
-class App extends Component {
+class Index extends Component {
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: '#f9f9f9' }}>
-     <StatusBar barStyle="light-content" backgroundColor="#7159c1" />
-    <Routes />
-    </View>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <View style={{ flex: 1, backgroundColor: '#f9f9f9' }}>
+            <StatusBar barStyle="light-content" backgroundColor="#000000" />
+            <App />
+          </View>
+        </PersistGate>
+      </Provider>
     )
   }
 }
 
-export default App;
+export default Index;

@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, SafeAreaView, Text } from 'react-native';
+import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { View, SafeAreaView, Alert } from 'react-native';
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 Icon.loadFont()
@@ -12,8 +14,28 @@ import fotoAvatar  from "../../../assets/img/avatar.png";
 import noticiaPlaceholder from "../../../assets/img/noticias-placeholder.jpg";
 import Brasao from "../../../assets/img/brasao.png";
 
-export default function More() {
+import { signOut } from '../../store/modules/auth/actions';
 
+function More({ profile, navigation }) {
+  function Sair() {
+
+    Alert.alert(
+      'Deseja realmente sair?',
+      'Você será desconectado',
+      [
+        { text: 'Não', onPress: () => navigation.goBack() },
+        { text: 'Sim', onPress: () => handleLogout() },
+      ],
+      { cancelable: false },
+    );
+
+  }
+
+  const dispatch = useDispatch();
+
+  function handleLogout() {
+    dispatch(signOut());
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#000000" }}>
@@ -82,7 +104,7 @@ export default function More() {
       </MoreContent>
     </MoreItem>
 
-    <MoreItem>
+    <MoreItem onPress={Sair}>
       <MoreContent>
       <Icon name="close-box-outline" size={40} color="#EC2840" style={{ marginTop: -7}} />
         <MoreText>
@@ -98,3 +120,9 @@ export default function More() {
   );
 }
 
+const mapStateToProps = state => ({
+  profile: state.user.profile,
+
+});
+
+export default connect(mapStateToProps)(More);
