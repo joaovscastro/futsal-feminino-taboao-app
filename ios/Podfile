@@ -3,6 +3,8 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 use_frameworks!
 
+project 'futsalfemininotaboao.xcodeproj'
+
 target 'futsalfemininotaboao' do
   # Pods for futsalfemininotaboao
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
@@ -35,7 +37,6 @@ target 'futsalfemininotaboao' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'futsalfemininotaboaoTests' do
     inherit! :search_paths

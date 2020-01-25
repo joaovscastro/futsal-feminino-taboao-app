@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>futsalfemininotaboao</string>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -37,8 +37,39 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Queremos acessar sua câmera para atualizar a foto de perfil</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Acessar seu microfone para gravar video</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Queremos acessar sua biblioteca de fotos para atualizar a foto de perfil</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Queremos acessar sua biblioteca de fotos para atualizar a foto de perfil</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Axiforma Bold.ttf</string>
+		<string>Axiforma Light.ttf</string>
+		<string>Axiforma Regular.ttf</string>
+		<string>Axiforma SemiBold.ttf</string>
+		<string>AntDesign.ttf</string>
+		<string>Entypo.ttf</string>
+		<string>EvilIcons.ttf</string>
+		<string>Feather.ttf</string>
+		<string>FontAwesome.ttf</string>
+		<string>FontAwesome5_Brands.ttf</string>
+		<string>FontAwesome5_Regular.ttf</string>
+		<string>FontAwesome5_Solid.ttf</string>
+		<string>Fontisto.ttf</string>
+		<string>Foundation.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>Octicons.ttf</string>
+		<string>SimpleLineIcons.ttf</string>
+		<string>Zocial.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -48,46 +79,8 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>AntDesign.ttf</string>
-		<string>Entypo.ttf</string>
-		<string>EvilIcons.ttf</string>
-		<string>Feather.ttf</string>
-		<string>FontAwesome.ttf</string>
-		<string>FontAwesome5_Brands.ttf</string>
-		<string>FontAwesome5_Regular.ttf</string>
-		<string>FontAwesome5_Solid.ttf</string>
-		<string>Foundation.ttf</string>
-		<string>Ionicons.ttf</string>
-		<string>MaterialIcons.ttf</string>
-		<string>MaterialCommunityIcons.ttf</string>
-		<string>SimpleLineIcons.ttf</string>
-		<string>Octicons.ttf</string>
-		<string>Zocial.ttf</string>
-		<string>Axiforma Bold.otf</string>
-		<string>Axiforma Light.otf</string>
-		<string>Axiforma Medium.otf</string>
-		<string>Axiforma Regular.otf</string>
-		<string>Axiforma SemiBold.otf</string>
-		<string>Fontisto.ttf</string>
-		<string>Axiforma Bold.ttf</string>
-		<string>Axiforma Light.ttf</string>
-		<string>Axiforma Regular.ttf</string>
-		<string>Axiforma SemiBold.ttf</string>
-	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>Queremos acessar sua câmera para atualizar a foto de perfil</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Queremos acessar sua biblioteca de fotos para atualizar a foto de perfil</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Queremos acessar sua biblioteca de fotos para atualizar a foto de perfil</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Acessar seu microfone para gravar video</string>
 </dict>
 </plist>

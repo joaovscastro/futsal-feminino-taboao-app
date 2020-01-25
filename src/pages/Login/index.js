@@ -1,21 +1,48 @@
 import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { Image, View, TextInput, Button, Text, SafeAreaView, ImageBackground, ActivityIndicator, ScrollView } from 'react-native';
-
-import { signInRequest } from "../../store/modules/auth/actions"
-
-import Icon from "react-native-vector-icons/MaterialIcons";
-Icon.loadFont()
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  Container, Form, Header, Logo, ContainerHome, MailContent, LoginMail,
-  LoginIcon, TitleMail, MailInput, LoginPass, LoginButton, PassInput, TitlePass,
-  PassContent, TitleOne, TitleDesc, RequestAcess, RequestAcessText, ForgotPassword,
-  ForgotPasswordText, ForgotPasswordCont
+  Image,
+  View,
+  TextInput,
+  Button,
+  Text,
+  SafeAreaView,
+  ImageBackground,
+  ActivityIndicator,
+  ScrollView,
+} from 'react-native';
+
+import { signInRequest } from '../../store/modules/auth/actions';
+
+import Icon from 'react-native-vector-icons/MaterialIcons';
+Icon.loadFont();
+import {
+  Container,
+  Form,
+  Header,
+  Logo,
+  ContainerHome,
+  MailContent,
+  LoginMail,
+  LoginIcon,
+  TitleMail,
+  MailInput,
+  LoginPass,
+  LoginButton,
+  PassInput,
+  TitlePass,
+  PassContent,
+  TitleOne,
+  TitleDesc,
+  RequestAcess,
+  RequestAcessText,
+  ForgotPassword,
+  ForgotPasswordText,
+  ForgotPasswordCont,
 } from './styles';
 
-import LogoImg from "../../../assets/img/logo.png";
-import Wpp from "../../../assets/img/wpp.jpeg";
-
+import LogoImg from '../../../assets/img/logo.png';
+import Wpp from '../../../assets/img/wpp.jpeg';
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
@@ -27,13 +54,12 @@ export default function Login({ navigation }) {
   const loading = useSelector(state => state.auth.loading);
 
   function handleSubmit() {
-    dispatch(signInRequest(username, password))
+    dispatch(signInRequest(username, password));
   }
-
 
   return (
     <ImageBackground
-    source={Wpp}
+      source={Wpp}
       style={{
         flex: 1,
         width: null,
@@ -42,24 +68,38 @@ export default function Login({ navigation }) {
       }}
     >
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ backgroundColor: "#f00", flex: 1, alignItems: "center", justifyContent: "flex-end" }}>
-       <Image source={LogoImg} style={{ width: 120 }} resizeMode="contain" />
-       </View>
-
-       <View style={{ backgroundColor: "#000", flex: 1, justifyContent: "flex-start" }}>
-        <Text style={{ color: "#fff" }}>Bem vindo(a) ao nosso app</Text>
-        <Text style={{ color: "#fff" }}>Agora você pode ficar mais próximo do nosso projeto.</Text>
-        <View style={{ flexDirection: "row" }}>
-        <Button title="Cadastrar"/>
-        <Button title="Entrar" />
+        <View
+          style={{
+            backgroundColor: '#f00',
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <Image source={LogoImg} style={{ width: 120 }} resizeMode="contain" />
         </View>
-       </View>
 
+        <View
+          style={{
+            backgroundColor: '#000',
+            flex: 1,
+            justifyContent: 'flex-start',
+          }}
+        >
+          <Text style={{ color: '#fff' }}>Bem vindo(a) ao nosso app</Text>
+          <Text style={{ color: '#fff' }}>
+            Agora você pode ficar mais próximo do nosso projeto.
+          </Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Button title="Cadastrar" />
+            <Button title="Entrar" />
+          </View>
+        </View>
       </SafeAreaView>
-      
+
       <Container>
         <Form>
-          <TitleOne>Bem-vindo!</TitleOne>
+          <TitleOne>Bem-vindo!kk</TitleOne>
           <TitleDesc>Acesse com seu login para continuar.</TitleDesc>
           <LoginMail>
             <LoginIcon>
@@ -94,19 +134,23 @@ export default function Login({ navigation }) {
               />
             </PassContent>
             <LoginButton onPress={handleSubmit}>
-              {loading ? <ActivityIndicator color="#D3004C" /> :
+              {loading ? (
+                <ActivityIndicator color="#D3004C" />
+              ) : (
                 <Icon name="chevron-right" size={30} color="#D3004C" />
-              }
+              )}
             </LoginButton>
           </LoginPass>
-          <ForgotPassword onPress={() => navigation.navigate('LostPassword')} underlayColor="#f9f9f9">
+          <ForgotPassword
+            onPress={() => navigation.navigate('LostPassword')}
+            underlayColor="#f9f9f9"
+          >
             <ForgotPasswordText>
               Perdeu a senha? Solicite outra
-                  </ForgotPasswordText>
+            </ForgotPasswordText>
           </ForgotPassword>
         </Form>
       </Container>
     </ImageBackground>
   );
 }
-
