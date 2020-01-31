@@ -42,7 +42,7 @@ import {
 } from './styles';
 
 import LogoImg from '../../../assets/img/logo.png';
-import Wpp from '../../../assets/img/wpp.jpeg';
+import BgLogin from '../../../assets/img/bglogin.jpg';
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
@@ -59,7 +59,7 @@ export default function Login({ navigation }) {
 
   return (
     <ImageBackground
-      source={Wpp}
+      source={BgLogin}
       style={{
         flex: 1,
         width: null,
@@ -67,37 +67,15 @@ export default function Login({ navigation }) {
         backgroundColor: '#f9f9f9',
       }}
     >
-      <SafeAreaView style={{ flex: 1 }}>
-        <View
-          style={{
-            backgroundColor: '#f00',
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-          }}
-        >
-          <Image source={LogoImg} style={{ width: 120 }} resizeMode="contain" />
-        </View>
-
-        <View
-          style={{
-            backgroundColor: '#000',
-            flex: 1,
-            justifyContent: 'flex-start',
-          }}
-        >
-          <Text style={{ color: '#fff' }}>Bem vindo(a) ao nosso app</Text>
-          <Text style={{ color: '#fff' }}>
-            Agora você pode ficar mais próximo do nosso projeto.
-          </Text>
-          <View style={{ flexDirection: 'row' }}>
-            <Button title="Cadastrar" />
-            <Button title="Entrar" />
-          </View>
-        </View>
+      <SafeAreaView>
+        <Text>Testedssd</Text>
       </SafeAreaView>
+    </ImageBackground>
+  );
+}
 
-      <Container>
+/*
+<Container>
         <Form>
           <TitleOne>Bem-vindo!kk</TitleOne>
           <TitleDesc>Acesse com seu login para continuar.</TitleDesc>
@@ -151,6 +129,4 @@ export default function Login({ navigation }) {
           </ForgotPassword>
         </Form>
       </Container>
-    </ImageBackground>
-  );
-}
+*/
