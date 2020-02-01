@@ -12,6 +12,8 @@ import {
   ScrollView,
 } from 'react-native';
 
+import Modal from 'react-native-modal';
+
 import { signInRequest } from '../../store/modules/auth/actions';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -39,6 +41,7 @@ import {
   ForgotPassword,
   ForgotPasswordText,
   ForgotPasswordCont,
+  LoginBtn,
 } from './styles';
 
 import LogoImg from '../../../assets/img/logo.png';
@@ -47,7 +50,7 @@ import BgLogin from '../../../assets/img/bglogin.jpg';
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
   const passwordRef = useRef();
-
+  const [isModalVisiblePayment, setisModalVisiblePayment] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -57,20 +60,55 @@ export default function Login({ navigation }) {
     dispatch(signInRequest(username, password));
   }
 
+  toggleModalPayment = () => {
+    setisModalVisiblePayment(false);
+  };
+
+  toggleModalOpenPayment = () => {
+    setisModalVisiblePayment(true);
+  };
+
   return (
-    <ImageBackground
-      source={BgLogin}
-      style={{
-        flex: 1,
-        width: null,
-        height: null,
-        backgroundColor: '#f9f9f9',
-      }}
-    >
-      <SafeAreaView>
-        <Text>Testedssd</Text>
-      </SafeAreaView>
-    </ImageBackground>
+    <>
+      <ImageBackground
+        source={BgLogin}
+        style={{
+          flex: 1,
+          width: null,
+          height: null,
+          backgroundColor: '#f9f9f9',
+        }}
+      >
+        <SafeAreaView>
+          <Button title="Entrar" onPress={toggleModalOpenPayment} />
+        </SafeAreaView>
+      </ImageBackground>
+      <Modal
+        isVisible={isModalVisiblePayment}
+        onBackdropPress={() => toggleModalPayment()}
+        style={{
+          justifyContent: 'flex-end',
+        }}
+      >
+        <Container
+          
+        >
+          <MailInput
+            keyboardType="email-address"
+            autoCorrect={false}
+            autoCapitalize="none"
+            returnKeyType="next"
+            onSubmitEditing={() => passwordRef.current.focus()}
+            value={username}
+            onChangeText={setUsername}
+          />
+          <Text>aygdasd</Text>
+          <Text>aygdasd</Text>
+          <Text>aygdasd</Text>
+          <Text>aygdasd</Text>
+        </Container>
+      </Modal>
+    </>
   );
 }
 
