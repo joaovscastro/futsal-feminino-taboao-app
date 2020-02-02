@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
   ScrollView,
 } from 'react-native';
+import Lottie from 'lottie-react-native';
 
 import Modal from 'react-native-modal';
 
@@ -18,6 +19,9 @@ import { signInRequest } from '../../store/modules/auth/actions';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
+
+import BolaLoad from "../../../bola-load.json"
+
 import {
   Container,
   Form,
@@ -42,6 +46,7 @@ import {
   ForgotPasswordText,
   ForgotPasswordCont,
   LoginBtn,
+  LoginButtonText
 } from './styles';
 
 import LogoImg from '../../../assets/img/logo.png';
@@ -51,13 +56,15 @@ export default function Login({ navigation }) {
   const dispatch = useDispatch();
   const passwordRef = useRef();
   const [isModalVisiblePayment, setisModalVisiblePayment] = useState(false);
+  const [isModalLoginRequest, setisModalLoginRequest] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  
   const loading = useSelector(state => state.auth.loading);
 
   function handleSubmit() {
     dispatch(signInRequest(username, password));
+ 
   }
 
   toggleModalPayment = () => {
@@ -67,6 +74,11 @@ export default function Login({ navigation }) {
   toggleModalOpenPayment = () => {
     setisModalVisiblePayment(true);
   };
+
+  toggleModalLoginRequest = () => {
+    setisModalLoginRequest(false);
+  };
+
 
   return (
     <>
@@ -81,6 +93,7 @@ export default function Login({ navigation }) {
       >
         <SafeAreaView>
           <Button title="Entrar" onPress={toggleModalOpenPayment} />
+          
         </SafeAreaView>
       </ImageBackground>
       <Modal
@@ -88,25 +101,68 @@ export default function Login({ navigation }) {
         onBackdropPress={() => toggleModalPayment()}
         style={{
           justifyContent: 'flex-end',
+          margin: 0
         }}
       >
-        <Container
+        <Container>
+        <Form>
+          <TitleOne>Bem-vindo!</TitleOne>
+          <TitleDesc>Acesse com seu login para continuar.</TitleDesc>
           
-        >
-          <MailInput
-            keyboardType="email-address"
-            autoCorrect={false}
-            autoCapitalize="none"
-            returnKeyType="next"
-            onSubmitEditing={() => passwordRef.current.focus()}
-            value={username}
-            onChangeText={setUsername}
-          />
-          <Text>aygdasd</Text>
-          <Text>aygdasd</Text>
-          <Text>aygdasd</Text>
-          <Text>aygdasd</Text>
+          <LoginMail>
+          
+            <MailContent>
+              <TitleMail>e-mail</TitleMail>
+              <MailInput
+                keyboardType="email-address"
+                autoCorrect={false}
+                autoCapitalize="none"
+                returnKeyType="next"
+                onSubmitEditing={() => passwordRef.current.focus()}
+                value={username}
+                onChangeText={setUsername}
+                placeholder="Digite seu e-mail"
+              />
+            </MailContent>
+          </LoginMail>
+          <LoginPass>
+            <PassContent>
+              <TitlePass>Senha</TitlePass>
+              <PassInput
+                secureTextEntry
+                ref={passwordRef}
+                returnKeyType="go"
+                onSubmitEditing={handleSubmit}
+                value={password}
+                onChangeText={setPassword}
+                placeholder="Digite sua senha"
+              />
+            </PassContent>
+           
+          </LoginPass>
+          <LoginButton onPress={handleSubmit}>
+          {loading ? (
+                <ActivityIndicator color="#D3004C" />
+              ) : (
+                <LoginButtonText>Entrar</LoginButtonText>
+              )}
+             
+            </LoginButton>
+            <Button title="Entrar" onPress={handleSubmit} />
+          <ForgotPassword
+            onPress={() => navigation.navigate('LostPassword')}
+            underlayColor="#f9f9f9"
+          >
+            <ForgotPasswordText>
+              Perdeu a senha? Solicite outra
+            </ForgotPasswordText>
+          </ForgotPassword>
+        </Form>
         </Container>
+      </Modal>
+      <Modal isVisible={isModalLoginRequest}
+        onBackdropPress={() => toggleModalLoginRequest()}>
+       <Lottie resizeMode='contain' autoSize source={BolaLoad} autoPlay loop={true} />
       </Modal>
     </>
   );

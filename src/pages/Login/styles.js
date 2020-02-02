@@ -9,8 +9,8 @@ export const Container = styled.KeyboardAvoidingView.attrs({
   align-items: center;
   justify-content: center;
   margin-top: 50px;
-  border-top-left-radius: 32px;
-  border-top-right-radius: 32px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
   background: #f9f9f9;
 `;
 
@@ -19,6 +19,7 @@ export const Form = styled.View`
   border-top-left-radius: 32px;
   border-top-right-radius: 32px;
   background: #f9f9f9;
+  margin: 0 20px;
 `;
 
 export const Header = styled.View`
@@ -45,7 +46,7 @@ export const TitleOne = styled.Text`
   font-size: 22px;
   font-weight: 600;
   color: #2d2d2d;
-  margin: 20px 0 0 25px;
+  margin: 20px 0 0 0;
 `;
 
 export const TitleDesc = styled.Text`
@@ -53,12 +54,12 @@ export const TitleDesc = styled.Text`
   font-weight: normal;
   font-size: 14px;
   color: #a3a3a4;
-  margin: 0 0 20px 25px;
+  margin: 0 0 20px 0;
 `;
 
 export const LoginMail = styled.View`
   flex-direction: row;
-
+  margin: 20px 0;
   align-items: center;
 `;
 
@@ -89,7 +90,7 @@ export const TitleMail = styled.Text`
   font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #fff;
+  color: #2d2d2d;
 `;
 
 export const MailInput = styled.TextInput`
@@ -101,19 +102,17 @@ export const MailInput = styled.TextInput`
       height: 40px;
     `,
   })};
-  border-bottom-color: #fff;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
   border-bottom-width: 1px;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   color: #a3a3a4;
-  background: #000;
-  width: 100px;
 `;
 
 export const LoginPass = styled.View`
   flex-direction: row;
-  margin: 20px 25px;
+  margin: 20px 0;
   align-items: center;
 `;
 
@@ -144,12 +143,16 @@ export const PassInput = styled.TextInput`
 `;
 
 export const LoginButton = styled(RectButton)`
-  width: 80px;
+
   height: 48px;
-  background: #f5e0e8;
+  background: #000000;
   border-radius: 12px;
   align-items: center;
   justify-content: center;
+`;
+
+export const LoginButtonText = styled.Text`
+color: #fff;
 `;
 
 export const PassContent = styled.View`
@@ -173,7 +176,7 @@ export const RequestAcessText = styled.Text`
 `;
 
 export const ForgotPassword = styled(RectButton)`
-  margin-top: 30px;
+  margin: 20px 0;
 `;
 
 export const ForgotPasswordText = styled.Text`

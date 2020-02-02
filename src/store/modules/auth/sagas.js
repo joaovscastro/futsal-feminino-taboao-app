@@ -3,7 +3,7 @@ import { takeLatest, call, put, all } from "redux-saga/effects";
 
 import api from "../../../services/api";
 
-import { signInSuccess, signFailure } from "./actions"
+import { signInSuccess, signFailure } from "./actions";
 
 
 
