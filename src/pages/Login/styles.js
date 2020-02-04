@@ -29,7 +29,7 @@ export const Header = styled.View`
 
 export const Logo = styled.Image`
   margin-top: 50px;
-  width: 150px;
+  width: 130px;
 `;
 
 export const ContainerHome = styled.KeyboardAvoidingView.attrs({
@@ -143,7 +143,6 @@ export const PassInput = styled.TextInput`
 `;
 
 export const LoginButton = styled(RectButton)`
-
   height: 48px;
   background: #000000;
   border-radius: 12px;
@@ -152,7 +151,7 @@ export const LoginButton = styled(RectButton)`
 `;
 
 export const LoginButtonText = styled.Text`
-color: #fff;
+  color: #fff;
 `;
 
 export const PassContent = styled.View`
@@ -176,7 +175,7 @@ export const RequestAcessText = styled.Text`
 `;
 
 export const ForgotPassword = styled(RectButton)`
-  margin: 20px 0;
+  margin: 20px 0 40px 0;
 `;
 
 export const ForgotPasswordText = styled.Text`
@@ -191,4 +190,38 @@ export const LoginBtn = styled(RectButton)`
   padding: 20px;
   margin: 10px;
   background: #f00;
+`;
+
+export const LoginBtnModal = styled(RectButton)`
+  margin: 5px 20px;
+  padding: 15px 15px 3px 15px;
+  background: #d71435;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+`;
+
+export const LoginBtnModalText = styled.Text`
+  font-family: 'Axiforma-Bold';
+  font-size: 14px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #ffffff;
+`;
+
+export const RegisterBtnModal = styled(RectButton)`
+  margin: 5px 20px;
+  padding: 15px 15px 3px 15px;
+  background: #fff;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+`;
+
+export const RegisterBtnModalText = styled.Text`
+  font-family: 'Axiforma-Bold';
+  font-size: 14px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #d71435;
 `;
