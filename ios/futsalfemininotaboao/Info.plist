@@ -40,7 +40,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Queremos acessar sua câmera para atualizar a foto de perfil</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Acessar seu microfone para gravar video</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>

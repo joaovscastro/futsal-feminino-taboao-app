@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-import styled, { css } from 'styled-components/native'
+import styled, { css } from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 
 export const Header = styled.View`
@@ -14,32 +14,31 @@ export const HeaderTexts = styled.View`
 `;
 
 export const HeaderTextName = styled.Text`
-${Platform.select({
+  ${Platform.select({
     ios: css`
-     font-family: 'Axiforma-Bold';
+      font-family: 'Axiforma-Bold';
     `,
     android: css`
       font-family: 'Axiforma Bold';
     `,
   })};
-  
+
   font-size: 20px;
   color: #fff;
 `;
 
 export const HeaderTextDesc = styled.Text`
-${Platform.select({
+  ${Platform.select({
     ios: css`
-     font-family: 'Axiforma-SemiBold';
-     font-size: 12px;
+      font-family: 'Axiforma-SemiBold';
+      font-size: 12px;
     `,
     android: css`
       font-family: 'Axiforma SemiBold';
       font-size: 10px;
     `,
   })};
-  
-  
+
   color: #fff;
   margin-top: -7px;
 `;
@@ -82,7 +81,9 @@ export const DestaqueBg = styled.ImageBackground`
   padding: 10px 15px;
 `;
 
-export const DestaqueTitle = styled.Text`
+export const DestaqueTitle = styled.Text.attrs({
+  numberOfLines: 2,
+})`
   font-family: 'Axiforma-SemiBold';
   font-size: 18px;
   color: #fffefe;

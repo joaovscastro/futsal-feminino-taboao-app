@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Text, View, Image } from 'react-native';
 
 import {
@@ -39,6 +39,8 @@ import {
   JogoLogo,
 } from './styles';
 
+import api from '../../services/api';
+
 import fotoAvatar from '../../../assets/img/perfil-teste.jpg';
 import noticiaPlaceholder from '../../../assets/img/noticias-placeholder.jpg';
 import Brasao from '../../../assets/img/brasao.png';
@@ -51,7 +53,54 @@ import Img4 from '../../../assets/img/img4.jpg';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
-export default function Home() {
+export default function Home({ navigation }) {
+  const [destaques, Setdestaques] = useState([]);
+  const [melhoresmomentos, Setmelhoresmomentos] = useState([]);
+  const [noticias, Setnoticias] = useState([]);
+  const [teste, Setteste] = useState([]);
+
+  async function loadDestaque() {
+    const responseDestaques = await api.get(
+      'wp/v2/posts?categories=26&per_page=1'
+    );
+    Setdestaques(responseDestaques.data);
+    console.log('destaque', responseDestaques.data);
+
+    const responseMelhores = await api.get(
+      'wp/v2/posts?categories=27&per_page=3'
+    );
+    Setmelhoresmomentos(responseMelhores.data);
+    console.log('melhores', responseMelhores.data);
+
+    const responseNoticias = await api.get(
+      'wp/v2/posts?categories=1&per_page=3'
+    );
+    Setnoticias(responseNoticias.data);
+    console.log('melhores', responseNoticias.data);
+
+    const response = await api.get('sportspress/v2/players?_embed');
+
+    const data = response.data.map(product => ({
+      idJogadora: product.id,
+      nomeJogadora: product.title.rendered,
+      fotoJogadora: product._embedded['wp:featuredmedia'][0].source_url,
+    }));
+
+    Setteste(data);
+  }
+
+  useEffect(() => {
+    loadDestaque();
+  }, []);
+
+  function Testee() {
+    console.log(teste);
+  }
+
+  handleNavigate = noticiasingle => {
+    navigation.navigate('NewsSingle', { noticiasingle });
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
       <Header>
@@ -65,34 +114,35 @@ export default function Home() {
       </Header>
       <Container>
         <Title>Destaque</Title>
-        <Destaque>
-          <DestaqueBg source={Img4}>
-            <DestaqueTitle>Notícias de destaque</DestaqueTitle>
-          </DestaqueBg>
-        </Destaque>
+        {destaques.map(destaque => (
+          <Destaque key={destaque.id}>
+            <DestaqueBg source={{ uri: destaque.jetpack_featured_media_url }}>
+              <DestaqueTitle>{destaque.title.rendered}</DestaqueTitle>
+            </DestaqueBg>
+          </Destaque>
+        ))}
+
         <Title>Melhores momentos</Title>
         <MelhoresMomentos
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
-          <MelhoresMomentosItem underlayColor="#ffffff">
-            <View>
-              <MelhoresMomentosImg source={Img1} />
-              <MelhoresMomentosTitle>Lorem</MelhoresMomentosTitle>
-            </View>
-          </MelhoresMomentosItem>
-          <MelhoresMomentosItem underlayColor="#ffffff">
-            <View>
-              <MelhoresMomentosImg source={Img2} />
-              <MelhoresMomentosTitle>Lorem</MelhoresMomentosTitle>
-            </View>
-          </MelhoresMomentosItem>
-          <MelhoresMomentosItem underlayColor="#ffffff">
-            <View>
-              <MelhoresMomentosImg source={Img3} />
-              <MelhoresMomentosTitle>Lorem</MelhoresMomentosTitle>
-            </View>
-          </MelhoresMomentosItem>
+          {melhoresmomentos.map(momento => (
+            <MelhoresMomentosItem
+              key={momento.id}
+              underlayColor="#ffffff"
+              onPress={() => handleNavigate(momento)}
+            >
+              <View>
+                <MelhoresMomentosImg
+                  source={{ uri: momento.jetpack_featured_media_url }}
+                />
+                <MelhoresMomentosTitle>
+                  {momento.title.rendered}
+                </MelhoresMomentosTitle>
+              </View>
+            </MelhoresMomentosItem>
+          ))}
         </MelhoresMomentos>
 
         <UltimoJogo
@@ -130,10 +180,16 @@ export default function Home() {
         </UltimoJogo>
         <Title>Elenco</Title>
         <Elenco horizontal={true} showsHorizontalScrollIndicator={false}>
-          <ElencoContent>
-            <ElencoFoto source={fotoAvatar} />
-            <ElencoName>Marielle</ElencoName>
-          </ElencoContent>
+          {teste.map(jogadora => (
+            <ElencoContent key={jogadora.idJogadora}>
+              <ElencoFoto
+                source={{
+                  uri: jogadora.fotoJogadora,
+                }}
+              />
+              <ElencoName>{jogadora.nomeJogadora}</ElencoName>
+            </ElencoContent>
+          ))}
           <ElencoContent>
             <ElencoFoto source={fotoAvatar} />
             <ElencoName>Marielle</ElencoName>
@@ -152,30 +208,22 @@ export default function Home() {
           </ElencoContent>
         </Elenco>
         <Title>Notícias</Title>
-        <Noticias underlayColor="#ffffff">
-          <NoticiasImg source={Img1} />
-          <View style={{ flex: 1 }}>
-            <NoticiasTitle>
-              Adulto vence São José nos pênaltis, pela Copa do Brasil.
-            </NoticiasTitle>
-            <NoticiasDesc>Lorem ipsum in dolor</NoticiasDesc>
-          </View>
-          <View>
-            <Icon name="chevron-right" size={30} color="#C4C4C4" />
-          </View>
-        </Noticias>
-        <Noticias underlayColor="#ffffff">
-          <NoticiasImg source={Img3} />
-          <View style={{ flex: 1 }}>
-            <NoticiasTitle>
-              Adulto vence São José nos pênaltis, pela Copa do Brasil.
-            </NoticiasTitle>
-            <NoticiasDesc>Lorem ipsum in dolor</NoticiasDesc>
-          </View>
-          <View>
-            <Icon name="chevron-right" size={30} color="#C4C4C4" />
-          </View>
-        </Noticias>
+        {noticias.map(noticia => (
+          <Noticias
+            key={noticia.id}
+            underlayColor="#ffffff"
+            onPress={() => handleNavigate(noticia)}
+          >
+            <NoticiasImg source={{ uri: noticia.jetpack_featured_media_url }} />
+            <View style={{ flex: 1 }}>
+              <NoticiasTitle>{noticia.title.rendered}</NoticiasTitle>
+              <NoticiasDesc>{noticia.excerpt.rendered}</NoticiasDesc>
+            </View>
+            <View>
+              <Icon name="chevron-right" size={30} color="#C4C4C4" />
+            </View>
+          </Noticias>
+        ))}
       </Container>
     </SafeAreaView>
   );

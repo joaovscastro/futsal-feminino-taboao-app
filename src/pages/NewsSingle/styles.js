@@ -26,7 +26,6 @@ export const Title = styled.Text`
   font-family: 'Axiforma-Bold';
   font-size: 20px;
   color: #000000;
-  line-height: 18px;
 `;
 
 export const Data = styled.Text`

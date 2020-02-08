@@ -31,8 +31,7 @@ export const SearchBtn = styled(RectButton)``;
 
 export const Container = styled.ScrollView`
   background-color: #f3f3f3;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
+
   padding: 35px 20px 0 20px;
 `;
 
