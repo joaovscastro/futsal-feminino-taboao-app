@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   SafeAreaView,
@@ -6,57 +6,13 @@ import {
   Text,
   StyleSheet,
   Dimensions,
+  Button,
 } from 'react-native';
+import { parseJSON, format, formatRelative, formatDistance } from 'date-fns';
+import pt from 'date-fns/locale/pt';
+import api from '../../services/api';
 import { TabView, SceneMap } from 'react-native-tab-view';
-
-const FirstRoute = () => (
-  <Container>
-    <FeedContent>
-      <FeedItem>
-        <FeedHeader>
-          <FeedAvatar source={fotoAvatar} />
-          <FeedName>Futsal Feminino Taboão</FeedName>
-          <FeedData>12/02/2020</FeedData>
-        </FeedHeader>
-        <FeedContentText>
-          ConteudoConteudoConteudoConteudoConteudoConteudoConteudoConteudoConteudo
-        </FeedContentText>
-        <FeedIcons>
-          <Icon name="heart-outline" size={20} style={{ marginRight: 10 }} />
-          <Icon name="comment-outline" size={20} />
-        </FeedIcons>
-      </FeedItem>
-      <FeedItem>
-        <FeedHeader>
-          <FeedAvatar source={fotoAvatar} />
-          <FeedName>Futsal Feminino Taboão</FeedName>
-          <FeedData>12/02/2020</FeedData>
-        </FeedHeader>
-        <FeedContentText>
-          ConteudoConteudoConteudoConteudoConteudoConteudoConteudoConteudoConteudo
-        </FeedContentText>
-        <FeedIcons>
-          <Icon name="heart-outline" size={20} style={{ marginRight: 10 }} />
-          <Icon name="comment-outline" size={20} />
-        </FeedIcons>
-      </FeedItem>
-      <FeedItem>
-        <FeedHeader>
-          <FeedAvatar source={fotoAvatar} />
-          <FeedName>Futsal Feminino Taboão</FeedName>
-          <FeedData>12/02/2020</FeedData>
-        </FeedHeader>
-        <FeedContentText>
-          ConteudoConteudoConteudoConteudoConteudoConteudoConteudoConteudoConteudo
-        </FeedContentText>
-        <FeedIcons>
-          <Icon name="heart-outline" size={20} style={{ marginRight: 10 }} />
-          <Icon name="comment-outline" size={20} />
-        </FeedIcons>
-      </FeedItem>
-    </FeedContent>
-  </Container>
-);
+import HTMLView from 'react-native-htmlview';
 
 const SecondRoute = () => <View />;
 
@@ -81,16 +37,38 @@ import {
 import fotoAvatar from '../../../assets/img/perfil-teste.jpg';
 
 export default function Feed() {
+  const [feed, Setfeed] = useState([]);
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     { key: 'first', title: 'Novidades' },
     { key: 'second', title: 'Second' },
   ]);
 
-  const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-  });
+  async function loadFeed() {
+    const responseFeed = await api.get(
+      'buddypress/v1/activity?type=activity_update'
+    );
+
+    const data = responseFeed.data.map(posts => ({
+      ...posts,
+      dateFormatted: format(parseJSON(posts.date), "dd 'de' MMMM 'de' yyyy'", {
+        locale: pt,
+      }),
+    }));
+
+    Setfeed(data);
+  }
+
+  useEffect(() => {
+    loadFeed();
+  }, []);
+
+  async function favoritePost(idPost) {
+    console.log(idPost);
+    const impala = await api.post(`/buddypress/v1/activity/${idPost}/favorite`);
+    console.log(impala);
+  }
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
       <Header>
@@ -98,18 +76,48 @@ export default function Feed() {
           <HeaderTextName>Feed</HeaderTextName>
         </HeaderTexts>
       </Header>
-      <TabView
-        style={{
-          borderTopLeftRadius: 25,
-          borderTopRightRadius: 25,
-        }}
-        navigationState={{ index, routes }}
-        onIndexChange={setIndex}
-        renderScene={SceneMap({
-          first: FirstRoute,
-          second: SecondRoute,
-        })}
-      />
+      <Container>
+        <FeedContent>
+          {feed.map(post => (
+            <FeedItem key={post.id}>
+              <FeedHeader>
+                <FeedAvatar source={{ uri: post.user_avatar.thumb }} />
+                <HTMLView
+                  style={{ flex: 1, marginLeft: 10 }}
+                  value={`<span>${post.title}</span>`}
+                  stylesheet={stylesDesc}
+                />
+                <FeedData>{post.dateFormatted}</FeedData>
+              </FeedHeader>
+
+              <HTMLView
+                style={{ marginBottom: -80 }}
+                value={post.content.rendered}
+                stylesheet={stylesCont}
+              />
+
+              <FeedIcons>
+                {post.favorited ? (
+                  <Icon
+                    name="heart-outline"
+                    size={20}
+                    color="#f00"
+                    style={{ marginRight: 10 }}
+                  />
+                ) : (
+                  <Icon
+                    name="heart-outline"
+                    size={20}
+                    style={{ marginRight: 10 }}
+                  />
+                )}
+
+                <Icon name="comment-outline" size={20} />
+              </FeedIcons>
+            </FeedItem>
+          ))}
+        </FeedContent>
+      </Container>
     </SafeAreaView>
   );
 }
@@ -121,8 +129,38 @@ Feed.navigationOptions = {
   ),
 };
 
-const styles = StyleSheet.create({
-  scene: {
-    flex: 1,
+const stylesDesc = StyleSheet.create({
+  p: {
+    margin: 20,
+    fontFamily: 'Axiforma-Regular',
+    fontSize: 14,
+    lineHeight: 13,
+    color: '#000000',
+  },
+  span: {
+    fontSize: 1,
+    color: '#eee',
+  },
+  a: {
+    margin: 20,
+    fontFamily: 'Axiforma-Regular',
+    fontSize: 14,
+    lineHeight: 13,
+    color: '#000000',
+  },
+});
+
+const stylesCont = StyleSheet.create({
+  p: {
+    margin: 20,
+    fontFamily: 'Axiforma-Regular',
+    fontSize: 14,
+    lineHeight: 13,
+    color: '#000000',
+  },
+  a: {
+    fontSize: 14,
+    fontWeight: '300',
+    color: '#D3004C',
   },
 });

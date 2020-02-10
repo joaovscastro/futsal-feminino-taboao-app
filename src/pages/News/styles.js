@@ -49,13 +49,17 @@ export const NoticiasImg = styled.Image`
   margin: 0 15px 0 0;
 `;
 
-export const NoticiasTitle = styled.Text`
+export const NoticiasTitle = styled.Text.attrs({
+  numberOfLines: 2,
+})`
   font-family: 'Axiforma-Bold';
   font-size: 15px;
   color: #000000;
 `;
 
-export const NoticiasDesc = styled.Text`
+export const NoticiasDesc = styled.Text.attrs({
+  numberOfLines: 2,
+})`
   font-family: 'Axiforma-Regular';
   font-size: 13px;
   color: #a8a8a8;

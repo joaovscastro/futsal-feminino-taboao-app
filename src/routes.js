@@ -14,6 +14,8 @@ import More from './pages/More';
 import NewsSingle from './pages/NewsSingle';
 import JogosSingle from './pages/JogosSingle';
 import Login from './pages/Login';
+import Elenco from './pages/Elenco';
+import ElencoSingle from './pages/ElencoSingle';
 
 export default (isSigned = false) =>
   createAppContainer(
@@ -80,6 +82,8 @@ export default (isSigned = false) =>
               screen: createStackNavigator(
                 {
                   More,
+                  Elenco,
+                  ElencoSingle,
                 },
                 {
                   headerMode: 'none',

@@ -44,7 +44,6 @@ export const HeaderTextDesc = styled.Text`
 `;
 
 export const AvatarContent = styled.View`
-  flex: 1;
   align-items: flex-end;
   justify-content: center;
 `;
@@ -117,6 +116,7 @@ export const UltimoJogo = styled.View`
   background-color: #ffffff;
   margin: 30px 0 0 0;
   border-radius: 8px;
+  padding-top: 20px;
 `;
 
 export const JogoTitulo = styled.Text.attrs({
@@ -197,7 +197,7 @@ export const JogoDetalhesTitle = styled.Text`
 
 export const Elenco = styled.ScrollView``;
 
-export const ElencoContent = styled.View`
+export const ElencoContent = styled(RectButton)`
   margin: 0 16px 0 0;
 `;
 
@@ -244,4 +244,38 @@ export const NoticiasDesc = styled.Text.attrs({
   font-family: 'Axiforma-Regular';
   font-size: 13px;
   color: #a8a8a8;
+`;
+
+export const MoreBtn = styled.View`
+  background-color: #ec2840;
+  width: 120px;
+  border-radius: 50px;
+  margin: 0 auto;
+`;
+
+export const MoreBtnText = styled.Text`
+  font-family: 'Axiforma-Bold';
+  text-transform: uppercase;
+  font-size: 10px;
+  color: #ffffff;
+
+  text-align: center;
+  padding-top: 6px;
+`;
+
+export const MoreElenco = styled(RectButton)`
+  background-color: #000000;
+  width: 100px;
+  border-radius: 8px;
+  margin: 5px auto 0 auto;
+`;
+
+export const MoreElencoText = styled.Text`
+  font-family: 'Axiforma-Bold';
+  text-transform: uppercase;
+  font-size: 10px;
+  color: #ffffff;
+
+  text-align: center;
+  padding-top: 6px;
 `;
