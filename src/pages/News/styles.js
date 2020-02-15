@@ -7,9 +7,9 @@ export const Header = styled.View`
 `;
 
 export const HeaderTexts = styled.View`
-  flex-direction: column;
   flex: 1;
   justify-content: center;
+  align-items: center;
 `;
 
 export const HeaderTextName = styled.Text`

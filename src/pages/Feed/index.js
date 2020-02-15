@@ -51,7 +51,7 @@ export default function Feed() {
 
     const data = responseFeed.data.map(posts => ({
       ...posts,
-      dateFormatted: format(parseJSON(posts.date), "dd 'de' MMMM 'de' yyyy'", {
+      dateFormatted: format(parseJSON(posts.date), "dd 'de' MMMM 'de' yyyy' ", {
         locale: pt,
       }),
     }));
@@ -111,8 +111,6 @@ export default function Feed() {
                     style={{ marginRight: 10 }}
                   />
                 )}
-
-                <Icon name="comment-outline" size={20} />
               </FeedIcons>
             </FeedItem>
           ))}

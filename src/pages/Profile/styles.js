@@ -13,7 +13,8 @@ export const HeaderTexts = styled.View`
 `;
 
 export const HeaderTextName = styled.Text`
-  font-family: 'Axiforma-Bold';
+  font-family: 'Axiforma';
+  font-weight: bold;
   font-size: 20px;
   color: #fff;
 `;
@@ -50,60 +51,67 @@ export const NoticiasImg = styled.Image`
 `;
 
 export const NoticiasTitle = styled.Text`
-  font-family: 'Axiforma-Bold';
+  font-family: 'Axiforma';
+  font-weight: bold;
   font-size: 15px;
   color: #000000;
 `;
 
 export const NoticiasDesc = styled.Text`
-  font-family: 'Axiforma-Regular';
+  font-family: 'Axiforma';
+  font-weight: normal;
   font-size: 13px;
   color: #a8a8a8;
 `;
 
-export const FeedContent = styled.View``;
-
-export const FeedItem = styled.View`
-  border-bottom-color: #c9c9c9;
-  border-bottom-width: 0.5px;
-  margin: 0 0 20px 0;
-`;
-
-export const FeedHeader = styled.View`
-  flex-direction: row;
+export const HeadProfile = styled.View`
   align-items: center;
 `;
 
-export const FeedAvatar = styled.Image`
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
+export const Avatar = styled.Image`
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
 `;
 
-export const FeedName = styled.Text`
+export const Name = styled.Text`
   font-family: 'Axiforma-Regular';
-  font-size: 12px;
-  line-height: 13px;
+  font-size: 20px;
   color: #000000;
-  margin: 7px 0 0 10px;
-  flex: 1;
+  margin: 10px 0;
 `;
 
-export const FeedContentText = styled.Text`
-  font-family: 'Axiforma-Regular';
-  font-size: 14px;
-  line-height: 13px;
-  color: #000000;
-  margin: 20px;
+export const Medalhas = styled.View`
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
 `;
 
-export const FeedIcons = styled.View`
+export const MedalhaTitle = styled.Text`
+  font-family: 'Axiforma-SemiBold';
+  font-size: 18px;
+  color: #000000;
+`;
+
+export const Pontos = styled.View`
+  background: #ec2840;
+  border-radius: 18px;
+  padding: 10px 10px 0 10px;
   flex-direction: row;
-  margin: 0 0 20px 20px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
 `;
 
-export const FeedData = styled.Text`
+export const PontosTitle = styled.Text`
   font-family: 'Axiforma-Regular';
-  font-size: 10px;
-  color: #b1b1b1;
+  font-size: 16px;
+  color: #ffffff;
+  margin-right: 10px;
+`;
+
+export const PontosNumero = styled.Text`
+  font-family: 'Axiforma-SemiBold';
+  font-size: 16px;
+  color: #ffffff;
 `;

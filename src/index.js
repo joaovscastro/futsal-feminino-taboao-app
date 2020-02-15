@@ -3,6 +3,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { StatusBar, View } from 'react-native';
 import { Provider } from 'react-redux';
 
+import './config/ReactotronConfig';
+
 import { store, persistor } from './store';
 import App from './App';
 
@@ -17,7 +19,7 @@ class Index extends Component {
           </View>
         </PersistGate>
       </Provider>
-    )
+    );
   }
 }
 

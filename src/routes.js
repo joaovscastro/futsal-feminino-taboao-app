@@ -16,6 +16,8 @@ import JogosSingle from './pages/JogosSingle';
 import Login from './pages/Login';
 import Elenco from './pages/Elenco';
 import ElencoSingle from './pages/ElencoSingle';
+import Profile from './pages/Profile';
+import Main from './pages/Main';
 
 export default (isSigned = false) =>
   createAppContainer(
@@ -84,6 +86,7 @@ export default (isSigned = false) =>
                   More,
                   Elenco,
                   ElencoSingle,
+                  Profile,
                 },
                 {
                   headerMode: 'none',

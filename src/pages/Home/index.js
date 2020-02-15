@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Text, View, Image } from 'react-native';
+import { connect } from 'react-redux';
+import { SafeAreaView, Text, View, Image, Alert } from 'react-native';
+import { format, parseJSON } from 'date-fns';
+import { utcToZonedTime } from 'date-fns-tz';
+import pt from 'date-fns/locale/pt';
 
 import {
   Header,
@@ -19,6 +23,7 @@ import {
   MelhoresMomentosTitle,
   UltimoJogo,
   JogoTitulo,
+  JogoData,
   JogoContent,
   JogoTimes,
   JogoInfo,
@@ -63,56 +68,82 @@ import Img4 from '../../../assets/img/img4.jpg';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
-export default function Home({ navigation }) {
+function Home({ profile, navigation }) {
+  console.tron.log(profile);
+  // Loading
+  const [destaqueload, Setdestaqueload] = useState(false);
+  const [melhoresload, Setmelhoresload] = useState(false);
+  const [elencoload, Setelencoload] = useState(false);
+  const [newsload, Setnewsload] = useState(false);
   const [loading, Setloading] = useState(false);
+
   const [destaques, Setdestaques] = useState([]);
   const [melhoresmomentos, Setmelhoresmomentos] = useState([]);
   const [noticias, Setnoticias] = useState([]);
-  const [teste, Setteste] = useState([]);
+  const [elenco, Setelenco] = useState([]);
+  const [proxjogo, Setproxjogo] = useState([]);
 
   async function loadDestaque() {
-    Setloading(true);
+    if (profile.user_login === profile.name) {
+      Alert.alert('Completar perfil', 'Complete seu perfil');
+    }
+    Setdestaqueload(true);
+    Setmelhoresload(true);
+    Setelencoload(true);
+    Setnewsload(true);
+
     const responseDestaques = await api.get(
       'wp/v2/posts?categories=26&per_page=1'
     );
     Setdestaques(responseDestaques.data);
-    console.log('destaque', responseDestaques.data);
+    Setdestaqueload(false);
 
     const responseMelhores = await api.get(
       'wp/v2/posts?categories=27&per_page=3'
     );
     Setmelhoresmomentos(responseMelhores.data);
-    console.log('melhores', responseMelhores.data);
+    Setmelhoresload(false);
+
+    const response = await api.get('sportspress/v2/players?_embed');
+
+    const data = response.data.map(jogadora => ({
+      idJogadora: jogadora.id,
+      nomeJogadora: jogadora.title.rendered,
+      descJogadora: jogadora.content.rendered,
+      numeroJogadora: jogadora.number,
+      nacionalidadeJogadora: jogadora.nationalities,
+      golsJogadora: jogadora.statistics,
+      fotoJogadora: jogadora._embedded['wp:featuredmedia'][0].source_url,
+    }));
+
+    Setelenco(data);
+    Setelencoload(false);
 
     const responseNoticias = await api.get(
       'wp/v2/posts?categories=1&per_page=3'
     );
     Setnoticias(responseNoticias.data);
-    console.log('melhores', responseNoticias.data);
+    Setnewsload(false);
 
-    const response = await api.get('sportspress/v2/players?_embed');
+    const responseJogo = await api.get('sportspress/v2/events?per_page=1');
 
-    const data = response.data.map(product => ({
-      idJogadora: product.id,
-      nomeJogadora: product.title.rendered,
-      descJogadora: product.content.rendered,
-      numeroJogadora: product.number,
-      nacionalidadeJogadora: product.nationalities,
-      golsJogadora: product.statistics,
-      fotoJogadora: product._embedded['wp:featuredmedia'][0].source_url,
+    const dataJogo = responseJogo.data.map(jogo => ({
+      ...jogo,
+
+      dateFormatted: format(
+        utcToZonedTime(parseJSON(jogo.date)),
+        "dd 'de' MMMM 'de' yyyy' às 'HH:mm'h'",
+        { timeZone: 'America/Sao_Paulo', locale: pt }
+      ),
     }));
+    Setproxjogo(dataJogo);
 
-    Setteste(data);
-    Setloading(false);
+    const beibe = await api.get('buddypress/v1/activity/1');
   }
 
   useEffect(() => {
     loadDestaque();
   }, []);
-
-  function Testee() {
-    console.log(teste);
-  }
 
   handleNavigate = noticiasingle => {
     navigation.navigate('NewsSingle', { noticiasingle });
@@ -126,31 +157,20 @@ export default function Home({ navigation }) {
     <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
       <Header>
         <HeaderTexts>
-          <HeaderTextName>Olá João</HeaderTextName>
+          <HeaderTextName>Olá {profile.name}</HeaderTextName>
           <HeaderTextDesc>O que você quer fazer hoje?</HeaderTextDesc>
         </HeaderTexts>
         <AvatarContent>
-          <Avatar source={Joao} />
+          <Avatar source={{ uri: profile.avatar_urls.thumb }} />
         </AvatarContent>
       </Header>
       <Container>
-        {loading ? (
-          <>
-            <Title>Destaque</Title>
-            <LoadDestaque />
-            <Title>Melhores momentos</Title>
-            <LoadMomentos />
-            <View style={{ paddingTop: 20 }} />
-            <LoadJogo />
-            <Title>Elenco</Title>
-            <LoadElenco />
-            <Title>Notícias</Title>
-            <LoadNews />
-          </>
+        <Title>Destaque</Title>
+
+        {destaqueload ? (
+          <LoadDestaque />
         ) : (
           <>
-            <Title>Destaque</Title>
-
             {destaques.map(destaque => (
               <Destaque
                 key={destaque.id}
@@ -163,7 +183,14 @@ export default function Home({ navigation }) {
                 </DestaqueBg>
               </Destaque>
             ))}
-            <Title>Melhores momentos</Title>
+          </>
+        )}
+
+        <Title>Melhores momentos</Title>
+        {melhoresload ? (
+          <LoadMomentos />
+        ) : (
+          <>
             <MelhoresMomentos
               horizontal={true}
               showsHorizontalScrollIndicator={false}
@@ -185,49 +212,50 @@ export default function Home({ navigation }) {
                 </MelhoresMomentosItem>
               ))}
             </MelhoresMomentos>
-            <UltimoJogo
-              style={{
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 1,
-                },
-                shadowOpacity: 0.2,
-                shadowRadius: 1.41,
-                elevation: 2,
-              }}
-            >
-              <MoreBtn>
-                <MoreBtnText>Próximo jogo</MoreBtnText>
-              </MoreBtn>
-              <JogoTitulo>Campeonato Paulista</JogoTitulo>
+          </>
+        )}
+        <View></View>
+        {proxjogo.map(jogo => (
+          <UltimoJogo key={jogo.id}>
+            <MoreBtn>
+              <MoreBtnText>Próximo jogo</MoreBtnText>
+            </MoreBtn>
+            <JogoTitulo>{jogo.title.rendered}</JogoTitulo>
+            <JogoData>{jogo.dateFormatted}</JogoData>
+          </UltimoJogo>
+        ))}
 
-              <JogoDetalhesView>
-                <JogoDetalhes underlayColor="#f3f3f3">
-                  <JogoDetalhesTitle>Ver jogos</JogoDetalhesTitle>
-                </JogoDetalhes>
-              </JogoDetalhesView>
-            </UltimoJogo>
-            <Title>Elenco</Title>
+        <Title>Elenco</Title>
+        {elencoload ? (
+          <LoadElenco />
+        ) : (
+          <>
             <Elenco horizontal={true} showsHorizontalScrollIndicator={false}>
-              {teste.map(jogadora => (
+              {elenco.map(player => (
                 <ElencoContent
-                  key={jogadora.idJogadora}
-                  onPress={() => handleNavigateElenco(jogadora)}
+                  key={player.idJogadora}
+                  onPress={() => handleNavigateElenco(player)}
                 >
                   <ElencoFoto
                     source={{
-                      uri: jogadora.fotoJogadora,
+                      uri: player.fotoJogadora,
                     }}
                   />
-                  <ElencoName>{jogadora.nomeJogadora}</ElencoName>
+                  <ElencoName>{player.nomeJogadora}</ElencoName>
                 </ElencoContent>
               ))}
             </Elenco>
             <MoreElenco onPress={() => navigation.navigate('Elenco')}>
               <MoreElencoText>Ver elenco</MoreElencoText>
             </MoreElenco>
-            <Title>Notícias</Title>
+          </>
+        )}
+
+        <Title>Notícias</Title>
+        {newsload ? (
+          <LoadNews />
+        ) : (
+          <>
             {noticias.map(noticia => (
               <Noticias
                 key={noticia.id}
@@ -252,3 +280,9 @@ export default function Home({ navigation }) {
     </SafeAreaView>
   );
 }
+
+const mapStateToProps = state => ({
+  profile: state.user.profile,
+});
+
+export default connect(mapStateToProps)(Home);

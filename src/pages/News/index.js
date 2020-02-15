@@ -57,11 +57,6 @@ export default function News({ navigation }) {
         <HeaderTexts>
           <HeaderTextName>Notícias</HeaderTextName>
         </HeaderTexts>
-        <SearchBtn>
-          <SearchContent>
-            <Icon name="search" size={20} color="#000000" />
-          </SearchContent>
-        </SearchBtn>
       </Header>
       <Container>
         {loading ? (

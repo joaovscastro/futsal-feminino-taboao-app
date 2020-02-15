@@ -10,6 +10,7 @@ import {
   ImageBackground,
   ActivityIndicator,
   ScrollView,
+  Alert,
 } from 'react-native';
 import Lottie from 'lottie-react-native';
 
@@ -19,6 +20,8 @@ import { signInRequest } from '../../store/modules/auth/actions';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
+
+import api from '../../services/api';
 
 import BolaLoad from '../../../bola-load.json';
 
@@ -61,8 +64,12 @@ export default function Login({ navigation }) {
   const passwordRef = useRef();
   const [isModalVisiblePayment, setisModalVisiblePayment] = useState(false);
   const [isModalLoginRequest, setisModalLoginRequest] = useState(false);
+  const [isModalVisibleRegister, setisModalVisibleRegister] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const [registerEmail, setregisterEmail] = useState('');
+  const [registerPassword, setregisterPassword] = useState('');
 
   const loading = useSelector(state => state.auth.loading);
 
@@ -81,6 +88,31 @@ export default function Login({ navigation }) {
   toggleModalLoginRequest = () => {
     setisModalLoginRequest(false);
   };
+
+  toggleModalRegister = () => {
+    setisModalVisibleRegister(false);
+  };
+
+  toggleModalOpenRegister = () => {
+    setisModalVisibleRegister(true);
+  };
+
+  async function registerUser() {
+    setisModalVisibleRegister(false);
+    try {
+      await api.post('wp/v2/users/register', {
+        username: registerEmail,
+        email: registerEmail,
+        password: registerPassword,
+      });
+      setisModalVisibleRegister(true);
+    } catch (err) {
+      Alert.alert(
+        'Falha na autenticação',
+        'Houve um erro no login, verifique seus dados'
+      );
+    }
+  }
 
   return (
     <>
@@ -104,7 +136,7 @@ export default function Login({ navigation }) {
               marginBottom: 40,
             }}
           >
-            <RegisterBtnModal onPress={toggleModalOpenPayment}>
+            <RegisterBtnModal onPress={toggleModalOpenRegister}>
               <RegisterBtnModalText>Cadastre-se</RegisterBtnModalText>
             </RegisterBtnModal>
             <LoginBtnModal onPress={toggleModalOpenPayment}>
@@ -202,6 +234,82 @@ export default function Login({ navigation }) {
           autoPlay
           loop={true}
         />
+      </Modal>
+      <Modal
+        isVisible={isModalVisibleRegister}
+        onBackdropPress={() => toggleModalRegister()}
+        style={{
+          justifyContent: 'flex-end',
+          margin: 0,
+        }}
+      >
+        <Container>
+          {loading ? (
+            <View>
+              <Lottie
+                resizeMode="contain"
+                autoSize
+                source={BolaLoad}
+                autoPlay
+                loop={true}
+                style={{ width: 100, height: 100 }}
+              />
+              <Text style={{ marginBottom: 30 }}>Acessando...</Text>
+            </View>
+          ) : (
+            <Form>
+              <TitleOne>Cadastre-se</TitleOne>
+              <TitleDesc>Digite seu e-mail e senha para entrar.</TitleDesc>
+              <LoginMail>
+                <MailContent>
+                  <TitleMail>e-mail</TitleMail>
+                  <MailInput
+                    keyboardType="email-address"
+                    autoCorrect={false}
+                    autoCapitalize="none"
+                    returnKeyType="next"
+                    value={registerEmail}
+                    onChangeText={setregisterEmail}
+                    placeholder="Digite seu melhor e-mail"
+                  />
+                </MailContent>
+              </LoginMail>
+              <LoginPass>
+                <PassContent>
+                  <TitlePass>Senha</TitlePass>
+                  <PassInput
+                    secureTextEntry
+                    returnKeyType="go"
+                    onSubmitEditing={registerUser}
+                    value={registerPassword}
+                    onChangeText={setregisterPassword}
+                    placeholder="Crie uma senha"
+                  />
+                </PassContent>
+              </LoginPass>
+              <LoginButton onPress={registerUser}>
+                {loading ? (
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ color: '#fff' }}>Entrando...</Text>
+                    <ActivityIndicator color="#fff" size={20} />
+                  </View>
+                ) : (
+                  <LoginButtonText>Cadastrar</LoginButtonText>
+                )}
+              </LoginButton>
+
+              <ForgotPassword
+                onPress={() => navigation.navigate('LostPassword')}
+                underlayColor="#f9f9f9"
+              >
+                <ForgotPasswordText>
+                  Ao cadastrar você concorda com os nossos termos de uso e
+                  política de privacidade.
+                </ForgotPasswordText>
+              </ForgotPassword>
+            </Form>
+          )}
+        </Container>
       </Modal>
     </>
   );

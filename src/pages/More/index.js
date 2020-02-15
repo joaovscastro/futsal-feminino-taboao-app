@@ -54,26 +54,12 @@ function More({ profile, navigation }) {
         </HeaderTexts>
       </Header>
       <Container>
-        <MoreItem>
+        <MoreItem onPress={() => navigation.navigate('Profile')}>
           <MoreContent>
             <Icon name="face-profile" size={40} style={{ marginTop: -7 }} />
             <MoreText>
               <MoreTitle>Perfil</MoreTitle>
               <MoreDesc>Visualize e edite seu perfil</MoreDesc>
-            </MoreText>
-            <Icon name="chevron-right" size={30} color="#C9C9C9" />
-          </MoreContent>
-        </MoreItem>
-
-        <MoreItem>
-          <MoreContent>
-            <Icon name="account-group" size={40} style={{ marginTop: -7 }} />
-            <MoreText>
-              <MoreTitle>Sócio torcedor</MoreTitle>
-              <MoreDesc>Visualize e edite seu perfil</MoreDesc>
-              <MoreBtn>
-                <MoreBtnText>Torne-se um sócio</MoreBtnText>
-              </MoreBtn>
             </MoreText>
             <Icon name="chevron-right" size={30} color="#C9C9C9" />
           </MoreContent>

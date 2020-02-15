@@ -58,17 +58,17 @@ export const Container = styled.ScrollView`
   background-color: #f3f3f3;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  padding: 0 20px;
 `;
 
 export const Title = styled.Text`
   font-family: 'Axiforma-Bold';
   font-size: 18px;
   color: #000000;
-  margin: 30px 0 15px 0;
+  margin: 30px 20px 15px 20px;
 `;
 
 export const Destaque = styled(RectButton)`
+  margin: 0 20px;
   border-radius: 8px;
   box-shadow: 0px -40px 10px rgba(4, 4, 4, 0.6);
 `;
@@ -88,7 +88,9 @@ export const DestaqueTitle = styled.Text.attrs({
   color: #fffefe;
 `;
 
-export const MelhoresMomentos = styled.ScrollView``;
+export const MelhoresMomentos = styled.ScrollView`
+  margin: 0 0 0 20px;
+`;
 
 export const MelhoresMomentosItem = styled(RectButton)`
   width: 240px;
@@ -114,7 +116,7 @@ export const MelhoresMomentosTitle = styled.Text.attrs({
 
 export const UltimoJogo = styled.View`
   background-color: #ffffff;
-  margin: 30px 0 0 0;
+  margin: 30px 20px 0 20px;
   border-radius: 8px;
   padding-top: 20px;
 `;
@@ -127,6 +129,16 @@ export const JogoTitulo = styled.Text.attrs({
   font-size: 16px;
   color: #000000;
   margin: 15px 3px 0 3px;
+`;
+
+export const JogoData = styled.Text.attrs({
+  numberOfLines: 1,
+})`
+  text-align: center;
+  font-family: 'Axiforma-Regular';
+  font-size: 14px;
+  color: #000000;
+  margin: 0 0 15px 0;
 `;
 
 export const JogoContent = styled.View`
@@ -195,7 +207,9 @@ export const JogoDetalhesTitle = styled.Text`
   letter-spacing: 1px;
 `;
 
-export const Elenco = styled.ScrollView``;
+export const Elenco = styled.ScrollView`
+  margin: 0 20px;
+`;
 
 export const ElencoContent = styled(RectButton)`
   margin: 0 16px 0 0;
@@ -220,7 +234,7 @@ export const ElencoName = styled.Text.attrs({
 export const Noticias = styled(RectButton)`
   flex-direction: row;
   align-items: center;
-  margin: 0 0 20px 0;
+  margin: 0 20px 20px 20px;
 `;
 
 export const NoticiasImg = styled.Image`
