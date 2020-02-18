@@ -7,7 +7,7 @@ import Home from '../Home';
 
 function Main({ profile }) {
   const complete = !profile.user_login === profile.name;
-  return <>{complete ? <Text>1</Text> : <Home />}</>;
+  return <Text>sfdfsdf</Text>;
 }
 
 const mapStateToProps = state => ({

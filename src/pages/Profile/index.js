@@ -37,7 +37,6 @@ import MedalhaQuatro from '../../../assets/img/medalha4.png';
 import MedalhaCinco from '../../../assets/img/medalha5.png';
 
 function Profile({ profile }) {
-  console.tron.log(profile);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
       <Header>

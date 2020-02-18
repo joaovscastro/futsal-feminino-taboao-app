@@ -1,31 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView } from 'react-native';
+import { View, SafeAreaView, FlatList, ActivityIndicator } from 'react-native';
 
 import {
   Header,
   HeaderTexts,
   HeaderTextName,
-  HeaderTextDesc,
-  SearchContent,
-  SearchBtn,
   Container,
   Noticias,
   NoticiasImg,
   NoticiasTitle,
-  NoticiasDesc,
 } from './styles';
 
 import LoadNews from '../../components/LoadNews';
 
 import api from '../../services/api';
-
-import fotoAvatar from '../../../assets/img/avatar.png';
-import noticiaPlaceholder from '../../../assets/img/noticias-placeholder.jpg';
-import Brasao from '../../../assets/img/brasao.png';
-
-import Img1 from '../../../assets/img/img1.jpg';
-import Img2 from '../../../assets/img/img2.jpg';
-import Img3 from '../../../assets/img/img3.jpg';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
@@ -33,13 +21,28 @@ Icon.loadFont();
 export default function News({ navigation }) {
   const [loading, Setloading] = useState(false);
   const [noticias, Setnoticias] = useState([]);
+  const [page, Setpage] = useState(1);
+  const [total, Settotal] = useState(0);
+  const [refreshing, Setrefreshing] = useState(false);
 
-  async function loadNoticias() {
+  async function loadNoticias(pageNumber = page, shouldRefresh = false) {
+    if (total && pageNumber > total) return;
+
     Setloading(true);
 
-    const responseNoticias = await api.get('wp/v2/posts?categories=1');
-    Setnoticias(responseNoticias.data);
+    const responseNoticias = await api.get(
+      `wp/v2/posts?categories=1&page=${pageNumber}`
+    );
+    const totalItems = responseNoticias.headers['x-wp-totalpages'];
 
+    Settotal(Math.floor(totalItems / 10));
+
+    Setnoticias(
+      shouldRefresh
+        ? responseNoticias.data
+        : [...noticias, ...responseNoticias.data]
+    );
+    Setpage(pageNumber + 1);
     Setloading(false);
   }
 
@@ -51,6 +54,14 @@ export default function News({ navigation }) {
     navigation.navigate('NewsSingle', { noticiasingle });
   };
 
+  async function refreshList() {
+    Setrefreshing(true);
+
+    await loadNoticias(1, true);
+
+    Setrefreshing(false);
+  }
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
       <Header>
@@ -59,34 +70,30 @@ export default function News({ navigation }) {
         </HeaderTexts>
       </Header>
       <Container>
-        {loading ? (
-          <>
-            <LoadNews />
-            <LoadNews />
-            <LoadNews />
-          </>
-        ) : (
-          <>
-            {noticias.map(noticia => (
-              <Noticias
-                key={noticia.id}
-                underlayColor="#ffffff"
-                onPress={() => handleNavigate(noticia)}
-              >
-                <NoticiasImg
-                  source={{ uri: noticia.jetpack_featured_media_url }}
-                />
-                <View style={{ flex: 1 }}>
-                  <NoticiasTitle>{noticia.title.rendered}</NoticiasTitle>
-                  <NoticiasDesc>{noticia.excerpt.rendered}</NoticiasDesc>
-                </View>
-                <View>
-                  <Icon name="chevron-right" size={30} color="#C4C4C4" />
-                </View>
-              </Noticias>
-            ))}
-          </>
-        )}
+        <FlatList
+          data={noticias}
+          keyExtractor={post => String(post.id)}
+          onEndReached={() => loadNoticias()}
+          onEndReachedThreshold={0.1}
+          onRefresh={refreshList}
+          refreshing={refreshing}
+          ListFooterComponent={loading && <ActivityIndicator />}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <Noticias
+              underlayColor="#ffffff"
+              onPress={() => handleNavigate(item)}
+            >
+              <NoticiasImg source={{ uri: item.jetpack_featured_media_url }} />
+              <View style={{ flex: 1 }}>
+                <NoticiasTitle>{item.title.rendered}</NoticiasTitle>
+              </View>
+              <View>
+                <Icon name="chevron-right" size={30} color="#C4C4C4" />
+              </View>
+            </Noticias>
+          )}
+        />
       </Container>
     </SafeAreaView>
   );

@@ -26,6 +26,9 @@ export default (isSigned = false) =>
         Sign: createSwitchNavigator({
           Login,
         }),
+        Completar: createSwitchNavigator({
+          Main,
+        }),
         App: createBottomTabNavigator(
           {
             Home: {

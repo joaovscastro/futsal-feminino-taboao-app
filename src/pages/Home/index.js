@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { SafeAreaView, Text, View, Image, Alert } from 'react-native';
+import { SafeAreaView, View, ActivityIndicator } from 'react-native';
 import { format, parseJSON } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 import pt from 'date-fns/locale/pt';
+import HTMLView from 'react-native-htmlview';
+
+import api from '../../services/api';
 
 import {
   Header,
@@ -24,12 +27,6 @@ import {
   UltimoJogo,
   JogoTitulo,
   JogoData,
-  JogoContent,
-  JogoTimes,
-  JogoInfo,
-  TimeName,
-  JogoDetalhes,
-  JogoDetalhesTitle,
   Elenco,
   ElencoFoto,
   ElencoName,
@@ -38,10 +35,6 @@ import {
   NoticiasImg,
   NoticiasTitle,
   NoticiasDesc,
-  JogoDetalhesView,
-  JogoInfoTime,
-  JogoInfoData,
-  JogoLogo,
   MoreBtn,
   MoreBtnText,
   MoreElenco,
@@ -51,25 +44,12 @@ import {
 import LoadNews from '../../components/LoadNews';
 import LoadDestaque from '../../components/LoadDestaque';
 import LoadMomentos from '../../components/LoadMomentos';
-import LoadJogo from '../../components/LoadJogo';
 import LoadElenco from '../../components/LoadElenco';
-
-import api from '../../services/api';
-
-import fotoAvatar from '../../../assets/img/perfil-teste.jpg';
-import noticiaPlaceholder from '../../../assets/img/noticias-placeholder.jpg';
-import Brasao from '../../../assets/img/brasao.png';
-import Joao from '../../../assets/img/joao.jpg';
-import Img1 from '../../../assets/img/img1.jpg';
-import Img2 from '../../../assets/img/img2.jpg';
-import Img3 from '../../../assets/img/img3.jpg';
-import Img4 from '../../../assets/img/img4.jpg';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
 function Home({ profile, navigation }) {
-  console.tron.log(profile);
   // Loading
   const [destaqueload, Setdestaqueload] = useState(false);
   const [melhoresload, Setmelhoresload] = useState(false);
@@ -84,13 +64,11 @@ function Home({ profile, navigation }) {
   const [proxjogo, Setproxjogo] = useState([]);
 
   async function loadDestaque() {
-    if (profile.user_login === profile.name) {
-      Alert.alert('Completar perfil', 'Complete seu perfil');
-    }
     Setdestaqueload(true);
     Setmelhoresload(true);
     Setelencoload(true);
     Setnewsload(true);
+    Setloading(true);
 
     const responseDestaques = await api.get(
       'wp/v2/posts?categories=26&per_page=1'
@@ -103,6 +81,20 @@ function Home({ profile, navigation }) {
     );
     Setmelhoresmomentos(responseMelhores.data);
     Setmelhoresload(false);
+
+    const responseJogo = await api.get('sportspress/v2/events?per_page=1');
+
+    const dataJogo = responseJogo.data.map(jogo => ({
+      ...jogo,
+
+      dateFormatted: format(
+        utcToZonedTime(parseJSON(jogo.date)),
+        "dd 'de' MMMM 'de' yyyy' às 'HH:mm'h'",
+        { timeZone: 'America/Sao_Paulo', locale: pt }
+      ),
+    }));
+    Setproxjogo(dataJogo);
+    Setloading(false);
 
     const response = await api.get('sportspress/v2/players?_embed');
 
@@ -124,21 +116,6 @@ function Home({ profile, navigation }) {
     );
     Setnoticias(responseNoticias.data);
     Setnewsload(false);
-
-    const responseJogo = await api.get('sportspress/v2/events?per_page=1');
-
-    const dataJogo = responseJogo.data.map(jogo => ({
-      ...jogo,
-
-      dateFormatted: format(
-        utcToZonedTime(parseJSON(jogo.date)),
-        "dd 'de' MMMM 'de' yyyy' às 'HH:mm'h'",
-        { timeZone: 'America/Sao_Paulo', locale: pt }
-      ),
-    }));
-    Setproxjogo(dataJogo);
-
-    const beibe = await api.get('buddypress/v1/activity/1');
   }
 
   useEffect(() => {
@@ -164,11 +141,13 @@ function Home({ profile, navigation }) {
           <Avatar source={{ uri: profile.avatar_urls.thumb }} />
         </AvatarContent>
       </Header>
-      <Container>
+      <Container showsVerticalScrollIndicator={false}>
         <Title>Destaque</Title>
 
         {destaqueload ? (
-          <LoadDestaque />
+          <View style={{ marginLeft: 20, marginRight: 20 }}>
+            <LoadDestaque />
+          </View>
         ) : (
           <>
             {destaques.map(destaque => (
@@ -188,7 +167,9 @@ function Home({ profile, navigation }) {
 
         <Title>Melhores momentos</Title>
         {melhoresload ? (
-          <LoadMomentos />
+          <View style={{ marginLeft: 20, marginRight: 20 }}>
+            <LoadMomentos />
+          </View>
         ) : (
           <>
             <MelhoresMomentos
@@ -214,26 +195,39 @@ function Home({ profile, navigation }) {
             </MelhoresMomentos>
           </>
         )}
-        <View></View>
-        {proxjogo.map(jogo => (
-          <UltimoJogo key={jogo.id}>
-            <MoreBtn>
-              <MoreBtnText>Próximo jogo</MoreBtnText>
-            </MoreBtn>
-            <JogoTitulo>{jogo.title.rendered}</JogoTitulo>
-            <JogoData>{jogo.dateFormatted}</JogoData>
-          </UltimoJogo>
-        ))}
+
+        <UltimoJogo>
+          <MoreBtn>
+            <MoreBtnText>Próximo jogo</MoreBtnText>
+          </MoreBtn>
+          {loading ? (
+            <View style={{ margin: 15 }}>
+              <ActivityIndicator size={25} color="#ec2840" />
+            </View>
+          ) : (
+            <>
+              {proxjogo.map(jogo => (
+                <View key={jogo.id}>
+                  <JogoTitulo>{jogo.title.rendered}</JogoTitulo>
+                  <JogoData>{jogo.dateFormatted}</JogoData>
+                </View>
+              ))}
+            </>
+          )}
+        </UltimoJogo>
 
         <Title>Elenco</Title>
         {elencoload ? (
-          <LoadElenco />
+          <View style={{ marginLeft: 20, marginRight: 20 }}>
+            <LoadElenco />
+          </View>
         ) : (
           <>
             <Elenco horizontal={true} showsHorizontalScrollIndicator={false}>
               {elenco.map(player => (
                 <ElencoContent
                   key={player.idJogadora}
+                  underlayColor="#f3f3f3"
                   onPress={() => handleNavigateElenco(player)}
                 >
                   <ElencoFoto
@@ -244,6 +238,39 @@ function Home({ profile, navigation }) {
                   <ElencoName>{player.nomeJogadora}</ElencoName>
                 </ElencoContent>
               ))}
+
+              <ElencoContent onPress={() => handleNavigateElenco(player)}>
+                <ElencoFoto
+                  source={{
+                    uri: profile.avatar_urls.thumb,
+                  }}
+                />
+                <ElencoName>sdgsdg</ElencoName>
+              </ElencoContent>
+              <ElencoContent onPress={() => handleNavigateElenco(player)}>
+                <ElencoFoto
+                  source={{
+                    uri: profile.avatar_urls.thumb,
+                  }}
+                />
+                <ElencoName>sdgsdg</ElencoName>
+              </ElencoContent>
+              <ElencoContent onPress={() => handleNavigateElenco(player)}>
+                <ElencoFoto
+                  source={{
+                    uri: profile.avatar_urls.thumb,
+                  }}
+                />
+                <ElencoName>sdgsdg</ElencoName>
+              </ElencoContent>
+              <ElencoContent onPress={() => handleNavigateElenco(player)}>
+                <ElencoFoto
+                  source={{
+                    uri: profile.avatar_urls.thumb,
+                  }}
+                />
+                <ElencoName>sdgsdg</ElencoName>
+              </ElencoContent>
             </Elenco>
             <MoreElenco onPress={() => navigation.navigate('Elenco')}>
               <MoreElencoText>Ver elenco</MoreElencoText>
@@ -253,7 +280,9 @@ function Home({ profile, navigation }) {
 
         <Title>Notícias</Title>
         {newsload ? (
-          <LoadNews />
+          <View style={{ marginLeft: 20, marginRight: 20 }}>
+            <LoadNews />
+          </View>
         ) : (
           <>
             {noticias.map(noticia => (
@@ -267,7 +296,6 @@ function Home({ profile, navigation }) {
                 />
                 <View style={{ flex: 1 }}>
                   <NoticiasTitle>{noticia.title.rendered}</NoticiasTitle>
-                  <NoticiasDesc>{noticia.excerpt.rendered}</NoticiasDesc>
                 </View>
                 <View>
                   <Icon name="chevron-right" size={30} color="#C4C4C4" />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   View,
@@ -27,14 +27,26 @@ import {
 } from './styles';
 import fotoAvatar from '../../../assets/img/avatar.png';
 
+import api from '../../services/api';
+
 import Img1 from '../../../assets/img/img1.jpg';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
 
 export default function NewsSingle({ navigation }) {
+  const [comentarios, Setcomentarios] = useState([]);
   const noticiasingle = navigation.getParam('noticiasingle');
-  console.log(noticiasingle.content.rendered);
+
+  async function loadComents() {
+    const coments = await api.get(`wp/v2/comments?post=${noticiasingle.id}`);
+    Setcomentarios(coments.data);
+  }
+
+  useEffect(() => {
+    loadComents();
+  }, []);
+
   return (
     <>
       <ImageBackground
@@ -66,6 +78,19 @@ export default function NewsSingle({ navigation }) {
         </View>
         <View style={{ marginBottom: 50 }}>
           <TitleComent>Comentários</TitleComent>
+          {comentarios.map(comentario => (
+            <Comentario key={comentario.id}>
+              <ComentarioCont>
+                <ComentAvatar
+                  source={{ uri: comentario.author_avatar_urls[48] }}
+                />
+                <ComentName>{comentario.author_name}</ComentName>
+                <DataComent>12/01/2020</DataComent>
+              </ComentarioCont>
+              <ComentCont>{comentario.content.rendered}</ComentCont>
+            </Comentario>
+          ))}
+
           <Comentario>
             <ComentarioCont>
               <ComentAvatar source={fotoAvatar} />
@@ -73,17 +98,7 @@ export default function NewsSingle({ navigation }) {
               <DataComent>12/01/2020</DataComent>
             </ComentarioCont>
             <ComentCont>
-              comentcomentcomentcomentcomentcomentcomentcomentcomentcomentcomentcomentcomentcoment
-            </ComentCont>
-          </Comentario>
-          <Comentario>
-            <ComentarioCont>
-              <ComentAvatar source={fotoAvatar} />
-              <ComentName>João Castro</ComentName>
-              <DataComent>12/01/2020</DataComent>
-            </ComentarioCont>
-            <ComentCont>
-              comentcomentcomentcomentcomentcomentcomentcomentcomentcomentcomentcomentcomentcoment
+              {comentarios.length ? <Text>1</Text> : <Text>2</Text>}
             </ComentCont>
           </Comentario>
         </View>

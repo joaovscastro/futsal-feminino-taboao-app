@@ -208,7 +208,7 @@ export const JogoDetalhesTitle = styled.Text`
 `;
 
 export const Elenco = styled.ScrollView`
-  margin: 0 20px;
+  margin: 0 0 0 20px;
 `;
 
 export const ElencoContent = styled(RectButton)`
@@ -216,9 +216,9 @@ export const ElencoContent = styled(RectButton)`
 `;
 
 export const ElencoFoto = styled.Image`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
 `;
 
 export const ElencoName = styled.Text.attrs({

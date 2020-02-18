@@ -45,10 +45,6 @@ export default function Jogos({ navigation }) {
     loadJogos();
   }, []);
 
-  function lerDados() {
-    console.tron.log(jogos);
-  }
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
       <Header>
