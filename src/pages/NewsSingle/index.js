@@ -35,8 +35,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
 
 export default function NewsSingle({ navigation }) {
-  const [comentarios, Setcomentarios] = useState([]);
   const noticiasingle = navigation.getParam('noticiasingle');
+  const [comentarios, Setcomentarios] = useState([]);
 
   async function loadComents() {
     const coments = await api.get(`wp/v2/comments?post=${noticiasingle.id}`);

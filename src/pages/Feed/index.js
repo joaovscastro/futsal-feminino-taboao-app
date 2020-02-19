@@ -7,12 +7,15 @@ import {
   StyleSheet,
   Dimensions,
   Button,
+  FlatList,
 } from 'react-native';
 import { parseJSON, format, formatRelative, formatDistance } from 'date-fns';
 import pt from 'date-fns/locale/pt';
-import api from '../../services/api';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import HTMLView from 'react-native-htmlview';
+
+import api from '../../services/api';
+import Lottie from 'lottie-react-native';
 
 const SecondRoute = () => <View />;
 
@@ -34,20 +37,33 @@ import {
   FeedData,
 } from './styles';
 
+import BolaLoad from '../../../bola-load.json';
 import fotoAvatar from '../../../assets/img/perfil-teste.jpg';
 
 export default function Feed() {
+  const [loading, Setloading] = useState(false);
   const [feed, Setfeed] = useState([]);
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     { key: 'first', title: 'Novidades' },
     { key: 'second', title: 'Second' },
   ]);
+  const [page, Setpage] = useState(1);
+  const [total, Settotal] = useState(0);
+  const [refreshing, Setrefreshing] = useState(false);
 
-  async function loadFeed() {
+  async function loadFeed(pageNumber = page, shouldRefresh = false) {
+    if (total && pageNumber > total) return;
+
+    Setloading(true);
+
     const responseFeed = await api.get(
-      'buddypress/v1/activity?type=activity_update'
+      `buddypress/v1/activity?type=activity_update&page=${pageNumber}&per_page=10`
     );
+
+    const totalItems = responseFeed.headers['x-wp-totalpages'];
+
+    Settotal(totalItems);
 
     const data = responseFeed.data.map(posts => ({
       ...posts,
@@ -56,12 +72,22 @@ export default function Feed() {
       }),
     }));
 
-    Setfeed(data);
+    Setfeed(shouldRefresh ? data : [...feed, ...data]);
+    Setpage(pageNumber + 1);
+    Setloading(false);
   }
 
   useEffect(() => {
     loadFeed();
   }, []);
+
+  async function refreshList() {
+    Setrefreshing(true);
+
+    await loadFeed(1, true);
+
+    Setrefreshing(false);
+  }
 
   async function favoritePost(idPost) {
     console.log(idPost);
@@ -77,27 +103,60 @@ export default function Feed() {
         </HeaderTexts>
       </Header>
       <Container>
-        <FeedContent>
-          {feed.map(post => (
-            <FeedItem key={post.id}>
+        <FlatList
+          style={{ marginBottom: 40 }}
+          data={feed}
+          keyExtractor={post => String(post.id)}
+          onEndReached={() => loadFeed()}
+          onEndReachedThreshold={0.1}
+          onRefresh={refreshList}
+          refreshing={refreshing}
+          ListFooterComponent={
+            loading && (
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Lottie
+                  resizeMode="contain"
+                  autoSize
+                  source={BolaLoad}
+                  autoPlay
+                  loop={true}
+                  style={{
+                    width: 60,
+                    height: 60,
+                  }}
+                />
+                <Text style={{ color: '#666', fontSize: 11 }}>
+                  Carregando...
+                </Text>
+              </View>
+            )
+          }
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <FeedItem key={item.id}>
               <FeedHeader>
-                <FeedAvatar source={{ uri: post.user_avatar.thumb }} />
+                <FeedAvatar source={{ uri: item.user_avatar.thumb }} />
                 <HTMLView
                   style={{ flex: 1, marginLeft: 10 }}
-                  value={`<span>${post.title}</span>`}
+                  value={`<span>${item.title}</span>`}
                   stylesheet={stylesDesc}
                 />
-                <FeedData>{post.dateFormatted}</FeedData>
+                <FeedData>{item.dateFormatted}</FeedData>
               </FeedHeader>
 
               <HTMLView
                 style={{ marginBottom: -80 }}
-                value={post.content.rendered}
+                value={item.content.rendered}
                 stylesheet={stylesCont}
               />
 
               <FeedIcons>
-                {post.favorited ? (
+                {item.favorited ? (
                   <Icon
                     name="heart-outline"
                     size={20}
@@ -113,8 +172,8 @@ export default function Feed() {
                 )}
               </FeedIcons>
             </FeedItem>
-          ))}
-        </FeedContent>
+          )}
+        />
       </Container>
     </SafeAreaView>
   );

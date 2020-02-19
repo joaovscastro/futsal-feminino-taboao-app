@@ -18,11 +18,12 @@ export const HeaderTextName = styled.Text`
   color: #fff;
 `;
 
-export const Container = styled.ScrollView`
+export const Container = styled.View`
   background-color: #f3f3f3;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   padding: 0 20px 0 20px;
+  flex: 1;
 `;
 
 export const UltimoJogo = styled.View`
@@ -81,7 +82,7 @@ export const JogoInfoTime = styled.Text`
 
 export const JogoInfoData = styled.Text`
   font-family: 'Axiforma-Regular';
-  font-size: 12px;
+  font-size: 11px;
   color: #000000;
   margin-top: -8px;
 `;

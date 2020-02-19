@@ -132,7 +132,6 @@ export const EscalacaoJogadora = styled.View`
 export const EscalacaoJogadoraAvatar = styled.Image`
   width: 40px;
   height: 40px;
-  border-radius: 20px;
 `;
 
 export const EscalacaoJogadoraNome = styled.Text`
@@ -171,4 +170,12 @@ export const EscalacaoDadosNumber = styled.Text`
   flex: 1;
   text-align: center;
   margin-top: 7px;
+`;
+
+export const Disclaimer = styled.Text`
+  font-family: 'Axiforma-Regular';
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  margin: 10px 0 20px 0;
 `;

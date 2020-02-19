@@ -142,7 +142,7 @@ export const PassInput = styled.TextInput`
   color: #a3a3a4;
 `;
 
-export const LoginButton = styled(RectButton)`
+export const LoginButton = styled.TouchableOpacity`
   height: 48px;
   background: #000000;
   border-radius: 12px;
@@ -158,7 +158,7 @@ export const PassContent = styled.View`
   flex: 1;
 `;
 
-export const RequestAcess = styled(RectButton)`
+export const RequestAcess = styled.TouchableOpacity`
   height: 58px;
   border-radius: 10px;
   align-items: center;
@@ -174,7 +174,7 @@ export const RequestAcessText = styled.Text`
   color: #d3004c;
 `;
 
-export const ForgotPassword = styled(RectButton)`
+export const ForgotPassword = styled.TouchableOpacity`
   margin: 20px 0 40px 0;
 `;
 
@@ -186,13 +186,13 @@ export const ForgotPasswordText = styled.Text`
   color: #2d2d2d;
 `;
 
-export const LoginBtn = styled(RectButton)`
+export const LoginBtn = styled.TouchableOpacity`
   padding: 20px;
   margin: 10px;
   background: #f00;
 `;
 
-export const LoginBtnModal = styled(RectButton)`
+export const LoginBtnModal = styled.TouchableOpacity`
   margin: 5px 20px;
   padding: 15px 15px 3px 15px;
   background: #d71435;
@@ -209,7 +209,7 @@ export const LoginBtnModalText = styled.Text`
   color: #ffffff;
 `;
 
-export const RegisterBtnModal = styled(RectButton)`
+export const RegisterBtnModal = styled.TouchableOpacity`
   margin: 5px 20px;
   padding: 15px 15px 3px 15px;
   background: #fff;

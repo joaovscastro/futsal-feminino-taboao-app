@@ -35,6 +35,7 @@ export default (isSigned = false) =>
               screen: createStackNavigator(
                 {
                   Home,
+                  NewsSingle,
                 },
                 {
                   headerMode: 'none',

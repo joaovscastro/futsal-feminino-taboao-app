@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, FlatList, ActivityIndicator } from 'react-native';
+import { View, SafeAreaView, FlatList, Text } from 'react-native';
 
 import {
   Header,
@@ -11,9 +11,12 @@ import {
   NoticiasTitle,
 } from './styles';
 
+import BolaLoad from '../../../bola-load.json';
+
 import LoadNews from '../../components/LoadNews';
 
 import api from '../../services/api';
+import Lottie from 'lottie-react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
@@ -31,11 +34,11 @@ export default function News({ navigation }) {
     Setloading(true);
 
     const responseNoticias = await api.get(
-      `wp/v2/posts?categories=1&page=${pageNumber}`
+      `wp/v2/posts?categories=1&page=${pageNumber}&per_page=10`
     );
     const totalItems = responseNoticias.headers['x-wp-totalpages'];
 
-    Settotal(Math.floor(totalItems / 10));
+    Settotal(totalItems);
 
     Setnoticias(
       shouldRefresh
@@ -50,7 +53,7 @@ export default function News({ navigation }) {
     loadNoticias();
   }, []);
 
-  handleNavigate = noticiasingle => {
+  handleNavigatenews = noticiasingle => {
     navigation.navigate('NewsSingle', { noticiasingle });
   };
 
@@ -77,12 +80,36 @@ export default function News({ navigation }) {
           onEndReachedThreshold={0.1}
           onRefresh={refreshList}
           refreshing={refreshing}
-          ListFooterComponent={loading && <ActivityIndicator />}
+          ListFooterComponent={
+            loading && (
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Lottie
+                  resizeMode="contain"
+                  autoSize
+                  source={BolaLoad}
+                  autoPlay
+                  loop={true}
+                  style={{
+                    width: 60,
+                    height: 60,
+                  }}
+                />
+                <Text style={{ color: '#666', fontSize: 11 }}>
+                  Carregando...
+                </Text>
+              </View>
+            )
+          }
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <Noticias
               underlayColor="#ffffff"
-              onPress={() => handleNavigate(item)}
+              onPress={() => handleNavigatenews(item)}
             >
               <NoticiasImg source={{ uri: item.jetpack_featured_media_url }} />
               <View style={{ flex: 1 }}>

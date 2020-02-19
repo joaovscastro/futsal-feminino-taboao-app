@@ -29,11 +29,12 @@ export const SearchContent = styled.View`
 
 export const SearchBtn = styled(RectButton)``;
 
-export const Container = styled.ScrollView`
+export const Container = styled.View`
   background-color: #f3f3f3;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   padding: 35px 20px 0 20px;
+  flex: 1;
 `;
 
 export const Noticias = styled(RectButton)`
