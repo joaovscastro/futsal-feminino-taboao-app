@@ -7,7 +7,7 @@ buildscript {
     }
 }
 
-apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+// apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 
 apply plugin: "com.android.application"
 
@@ -131,9 +131,6 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
-    compileSdkVersion 27 // OneSignal
-    buildToolsVersion '27.0.3' // OneSignal
-
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {
