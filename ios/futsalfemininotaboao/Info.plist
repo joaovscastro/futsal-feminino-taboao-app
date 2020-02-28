@@ -39,6 +39,10 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) quer acessar sua câmera para atualizar a foto de perfil</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>$(PRODUCT_NAME) quer acessar sua biblioteca de fotos para atualizar a foto de perfil</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>$(PRODUCT_NAME) quer acessar sua biblioteca de fotos para atualizar a foto de perfil</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PRODUCT_NAME) quer acessar sua biblioteca de fotos para atualizar a foto de perfil</string>
 	<key>UIAppFonts</key>
