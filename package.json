@@ -53,6 +53,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "jest": "^24.9.0",
+    "jetifier": "^1.6.5",
     "metro-react-native-babel-preset": "^0.57.0",
     "react-test-renderer": "16.9.0",
     "reactotron-react-native": "^4.0.3"
