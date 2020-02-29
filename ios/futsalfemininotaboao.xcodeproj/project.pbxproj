@@ -15,6 +15,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		17710CEB8B25459E8A3D475E /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14C5C498D50948F699B4D775 /* MaterialIcons.ttf */; };
 		2222C551A68B4FF0BE67281B /* Axiforma Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 39CA54D5D1A441DFAA6D45D5 /* Axiforma Bold.otf */; };
+		23404FD3240AEB67001C9D06 /* gol.wav in Resources */ = {isa = PBXBuildFile; fileRef = 23404FD2240AEB66001C9D06 /* gol.wav */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -81,6 +82,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = futsalfemininotaboao/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = futsalfemininotaboao/main.m; sourceTree = "<group>"; };
 		14C5C498D50948F699B4D775 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		23404FD2240AEB66001C9D06 /* gol.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gol.wav; sourceTree = "<group>"; };
 		23FCED51240871BF00A9A4EE /* Futsal Feminino Taboão.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Futsal Feminino Taboão.entitlements"; path = "futsalfemininotaboao/Futsal Feminino Taboão.entitlements"; sourceTree = "<group>"; };
 		29955DC77A119933D61380F3 /* Pods-futsalfemininotaboaoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-futsalfemininotaboaoTests.release.xcconfig"; path = "Target Support Files/Pods-futsalfemininotaboaoTests/Pods-futsalfemininotaboaoTests.release.xcconfig"; sourceTree = "<group>"; };
 		2A9C74EE7C4341078B6E157D /* Axiforma Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Axiforma Regular.otf"; path = "../assets/fonts/Axiforma Regular.otf"; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 		13B07FAE1A68108700A75B9A /* futsalfemininotaboao */ = {
 			isa = PBXGroup;
 			children = (
+				23404FD2240AEB66001C9D06 /* gol.wav */,
 				23FCED51240871BF00A9A4EE /* Futsal Feminino Taboão.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -429,6 +432,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				23404FD3240AEB67001C9D06 /* gol.wav in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				2222C551A68B4FF0BE67281B /* Axiforma Bold.otf in Resources */,
 				670418502D6947858DC03F74 /* Axiforma Light.otf in Resources */,

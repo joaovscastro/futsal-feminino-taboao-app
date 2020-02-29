@@ -73,7 +73,7 @@ export const NoticiasDesc = styled.Text`
   color: #a8a8a8;
 `;
 
-export const ElencoLista = styled(RectButton)`
+export const ElencoLista = styled.View`
   flex-direction: row;
   align-items: center;
   margin-bottom: 20px;
@@ -89,8 +89,7 @@ export const ElencoNome = styled.Text`
   font-family: 'Axiforma-Regular';
   font-size: 14px;
   color: #000000;
-  flex: 1;
-  margin: 0 0 0 15px;
+  margin-top: 15px;
 `;
 
 export const ElencoNumero = styled.Text`

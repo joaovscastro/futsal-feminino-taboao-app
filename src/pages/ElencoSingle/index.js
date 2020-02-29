@@ -17,6 +17,7 @@ import {
   BackButton,
   BackButtonContent,
   Title,
+  TitlePerformance,
   Data,
   DataText,
   DataTextInfo,
@@ -34,6 +35,7 @@ import {
   ElencoTextCont,
   ElencoDesc,
   ElencoDescTitle,
+  Disclaimer,
 } from './styles';
 
 import fotoAvatar from '../../../assets/img/perfil-teste.jpg';
@@ -69,19 +71,13 @@ export default function ElencoSingle({ navigation }) {
             <ElencoTextCont>
               {jogadoraInfo.nacionalidadeJogadora}
             </ElencoTextCont>
-            <ElencoTextTitle>Posição</ElencoTextTitle>
-            <ElencoTextCont>Fixa</ElencoTextCont>
             <ElencoTextTitle>Número</ElencoTextTitle>
             <ElencoTextCont>{jogadoraInfo.numeroJogadora}</ElencoTextCont>
             <ElencoTextTitle>Time</ElencoTextTitle>
             <ElencoTextCont>Taboão da Serra</ElencoTextCont>
           </ElencoText>
         </ElencoMain>
-        <ElencoDesc>
-          <Title>Sobre</Title>
-          <HTMLView value={jogadoraInfo.descJogadora} stylesheet={stylesDesc} />
-        </ElencoDesc>
-        <Title>Estatísticas</Title>
+        <TitlePerformance>Performance</TitlePerformance>
 
         <View>
           <View style={{ backgroundColor: '#000000' }}>
@@ -108,6 +104,11 @@ export default function ElencoSingle({ navigation }) {
             </DataTextInfo>
           </View>
         </View>
+        <Disclaimer>Podem ocorrer divergências nos dados mostrados.</Disclaimer>
+        <ElencoDesc>
+          <Title>Sobre</Title>
+          <HTMLView value={jogadoraInfo.descJogadora} stylesheet={stylesDesc} />
+        </ElencoDesc>
       </Container>
     </SafeAreaView>
   );
@@ -116,7 +117,7 @@ export default function ElencoSingle({ navigation }) {
 const stylesDesc = StyleSheet.create({
   p: {
     fontSize: 14,
-    lineHeight: 20,
+    lineHeight: 15,
     color: '#666666',
   },
   a: {

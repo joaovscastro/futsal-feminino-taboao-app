@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 
 export const BackButton = styled(RectButton)`
-  margin: 10px 20px 0 20px;
+  margin: 20px 20px 0 20px;
 `;
 
 export const BackButtonContent = styled.View`

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, Text, Image } from 'react-native';
+import { View, SafeAreaView, Text, StyleSheet } from 'react-native';
+import HTMLView from 'react-native-htmlview';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
@@ -32,21 +33,18 @@ import fotoAvatar from '../../../assets/img/avatar.png';
 import noticiaPlaceholder from '../../../assets/img/noticias-placeholder.jpg';
 import Brasao from '../../../assets/img/brasao.png';
 
-export default function Elenco({ navigation }) {
+export default function Comissao({ navigation }) {
   const [loading, Setloading] = useState(false);
   const [elenco, Setelenco] = useState([]);
 
   async function loadElenco() {
     Setloading(true);
-    const response = await api.get('sportspress/v2/players?_embed');
+    const response = await api.get('sportspress/v2/staff?_embed');
 
     const data = response.data.map(jogadora => ({
       idJogadora: jogadora.id,
       nomeJogadora: jogadora.title.rendered,
       descJogadora: jogadora.content.rendered,
-      numeroJogadora: jogadora.number,
-      nacionalidadeJogadora: jogadora.nationalities,
-      golsJogadora: jogadora.statistics,
       fotoJogadora: jogadora._embedded['wp:featuredmedia'][0].source_url,
     }));
 
@@ -71,7 +69,7 @@ export default function Elenco({ navigation }) {
           </BackButtonContent>
         </BackButton>
         <HeaderTexts>
-          <HeaderTextName>Elenco</HeaderTextName>
+          <HeaderTextName>Comissão Técnica</HeaderTextName>
         </HeaderTexts>
       </Header>
       <Container>
@@ -98,17 +96,20 @@ export default function Elenco({ navigation }) {
         ) : (
           <>
             {elenco.map(player => (
-              <ElencoLista
-                underlayColor="#f3f3f3"
-                key={player.id}
-                onPress={() => handleNavigateElenco(player)}
-              >
+              <ElencoLista key={player.id}>
                 <Foto source={{ uri: player.fotoJogadora }} />
-
-                <ElencoNome>{player.nomeJogadora}</ElencoNome>
-                <ElencoNumero>{player.numeroJogadora}</ElencoNumero>
-
-                <Icon name="chevron-right" size={30} color="#C4C4C4" />
+                <View
+                  style={{
+                    flexDirection: 'column',
+                    marginLeft: 15,
+                  }}
+                >
+                  <ElencoNome>{player.nomeJogadora}</ElencoNome>
+                  <HTMLView
+                    value={player.descJogadora}
+                    stylesheet={stylesDesc}
+                  />
+                </View>
               </ElencoLista>
             ))}
           </>
@@ -117,3 +118,13 @@ export default function Elenco({ navigation }) {
     </SafeAreaView>
   );
 }
+
+const stylesDesc = StyleSheet.create({
+  p: {
+    height: 20,
+    fontSize: 14,
+    margin: 0,
+    padding: 0,
+    color: '#666666',
+  },
+});

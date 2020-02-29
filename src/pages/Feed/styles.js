@@ -3,7 +3,7 @@ import { RectButton } from 'react-native-gesture-handler';
 
 export const Header = styled.View`
   flex-direction: row;
-  margin: 10px 20px;
+  margin: 20px 20px 10px 20px;
 `;
 
 export const HeaderTexts = styled.View`

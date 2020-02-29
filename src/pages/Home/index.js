@@ -238,46 +238,12 @@ function Home({ profile, navigation }) {
                   <ElencoName>{player.nomeJogadora}</ElencoName>
                 </ElencoContent>
               ))}
-
-              <ElencoContent onPress={() => handleNavigateElenco(player)}>
-                <ElencoFoto
-                  source={{
-                    uri: profile.avatar_urls.thumb,
-                  }}
-                />
-                <ElencoName>sdgsdg</ElencoName>
-              </ElencoContent>
-              <ElencoContent onPress={() => handleNavigateElenco(player)}>
-                <ElencoFoto
-                  source={{
-                    uri: profile.avatar_urls.thumb,
-                  }}
-                />
-                <ElencoName>sdgsdg</ElencoName>
-              </ElencoContent>
-              <ElencoContent onPress={() => handleNavigateElenco(player)}>
-                <ElencoFoto
-                  source={{
-                    uri: profile.avatar_urls.thumb,
-                  }}
-                />
-                <ElencoName>sdgsdg</ElencoName>
-              </ElencoContent>
-              <ElencoContent onPress={() => handleNavigateElenco(player)}>
-                <ElencoFoto
-                  source={{
-                    uri: profile.avatar_urls.thumb,
-                  }}
-                />
-                <ElencoName>sdgsdg</ElencoName>
-              </ElencoContent>
             </Elenco>
             <MoreElenco onPress={() => navigation.navigate('Elenco')}>
               <MoreElencoText>Ver elenco</MoreElencoText>
             </MoreElenco>
           </>
         )}
-
         <Title>Notícias</Title>
         {newsload ? (
           <View style={{ marginLeft: 20, marginRight: 20 }}>

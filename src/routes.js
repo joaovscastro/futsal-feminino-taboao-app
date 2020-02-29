@@ -12,12 +12,12 @@ import Feed from './pages/Feed';
 import Jogos from './pages/Jogos';
 import More from './pages/More';
 import NewsSingle from './pages/NewsSingle';
-import JogosSingle from './pages/JogosSingle';
 import Login from './pages/Login';
 import Elenco from './pages/Elenco';
 import ElencoSingle from './pages/ElencoSingle';
 import Profile from './pages/Profile';
 import Main from './pages/Main';
+import Comissao from './pages/Comissao';
 
 export default (isSigned = false) =>
   createAppContainer(
@@ -71,7 +71,6 @@ export default (isSigned = false) =>
               screen: createStackNavigator(
                 {
                   Jogos,
-                  JogosSingle,
                 },
                 {
                   headerMode: 'none',
@@ -91,6 +90,7 @@ export default (isSigned = false) =>
                   Elenco,
                   ElencoSingle,
                   Profile,
+                  Comissao,
                 },
                 {
                   headerMode: 'none',

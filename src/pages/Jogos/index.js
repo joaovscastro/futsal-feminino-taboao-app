@@ -271,7 +271,7 @@ export default function Jogos({ navigation }) {
           style={{
             backgroundColor: '#f3f3f3',
             borderRadius: 8,
-            marginTop: 300,
+            marginTop: 200,
             paddingLeft: 20,
             paddingRight: 20,
           }}

@@ -54,7 +54,10 @@ function More({ profile, navigation }) {
         </HeaderTexts>
       </Header>
       <Container>
-        <MoreItem onPress={() => navigation.navigate('Profile')}>
+        <MoreItem
+          onPress={() => navigation.navigate('Profile')}
+          underlayColor="#f3f3f3"
+        >
           <MoreContent>
             <Icon name="face-profile" size={40} style={{ marginTop: -7 }} />
             <MoreText>
@@ -65,7 +68,10 @@ function More({ profile, navigation }) {
           </MoreContent>
         </MoreItem>
 
-        <MoreItem>
+        <MoreItem
+          onPress={() => navigation.navigate('Elenco')}
+          underlayColor="#f3f3f3"
+        >
           <MoreContent>
             <Icon name="soccer" size={40} style={{ marginTop: -7 }} />
             <MoreText>
@@ -76,7 +82,10 @@ function More({ profile, navigation }) {
           </MoreContent>
         </MoreItem>
 
-        <MoreItem>
+        <MoreItem
+          onPress={() => navigation.navigate('Elenco')}
+          underlayColor="#f3f3f3"
+        >
           <MoreContent>
             <Icon
               name="tshirt-crew-outline"
@@ -91,7 +100,10 @@ function More({ profile, navigation }) {
           </MoreContent>
         </MoreItem>
 
-        <MoreItem>
+        <MoreItem
+          onPress={() => navigation.navigate('Comissao')}
+          underlayColor="#f3f3f3"
+        >
           <MoreContent>
             <Icon name="stamper" size={40} style={{ marginTop: -7 }} />
             <MoreText>
@@ -105,7 +117,7 @@ function More({ profile, navigation }) {
           </MoreContent>
         </MoreItem>
 
-        <MoreItem onPress={Sair}>
+        <MoreItem onPress={Sair} underlayColor="#f3f3f3">
           <MoreContent>
             <Icon
               name="close-box-outline"

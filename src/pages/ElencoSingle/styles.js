@@ -16,7 +16,7 @@ export const BackButtonContent = styled.View`
 
 export const Header = styled.View`
   flex-direction: row;
-  margin: 10px 20px;
+  margin: 20px 20px 10px 20px;
 `;
 
 export const HeaderTexts = styled.View``;
@@ -92,6 +92,14 @@ export const Title = styled.Text`
   color: #000000;
   line-height: 18px;
   margin: 20px 0 0 0;
+`;
+
+export const TitlePerformance = styled.Text`
+  font-family: 'Axiforma-Bold';
+  font-size: 16px;
+  color: #000000;
+  line-height: 18px;
+  margin: 35px 0 0 0;
 `;
 
 export const Data = styled.Text`
@@ -196,11 +204,19 @@ export const ElencoTextCont = styled.Text`
 `;
 
 export const ElencoDesc = styled.View`
-  margin: 30px 0;
+  margin: 0 0 30px 0;
 `;
 
 export const ElencoDescTitle = styled.Text`
   font-family: 'Axiforma-Bold';
   font-size: 18px;
   color: #000000;
+`;
+
+export const Disclaimer = styled.Text`
+  font-family: 'Axiforma-Regular';
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  margin: 10px 0 20px 0;
 `;
