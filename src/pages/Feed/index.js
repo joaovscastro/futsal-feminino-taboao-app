@@ -8,11 +8,15 @@ import {
   Dimensions,
   Button,
   FlatList,
+  Alert,
+  TouchableOpacity,
+  TextInput,
 } from 'react-native';
 import { parseJSON, format, formatRelative, formatDistance } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import HTMLView from 'react-native-htmlview';
+import HTML from 'react-native-render-html';
 
 import api from '../../services/api';
 import Lottie from 'lottie-react-native';
@@ -52,6 +56,8 @@ export default function Feed() {
   const [total, Settotal] = useState(0);
   const [refreshing, Setrefreshing] = useState(false);
 
+  const [impala, Setimpala] = useState('');
+
   async function loadFeed(pageNumber = page, shouldRefresh = false) {
     if (total && pageNumber > total) return;
 
@@ -90,9 +96,27 @@ export default function Feed() {
   }
 
   async function favoritePost(idPost) {
-    console.log(idPost);
-    const impala = await api.post(`/buddypress/v1/activity/${idPost}/favorite`);
-    console.log(impala);
+    await api.post(`/buddypress/v1/activity/${idPost}/favorite`);
+    Setrefreshing(true);
+    await loadFeed(1, true);
+    Setrefreshing(false);
+  }
+
+  async function newPost() {
+    try {
+      await api.post('buddypress/v1/activity', {
+        type: 'activity_update',
+        content: impala,
+      });
+      Setrefreshing(true);
+      await loadFeed(1, true);
+      Setrefreshing(false);
+    } catch (err) {
+      Alert.alert(
+        'Falha na autenticação',
+        'Houve um erro no login, verifique seus dados'
+      );
+    }
   }
 
   return (
@@ -141,6 +165,7 @@ export default function Feed() {
             <FeedItem key={item.id}>
               <FeedHeader>
                 <FeedAvatar source={{ uri: item.user_avatar.thumb }} />
+
                 <HTMLView
                   style={{ flex: 1, marginLeft: 10 }}
                   value={`<span>${item.title}</span>`}
@@ -149,10 +174,14 @@ export default function Feed() {
                 <FeedData>{item.dateFormatted}</FeedData>
               </FeedHeader>
 
-              <HTMLView
-                style={{ marginBottom: -80 }}
-                value={item.content.rendered}
-                stylesheet={stylesCont}
+              <HTML
+                tagsStyles={{
+                  p: {
+                    fontStyle: 'italic',
+                    color: 'red',
+                  },
+                }}
+                html={item.content.rendered}
               />
 
               <FeedIcons>
@@ -164,15 +193,27 @@ export default function Feed() {
                     style={{ marginRight: 10 }}
                   />
                 ) : (
-                  <Icon
-                    name="heart-outline"
-                    size={20}
-                    style={{ marginRight: 10 }}
-                  />
+                  <TouchableOpacity onPress={() => favoritePost(item.id)}>
+                    <Icon
+                      name="heart-outline"
+                      size={20}
+                      style={{ marginRight: 10 }}
+                    />
+                  </TouchableOpacity>
                 )}
               </FeedIcons>
             </FeedItem>
           )}
+        />
+        <TouchableOpacity onPress={() => newPost()}>
+          <Text>Comentar</Text>
+        </TouchableOpacity>
+        <Text>{impala}</Text>
+        <TextInput
+          placeholder="Comentario"
+          onChangeText={Setimpala}
+          value={impala}
+          style={{ backgroundColor: '#666' }}
         />
       </Container>
     </SafeAreaView>

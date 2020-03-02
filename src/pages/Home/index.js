@@ -138,7 +138,7 @@ function Home({ profile, navigation }) {
           <HeaderTextDesc>O que você quer fazer hoje?</HeaderTextDesc>
         </HeaderTexts>
         <AvatarContent>
-          <Avatar source={{ uri: profile.avatar_urls.thumb }} />
+          <Avatar source={{ uri: profile.m_avatar }} />
         </AvatarContent>
       </Header>
       <Container showsVerticalScrollIndicator={false}>

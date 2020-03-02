@@ -5,9 +5,15 @@ import {
   ImageBackground,
   Text,
   Image,
-  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  TextInput,
+  Alert,
 } from 'react-native';
-import HTMLView from 'react-native-htmlview';
+import { format, parseJSON } from 'date-fns';
+import { utcToZonedTime } from 'date-fns-tz';
+import pt from 'date-fns/locale/pt';
+import HTML from 'react-native-render-html';
 
 import {
   BackButton,
@@ -25,27 +31,56 @@ import {
   ComentCont,
   ComentAvatar,
 } from './styles';
-import fotoAvatar from '../../../assets/img/avatar.png';
 
 import api from '../../services/api';
-
-import Img1 from '../../../assets/img/img1.jpg';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
 
 export default function NewsSingle({ navigation }) {
   const noticiasingle = navigation.getParam('noticiasingle');
+  const dataNoticias = format(
+    utcToZonedTime(parseJSON(noticiasingle.date)),
+    "dd 'de' MMMM 'de' yyyy'",
+    { timeZone: 'America/Sao_Paulo', locale: pt }
+  );
+
   const [comentarios, Setcomentarios] = useState([]);
+
+  const [impala, Setimpala] = useState('');
 
   async function loadComents() {
     const coments = await api.get(`wp/v2/comments?post=${noticiasingle.id}`);
-    Setcomentarios(coments.data);
+
+    const dataComents = coments.data.map(coment => ({
+      ...coment,
+
+      dateFormatted: format(
+        utcToZonedTime(parseJSON(coment.date)),
+        "dd'/'MM'/'yyyy'",
+        { timeZone: 'America/Sao_Paulo', locale: pt }
+      ),
+    }));
+    Setcomentarios(dataComents);
   }
 
   useEffect(() => {
     loadComents();
   }, []);
+
+  async function postComent() {
+    try {
+      await api.post('wp/v2/comments', {
+        content: impala,
+        post: noticiasingle.id,
+      });
+    } catch (err) {
+      Alert.alert(
+        'Falha na autenticação',
+        'Houve um erro no login, verifique seus dados'
+      );
+    }
+  }
 
   return (
     <>
@@ -67,54 +102,59 @@ export default function NewsSingle({ navigation }) {
       </ImageBackground>
       <Container>
         <Title>{noticiasingle.title.rendered}</Title>
-        <Data>02/01/2020</Data>
-        <HTMLView
-          value={noticiasingle.content.rendered}
-          stylesheet={stylesDesc}
+        <Data>{dataNoticias}</Data>
+
+        <HTML
+          tagsStyles={{
+            p: {
+              color: 'grey',
+              lineHeight: 20,
+            },
+          }}
+          imagesMaxWidth={Dimensions.get('window').width}
+          html={noticiasingle.content.rendered}
         />
-        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-          <Share>Compartilhar</Share>
-          <Icon name="share-outline" size={20} color="#000000" />
-        </View>
         <View style={{ marginBottom: 50 }}>
           <TitleComent>Comentários</TitleComent>
-          {comentarios.map(comentario => (
-            <Comentario key={comentario.id}>
-              <ComentarioCont>
-                <ComentAvatar
-                  source={{ uri: comentario.author_avatar_urls[48] }}
-                />
-                <ComentName>{comentario.author_name}</ComentName>
-                <DataComent>12/01/2020</DataComent>
-              </ComentarioCont>
-              <ComentCont>{comentario.content.rendered}</ComentCont>
-            </Comentario>
-          ))}
 
-          <Comentario>
-            <ComentarioCont>
-              <ComentAvatar source={fotoAvatar} />
-              <ComentName>João Castro</ComentName>
-              <DataComent>12/01/2020</DataComent>
-            </ComentarioCont>
-            <ComentCont>
-              {comentarios.length ? <Text>1</Text> : <Text>2</Text>}
-            </ComentCont>
-          </Comentario>
+          {comentarios.length ? (
+            <>
+              {comentarios.map(comentario => (
+                <Comentario key={comentario.id}>
+                  <ComentarioCont>
+                    <ComentAvatar
+                      source={{ uri: comentario.author_avatar_urls[48] }}
+                    />
+                    <ComentName>{comentario.author_name}</ComentName>
+                    <DataComent>{comentario.dateFormatted}</DataComent>
+                  </ComentarioCont>
+                  <HTML
+                    tagsStyles={{
+                      p: {
+                        fontStyle: 'italic',
+                        color: 'red',
+                      },
+                    }}
+                    html={comentario.content.rendered}
+                  />
+                </Comentario>
+              ))}
+            </>
+          ) : (
+            <Text>Nenhum comentário</Text>
+          )}
+          <TouchableOpacity onPress={() => postComent()}>
+            <Text>Comentar</Text>
+          </TouchableOpacity>
+          <Text>{impala}</Text>
+          <TextInput
+            placeholder="Comentario"
+            onChangeText={Setimpala}
+            value={impala}
+            style={{ backgroundColor: '#666' }}
+          />
         </View>
       </Container>
     </>
   );
 }
-
-const stylesDesc = StyleSheet.create({
-  p: {
-    fontSize: 14,
-    lineHeight: 20,
-    color: '#666666',
-  },
-  a: {
-    fontWeight: '300',
-    color: '#D3004C',
-  },
-});
