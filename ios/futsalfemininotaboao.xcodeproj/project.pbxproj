@@ -24,8 +24,10 @@
 		30232B191F8947CC82A57B79 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9FC713F8CEC2471290B1A92F /* Zocial.ttf */; };
 		3387EC2E66404D1EA03EB48F /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F82FE3F671B1439199FDABD9 /* Entypo.ttf */; };
 		41D71439295E45DA9940DFFB /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE222065A48347448B01F544 /* FontAwesome.ttf */; };
+		4389D4C9C9B442E885432A45 /* SF-Pro-Text-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ADE1725258C42588596AB95 /* SF-Pro-Text-Regular.ttf */; };
 		511C556F8CC04103BF19F671 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E348E732EB8497E9CD0C685 /* Ionicons.ttf */; };
 		670418502D6947858DC03F74 /* Axiforma Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFF1CF63D0D74962953D6970 /* Axiforma Light.otf */; };
+		6D371E755BF840C1A93AAB8A /* SF-Pro-Text-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59A50FC4EA85443A898172CF /* SF-Pro-Text-Bold.ttf */; };
 		6D6557352D0E2F92244272C5 /* Pods_futsalfemininotaboaoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 086C847E198A32223FDA06A8 /* Pods_futsalfemininotaboaoTests.framework */; };
 		7529EA70453E4990A816DEBE /* Axiforma Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B627406125A47218CCE0C8E /* Axiforma Bold.ttf */; };
 		763DA33D88514B56A3797F07 /* Axiforma SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A0195A32FE9F48BDBE849A4A /* Axiforma SemiBold.ttf */; };
@@ -86,6 +88,7 @@
 		23FCED51240871BF00A9A4EE /* Futsal Feminino Taboão.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Futsal Feminino Taboão.entitlements"; path = "futsalfemininotaboao/Futsal Feminino Taboão.entitlements"; sourceTree = "<group>"; };
 		29955DC77A119933D61380F3 /* Pods-futsalfemininotaboaoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-futsalfemininotaboaoTests.release.xcconfig"; path = "Target Support Files/Pods-futsalfemininotaboaoTests/Pods-futsalfemininotaboaoTests.release.xcconfig"; sourceTree = "<group>"; };
 		2A9C74EE7C4341078B6E157D /* Axiforma Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Axiforma Regular.otf"; path = "../assets/fonts/Axiforma Regular.otf"; sourceTree = "<group>"; };
+		2ADE1725258C42588596AB95 /* SF-Pro-Text-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF-Pro-Text-Regular.ttf"; path = "../assets/fonts/SF-Pro-Text-Regular.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* futsalfemininotaboao-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "futsalfemininotaboao-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* futsalfemininotaboao-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "futsalfemininotaboao-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E11CD5148C8456C8C96D6C4 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
@@ -94,6 +97,7 @@
 		48413FAFC77D41EE96E01451 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		54422EE9767061CA67B4B22E /* Pods-futsalfemininotaboao-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-futsalfemininotaboao-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-futsalfemininotaboao-tvOSTests/Pods-futsalfemininotaboao-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		56B4FEBFD62D7F992A1C4550 /* Pods-futsalfemininotaboaoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-futsalfemininotaboaoTests.debug.xcconfig"; path = "Target Support Files/Pods-futsalfemininotaboaoTests/Pods-futsalfemininotaboaoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		59A50FC4EA85443A898172CF /* SF-Pro-Text-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF-Pro-Text-Bold.ttf"; path = "../assets/fonts/SF-Pro-Text-Bold.ttf"; sourceTree = "<group>"; };
 		64D858F7FEF64883BE8B8DEC /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		69AA8D0E73E37CB42083D067 /* Pods_futsalfemininotaboao_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_futsalfemininotaboao_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7443313BCF7EE2E784F0E597 /* Pods-futsalfemininotaboao-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-futsalfemininotaboao-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-futsalfemininotaboao-tvOSTests/Pods-futsalfemininotaboao-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -281,6 +285,8 @@
 				8857F42024C447FE8351A2E9 /* Octicons.ttf */,
 				2E11CD5148C8456C8C96D6C4 /* SimpleLineIcons.ttf */,
 				9FC713F8CEC2471290B1A92F /* Zocial.ttf */,
+				59A50FC4EA85443A898172CF /* SF-Pro-Text-Bold.ttf */,
+				2ADE1725258C42588596AB95 /* SF-Pro-Text-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -459,6 +465,8 @@
 				7F2D775082D04858ADD5288E /* Octicons.ttf in Resources */,
 				F183279AAA7640958752B522 /* SimpleLineIcons.ttf in Resources */,
 				30232B191F8947CC82A57B79 /* Zocial.ttf in Resources */,
+				6D371E755BF840C1A93AAB8A /* SF-Pro-Text-Bold.ttf in Resources */,
+				4389D4C9C9B442E885432A45 /* SF-Pro-Text-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,7 +845,7 @@
 				DEVELOPMENT_TEAM = HTQC28W272;
 				INFOPLIST_FILE = futsalfemininotaboao/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -859,7 +867,7 @@
 				DEVELOPMENT_TEAM = HTQC28W272;
 				INFOPLIST_FILE = futsalfemininotaboao/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

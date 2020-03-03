@@ -16,15 +16,19 @@ export const HeaderTexts = styled.View`
 export const HeaderTextName = styled.Text`
   ${Platform.select({
     ios: css`
-      font-family: 'Axiforma-Bold';
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     `,
     android: css`
       font-family: 'Axiforma Bold';
     `,
   })};
 
-  font-size: 20px;
+  font-size: 12px;
   color: #fff;
+  margin-bottom: 20px;
 `;
 
 export const HeaderTextDesc = styled.Text`

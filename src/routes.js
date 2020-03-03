@@ -34,6 +34,7 @@ export default (isSigned = false) =>
             Home: {
               screen: createStackNavigator(
                 {
+                  Main,
                   Home,
                   NewsSingle,
                 },
