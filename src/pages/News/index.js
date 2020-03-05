@@ -66,7 +66,7 @@ export default function News({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fc1936' }}>
       <Header>
         <HeaderTexts>
           <HeaderTextName>Notícias</HeaderTextName>

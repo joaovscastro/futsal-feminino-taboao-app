@@ -1,4 +1,5 @@
-import styled from 'styled-components/native';
+import { Platform } from 'react-native';
+import styled, { css } from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 
 export const Header = styled.View`
@@ -13,9 +14,18 @@ export const HeaderTexts = styled.View`
 `;
 
 export const HeaderTextName = styled.Text`
-  font-family: 'Axiforma-Bold';
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
   font-size: 20px;
-  color: #fff;
+  color: #ffffff;
 `;
 
 export const SearchContent = styled.View`
@@ -30,10 +40,10 @@ export const SearchContent = styled.View`
 export const SearchBtn = styled(RectButton)``;
 
 export const Container = styled.View`
-  background-color: #f3f3f3;
+  background-color: #ffffff;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  padding: 35px 20px 0 20px;
+  padding: 20px 20px 0 20px;
   flex: 1;
 `;
 
@@ -100,11 +110,86 @@ export const FeedContentText = styled.Text`
 
 export const FeedIcons = styled.View`
   flex-direction: row;
-  margin: 0 0 20px 20px;
+  margin: 0 0 20px 10px;
 `;
 
 export const FeedData = styled.Text`
-  font-family: 'Axiforma-Regular';
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
+
   font-size: 10px;
   color: #b1b1b1;
+`;
+
+export const NewPostBtn = styled.TouchableOpacity`
+  flex-direction: row;
+  background: #171717;
+  border-radius: 10px;
+  padding: 5px 10px 5px 10px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+`;
+
+export const NewPostBtnInative = styled.TouchableOpacity`
+  flex-direction: row;
+  background: #171717;
+  border-radius: 10px;
+  padding: 5px 10px 5px 10px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  opacity: 0.3;
+`;
+
+export const NewsPostText = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+  color: #ffffff;
+  margin: 0 10px 0 0;
+`;
+
+export const NewPostBtnSubmit = styled.TouchableOpacity`
+  background: #171717;
+  border-radius: 8px;
+  padding: 10px 0;
+  margin: 20px 0;
+`;
+
+export const NewPostBtnSubmitText = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+  color: #ffffff;
+  margin: 0 10px 0 0;
 `;

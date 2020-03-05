@@ -38,7 +38,7 @@ class Index extends Component {
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <View style={{ flex: 1, backgroundColor: '#f9f9f9' }}>
-            <StatusBar barStyle="light-content" backgroundColor="#000000" />
+            <StatusBar barStyle="light-content" backgroundColor="#fc1936" />
             <App />
           </View>
         </PersistGate>

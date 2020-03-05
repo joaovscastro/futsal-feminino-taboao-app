@@ -2,11 +2,9 @@ import { Platform } from 'react-native';
 import styled, { css } from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 
-export const Header = styled.View`
+export const Header = styled.ImageBackground`
   background: #fc1936;
   padding: 0 20px;
-  border-bottom-left-radius: 450px;
-  border-bottom-right-radius: 250px;
 `;
 
 export const HeaderProfile = styled.View`
@@ -19,6 +17,22 @@ export const HeaderName = styled.Text`
   ${Platform.select({
     ios: css`
       font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
+
+  font-size: 16px;
+  color: #fff;
+`;
+
+export const HeaderNameText = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
       font-weight: bold;
     `,
     android: css`
@@ -27,11 +41,8 @@ export const HeaderName = styled.Text`
     `,
   })};
 
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-size: 12px;
+  font-size: 16px;
   color: #fff;
-  flex: 1;
 `;
 
 export const AvatarLink = styled.TouchableOpacity``;
@@ -45,11 +56,13 @@ export const Avatar = styled.Image`
 export const Card = styled.View`
   flex-direction: row;
   align-items: center;
-  background: #fff;
+  background: #000;
 
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
   border-radius: 12px;
   padding: 28px;
+
+  margin-bottom: -80px;
 `;
 
 export const CardTitle = styled.Text`
@@ -65,7 +78,7 @@ export const CardTitle = styled.Text`
   })};
 
   font-size: 12px;
-  color: #8f92a1;
+  color: #fff;
 `;
 
 export const CardJogo = styled.Text.attrs({
@@ -84,7 +97,7 @@ export const CardJogo = styled.Text.attrs({
 
   font-size: 20px;
   letter-spacing: -1px;
-  color: #171717;
+  color: #fff;
   margin: 6px 30px 24px 0;
 `;
 
@@ -108,7 +121,13 @@ export const CardMoreText = styled.Text`
   font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #8f92a1;
+  color: #fff;
+  margin: 0 10px 0 0;
+`;
+
+export const LogoTaboao = styled.Image`
+  width: 60px;
+  height: 60px;
 `;
 
 export const CardButtonMore = styled.TouchableOpacity`
@@ -134,7 +153,7 @@ export const TitleNews = styled.Text`
 
   font-size: 22px;
   color: #171717;
-  margin: 20px 0 15px 20px;
+  margin: 120px 0 15px 20px;
 `;
 
 export const News = styled(RectButton)`
@@ -168,6 +187,25 @@ export const NewsTitle = styled.Text.attrs({
   color: #171717;
 `;
 
+export const NewsDate = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
+
+  font-size: 12px;
+  color: #989898;
+  opacity: 0.5;
+
+  margin-top: 5px;
+`;
+
 export const TitleElenco = styled.Text`
   ${Platform.select({
     ios: css`
@@ -180,9 +218,10 @@ export const TitleElenco = styled.Text`
     `,
   })};
 
-  font-size: 16px;
-  color: #171717;
-  margin: 20px 0 15px 20px;
+  font-size: 22px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0 0 0 20px;
 `;
 
 export const Elenco = styled(RectButton)`
@@ -199,22 +238,40 @@ export const ElencoImg = styled.Image`
   margin-bottom: 8px;
 `;
 
-export const ElencoName = styled.Text.attrs({
-  numberOfLines: 1,
-})`
+export const ElencoName = styled.Text`
   ${Platform.select({
     ios: css`
       font-family: 'SF Pro Text';
-      font-weight: normal;
+      font-weight: bold;
     `,
     android: css`
       font-family: 'SF Pro Text';
-      font-weight: normal;
+      font-weight: bold;
     `,
   })};
 
-  font-size: 14px;
-  color: #171717;
+  font-size: 16px;
+
+  color: #ffffff;
+
+  opacity: 0.5;
+`;
+
+export const ElencoNumber = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
+
+  font-size: 20px;
+  color: #ffffff;
+  margin-right: 2px;
 `;
 
 export const VerElenco = styled.TouchableOpacity`
@@ -225,17 +282,21 @@ export const VerElenco = styled.TouchableOpacity`
 
 export const ElencoLine = styled.View`
   width: 1px;
-  height: 60px;
+  height: 70px;
   border-color: #ddd;
   border-width: 1;
+`;
+
+export const AboutButton = styled(RectButton)`
+  margin: 40px 20px;
+  border-radius: 12px;
 `;
 
 export const About = styled.ImageBackground`
   height: 150px;
   border-radius: 12px;
   justify-content: center;
-  padding: 10px 25px;
-  margin: 40px 20px;
+  padding: 10px 15px;
 `;
 
 export const AboutSubtitle = styled.Text`
@@ -268,4 +329,42 @@ export const AboutTitle = styled.Text`
 
   font-size: 22px;
   color: #ffffff;
+`;
+
+export const ElencoBtn = styled(RectButton)`
+  margin-left: 20px;
+`;
+
+export const MaisNoticias = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
+
+  font-size: 12px;
+  color: #000;
+  margin: 0 10px 0 0;
+`;
+
+export const MaisElenco = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
+
+  font-size: 12px;
+  color: #fff;
+  margin: 0 10px 0 0;
 `;

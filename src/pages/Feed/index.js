@@ -18,10 +18,32 @@ import { TabView, SceneMap } from 'react-native-tab-view';
 import HTMLView from 'react-native-htmlview';
 import HTML from 'react-native-render-html';
 
+import Svg, {
+  Circle,
+  Ellipse,
+  G,
+  TSpan,
+  TextPath,
+  Path,
+  Polygon,
+  Polyline,
+  Line,
+  Rect,
+  Use,
+  Symbol,
+  Defs,
+  LinearGradient,
+  RadialGradient,
+  Stop,
+  ClipPath,
+  Pattern,
+  Mask,
+} from 'react-native-svg';
+
 import api from '../../services/api';
 import Lottie from 'lottie-react-native';
 
-const SecondRoute = () => <View />;
+import Modal from 'react-native-modal';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
@@ -39,13 +61,19 @@ import {
   FeedContentText,
   FeedIcons,
   FeedData,
+  NewPostBtn,
+  NewPostBtnInative,
+  NewsPostText,
+  NewPostBtnSubmit,
+  NewPostBtnSubmitText,
 } from './styles';
 
 import BolaLoad from '../../../bola-load.json';
-import fotoAvatar from '../../../assets/img/perfil-teste.jpg';
+import Favorite from '../../../favorite.json';
 
 export default function Feed() {
   const [loading, Setloading] = useState(false);
+  const [loadingpost, Setloadingpost] = useState(false);
   const [feed, Setfeed] = useState([]);
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -58,13 +86,19 @@ export default function Feed() {
 
   const [impala, Setimpala] = useState('');
 
+  const [isModalVisible, setisModalVisible] = useState(false);
+
+  const [animacao, Setanimacao] = useState(false);
+
+  const [teste, Setteste] = useState(false);
+
   async function loadFeed(pageNumber = page, shouldRefresh = false) {
     if (total && pageNumber > total) return;
 
     Setloading(true);
 
     const responseFeed = await api.get(
-      `buddypress/v1/activity?type=activity_update&page=${pageNumber}&per_page=10`
+      `buddypress/v1/activity?type=activity_update&page=${pageNumber}&per_page=10&_embed`
     );
 
     const totalItems = responseFeed.headers['x-wp-totalpages'];
@@ -103,6 +137,7 @@ export default function Feed() {
   }
 
   async function newPost() {
+    Setloadingpost(true);
     try {
       await api.post('buddypress/v1/activity', {
         type: 'activity_update',
@@ -117,16 +152,42 @@ export default function Feed() {
         'Houve um erro no login, verifique seus dados'
       );
     }
+    Setloadingpost(false);
+    Setimpala('');
+    setisModalVisible(false);
   }
 
+  toggleModalOpen = () => {
+    setisModalVisible(true);
+  };
+
+  toggleModal = () => {
+    setisModalVisible(false);
+  };
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fc1936' }}>
       <Header>
         <HeaderTexts>
           <HeaderTextName>Feed</HeaderTextName>
         </HeaderTexts>
       </Header>
       <Container>
+        {loading ? (
+          <View style={{ alignItems: 'flex-end' }}>
+            <NewPostBtnInative>
+              <NewsPostText>Novo post</NewsPostText>
+              <Icon name="plus-circle" size={20} color="#fff" />
+            </NewPostBtnInative>
+          </View>
+        ) : (
+          <View style={{ alignItems: 'flex-end' }}>
+            <NewPostBtn onPress={() => toggleModalOpen()}>
+              <NewsPostText>Novo post</NewsPostText>
+              <Icon name="plus-circle" size={20} color="#fff" />
+            </NewPostBtn>
+          </View>
+        )}
         <FlatList
           style={{ marginBottom: 40 }}
           data={feed}
@@ -173,31 +234,42 @@ export default function Feed() {
                 />
                 <FeedData>{item.dateFormatted}</FeedData>
               </FeedHeader>
-
-              <HTML
-                tagsStyles={{
-                  p: {
-                    fontStyle: 'italic',
-                    color: 'red',
-                  },
-                }}
-                html={item.content.rendered}
-              />
-
+              <View style={{ marginLeft: 20, marginBottom: 5, marginTop: 20 }}>
+                <HTML
+                  tagsStyles={{
+                    p: {
+                      fontFamily: 'SF Pro Text',
+                      fontWeight: 'normal',
+                      fontSize: 12,
+                      color: '#171717',
+                    },
+                  }}
+                  html={item.content.rendered}
+                />
+              </View>
               <FeedIcons>
                 {item.favorited ? (
-                  <Icon
-                    name="heart-outline"
-                    size={20}
-                    color="#f00"
-                    style={{ marginRight: 10 }}
+                  <Lottie
+                    resizeMode="contain"
+                    source={Favorite}
+                    autoPlay
+                    loop={false}
+                    style={{
+                      width: 40,
+                      height: 40,
+                    }}
                   />
                 ) : (
                   <TouchableOpacity onPress={() => favoritePost(item.id)}>
-                    <Icon
-                      name="heart-outline"
-                      size={20}
-                      style={{ marginRight: 10 }}
+                    <Lottie
+                      resizeMode="contain"
+                      source={Favorite}
+                      loop={false}
+                      autoPlay={false}
+                      style={{
+                        width: 40,
+                        height: 40,
+                      }}
                     />
                   </TouchableOpacity>
                 )}
@@ -205,17 +277,61 @@ export default function Feed() {
             </FeedItem>
           )}
         />
-        <TouchableOpacity onPress={() => newPost()}>
-          <Text>Comentar</Text>
-        </TouchableOpacity>
-        <Text>{impala}</Text>
-        <TextInput
-          placeholder="Comentario"
-          onChangeText={Setimpala}
-          value={impala}
-          style={{ backgroundColor: '#666' }}
-        />
       </Container>
+      <Modal
+        isVisible={isModalVisible}
+        onBackdropPress={() => toggleModal()}
+        style={{
+          justifyContent: 'flex-end',
+          margin: 0,
+        }}
+      >
+        <View
+          style={{
+            backgroundColor: '#fff',
+            padding: 20,
+            borderTopLeftRadius: 25,
+            borderTopRightRadius: 25,
+          }}
+        >
+          {loadingpost ? (
+            <>
+              <Lottie
+                resizeMode="contain"
+                autoSize
+                source={BolaLoad}
+                autoPlay
+                loop={true}
+                style={{
+                  width: 60,
+                  height: 60,
+                }}
+              />
+              <Text style={{ color: '#666', fontSize: 11 }}>Publicando...</Text>
+            </>
+          ) : (
+            <>
+              <TextInput
+                placeholder="O que está pensando?"
+                onChangeText={Setimpala}
+                value={impala}
+                style={{
+                  backgroundColor: '#eee',
+                  height: 100,
+                  justifyContent: 'flex-start',
+                  borderRadius: 12,
+                  padding: 10,
+                }}
+                numberOfLines={5}
+                multiline={true}
+              />
+              <NewPostBtnSubmit onPress={() => newPost()}>
+                <NewPostBtnSubmitText>Publicar</NewPostBtnSubmitText>
+              </NewPostBtnSubmit>
+            </>
+          )}
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -223,14 +339,29 @@ export default function Feed() {
 Feed.navigationOptions = {
   title: 'Feed',
   tabBarIcon: ({ tintColor }) => (
-    <Icon name="fire" size={30} color={tintColor} />
+    <View style={{ marginBottom: 13 }}>
+      <Svg width="40" height="40" viewBox="0 0 48 48">
+        <Path
+          fill={tintColor}
+          fillRule="evenodd"
+          d="M27 12s-.488 6.857-3.345 9c0 0 1.345-13-2.508-17 0 0 0 7.857-3.571 14.286-1.675 3.013-3.572 5.998-3.572 10C14.004 34 20.94 36 24.01 36c3.595 0 9.99-2 9.99-9 0-4.317-7-15-7-15z"
+          clipRule="evenodd"
+        ></Path>
+        <Path
+          fill={tintColor}
+          d="M16 41a1 1 0 011-1h14a1 1 0 011 1v5H16v-5z"
+          opacity="0.3"
+        ></Path>
+      </Svg>
+    </View>
   ),
 };
 
 const stylesDesc = StyleSheet.create({
   p: {
     margin: 20,
-    fontFamily: 'Axiforma-Regular',
+    fontFamily: 'SF Pro Text',
+    fontWeight: 'bold',
     fontSize: 14,
     lineHeight: 13,
     color: '#000000',
@@ -241,24 +372,10 @@ const stylesDesc = StyleSheet.create({
   },
   a: {
     margin: 20,
-    fontFamily: 'Axiforma-Regular',
-    fontSize: 14,
-    lineHeight: 13,
-    color: '#000000',
-  },
-});
+    fontFamily: 'SF Pro Text',
+    fontWeight: 'bold',
+    fontSize: 12,
 
-const stylesCont = StyleSheet.create({
-  p: {
-    margin: 20,
-    fontFamily: 'Axiforma-Regular',
-    fontSize: 14,
-    lineHeight: 13,
-    color: '#000000',
-  },
-  a: {
-    fontSize: 14,
-    fontWeight: '300',
-    color: '#D3004C',
+    color: '#666',
   },
 });
