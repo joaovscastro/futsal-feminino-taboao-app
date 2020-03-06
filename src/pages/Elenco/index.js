@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, Text, Image } from 'react-native';
+import { View, SafeAreaView, Text, Image, FlatList } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
@@ -25,6 +25,8 @@ import {
   ElencoNumero,
   BackButton,
   BackButtonContent,
+  Loadcontent,
+  LoadcontentText,
 } from './styles';
 
 import BolaLoad from '../../../bola-load.json';
@@ -38,7 +40,7 @@ export default function Elenco({ navigation }) {
 
   async function loadElenco() {
     Setloading(true);
-    const response = await api.get('sportspress/v2/players?_embed');
+    const response = await api.get('sportspress/v2/players?_embed&per_page=30');
 
     const data = response.data.map(jogadora => ({
       idJogadora: jogadora.id,
@@ -63,11 +65,11 @@ export default function Elenco({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fc1936' }}>
       <Header>
         <BackButton onPress={() => navigation.goBack()}>
           <BackButtonContent>
-            <Icon name="chevron-left" size={30} />
+            <Icon name="chevron-left" size={30} color="#fc1936" />
           </BackButtonContent>
         </BackButton>
         <HeaderTexts>
@@ -76,12 +78,7 @@ export default function Elenco({ navigation }) {
       </Header>
       <Container>
         {loading ? (
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+          <Loadcontent>
             <Lottie
               resizeMode="contain"
               autoSize
@@ -93,25 +90,24 @@ export default function Elenco({ navigation }) {
                 height: 60,
               }}
             />
-            <Text style={{ color: '#666', fontSize: 11 }}>Carregando...</Text>
-          </View>
+            <LoadcontentText>Carregando...</LoadcontentText>
+          </Loadcontent>
         ) : (
-          <>
-            {elenco.map(player => (
+          <FlatList
+            data={elenco}
+            keyExtractor={item => String(item.id)}
+            renderItem={({ item }) => (
               <ElencoLista
                 underlayColor="#f3f3f3"
-                key={player.id}
-                onPress={() => handleNavigateElenco(player)}
+                onPress={() => handleNavigateElenco(item)}
               >
-                <Foto source={{ uri: player.fotoJogadora }} />
+                <Foto source={{ uri: item.fotoJogadora }} />
 
-                <ElencoNome>{player.nomeJogadora}</ElencoNome>
-                <ElencoNumero>{player.numeroJogadora}</ElencoNumero>
-
-                <Icon name="chevron-right" size={30} color="#C4C4C4" />
+                <ElencoNome>{item.nomeJogadora}</ElencoNome>
               </ElencoLista>
-            ))}
-          </>
+            )}
+            numColumns={3}
+          />
         )}
       </Container>
     </SafeAreaView>

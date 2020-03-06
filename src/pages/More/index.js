@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { View, SafeAreaView, Alert } from 'react-native';
+import { View, SafeAreaView, Alert, Image } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
@@ -47,7 +47,7 @@ function More({ profile, navigation }) {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fc1936' }}>
       <Header>
         <HeaderTexts>
           <HeaderTextName>Mais</HeaderTextName>
@@ -59,7 +59,10 @@ function More({ profile, navigation }) {
           underlayColor="#f3f3f3"
         >
           <MoreContent>
-            <Icon name="face-profile" size={40} style={{ marginTop: -7 }} />
+            <Image
+              source={{ uri: profile.m_avatar }}
+              style={{ width: 40, height: 40, borderRadius: 20 }}
+            />
             <MoreText>
               <MoreTitle>Perfil</MoreTitle>
               <MoreDesc>Visualize e edite seu perfil</MoreDesc>
@@ -69,7 +72,7 @@ function More({ profile, navigation }) {
         </MoreItem>
 
         <MoreItem
-          onPress={() => navigation.navigate('Elenco')}
+          onPress={() => navigation.navigate('Projeto')}
           underlayColor="#f3f3f3"
         >
           <MoreContent>

@@ -1,4 +1,5 @@
-import styled from 'styled-components/native';
+import { Platform } from 'react-native';
+import styled, { css } from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 
 export const BackButton = styled(RectButton)`
@@ -16,23 +17,35 @@ export const BackButtonContent = styled.View`
 
 export const Header = styled.View`
   flex-direction: row;
-  margin: 20px 20px 10px 20px;
+  margin: 20px 20px;
 `;
 
-export const HeaderTexts = styled.View``;
+export const HeaderTexts = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
 
 export const HeaderTextName = styled.Text`
-  font-family: 'Axiforma-Bold';
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
   font-size: 20px;
-  color: #fff;
-  margin-top: 7px;
+  color: #ffffff;
 `;
 
-export const Container = styled.ScrollView`
-  background-color: #f3f3f3;
+export const Container = styled.View`
+  background-color: #ffffff;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  padding: 35px 20px 0 20px;
+  padding: 15px 20px 0 20px;
+  flex: 1;
 `;
 
 export const SearchContent = styled.View`
@@ -74,27 +87,59 @@ export const NoticiasDesc = styled.Text`
 `;
 
 export const ElencoLista = styled.View`
-  flex-direction: row;
   align-items: center;
-  margin-bottom: 20px;
+  margin: 20px 0;
+  flex: 1;
 `;
 
 export const Foto = styled.Image`
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
 `;
 
-export const ElencoNome = styled.Text`
-  font-family: 'Axiforma-Regular';
-  font-size: 14px;
+export const ElencoNome = styled.Text.attrs({
+  numberOfLines: 1,
+})`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
+
+  font-size: 13px;
   color: #000000;
-  margin-top: 15px;
+  margin: 10px 0 0 0;
 `;
 
 export const ElencoNumero = styled.Text`
   font-family: 'Axiforma-SemiBold';
   font-size: 18px;
   color: #666666;
-  margin-top: 6px;
+`;
+
+export const Loadcontent = styled.View`
+  margin: 0 0 10px 0;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LoadcontentText = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
+  font-size: 12px;
+  color: #000000;
 `;

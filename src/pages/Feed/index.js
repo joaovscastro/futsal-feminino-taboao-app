@@ -14,31 +14,10 @@ import {
 } from 'react-native';
 import { parseJSON, format, formatRelative, formatDistance } from 'date-fns';
 import pt from 'date-fns/locale/pt';
-import { TabView, SceneMap } from 'react-native-tab-view';
 import HTMLView from 'react-native-htmlview';
 import HTML from 'react-native-render-html';
 
-import Svg, {
-  Circle,
-  Ellipse,
-  G,
-  TSpan,
-  TextPath,
-  Path,
-  Polygon,
-  Polyline,
-  Line,
-  Rect,
-  Use,
-  Symbol,
-  Defs,
-  LinearGradient,
-  RadialGradient,
-  Stop,
-  ClipPath,
-  Pattern,
-  Mask,
-} from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 
 import api from '../../services/api';
 import Lottie from 'lottie-react-native';
@@ -66,6 +45,9 @@ import {
   NewsPostText,
   NewPostBtnSubmit,
   NewPostBtnSubmitText,
+  Loadcontent,
+  LoadcontentText,
+  ContainerPost,
 } from './styles';
 
 import BolaLoad from '../../../bola-load.json';
@@ -75,11 +57,6 @@ export default function Feed() {
   const [loading, Setloading] = useState(false);
   const [loadingpost, Setloadingpost] = useState(false);
   const [feed, Setfeed] = useState([]);
-  const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    { key: 'first', title: 'Novidades' },
-    { key: 'second', title: 'Second' },
-  ]);
   const [page, Setpage] = useState(1);
   const [total, Settotal] = useState(0);
   const [refreshing, Setrefreshing] = useState(false);
@@ -198,12 +175,7 @@ export default function Feed() {
           refreshing={refreshing}
           ListFooterComponent={
             loading && (
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
+              <Loadcontent>
                 <Lottie
                   resizeMode="contain"
                   autoSize
@@ -215,10 +187,8 @@ export default function Feed() {
                     height: 60,
                   }}
                 />
-                <Text style={{ color: '#666', fontSize: 11 }}>
-                  Carregando...
-                </Text>
-              </View>
+                <LoadcontentText>Carregando...</LoadcontentText>
+              </Loadcontent>
             )
           }
           showsVerticalScrollIndicator={false}
@@ -240,7 +210,7 @@ export default function Feed() {
                     p: {
                       fontFamily: 'SF Pro Text',
                       fontWeight: 'normal',
-                      fontSize: 12,
+                      fontSize: 14,
                       color: '#171717',
                     },
                   }}
@@ -286,51 +256,53 @@ export default function Feed() {
           margin: 0,
         }}
       >
-        <View
-          style={{
-            backgroundColor: '#fff',
-            padding: 20,
-            borderTopLeftRadius: 25,
-            borderTopRightRadius: 25,
-          }}
-        >
-          {loadingpost ? (
-            <>
-              <Lottie
-                resizeMode="contain"
-                autoSize
-                source={BolaLoad}
-                autoPlay
-                loop={true}
-                style={{
-                  width: 60,
-                  height: 60,
-                }}
-              />
-              <Text style={{ color: '#666', fontSize: 11 }}>Publicando...</Text>
-            </>
-          ) : (
-            <>
-              <TextInput
-                placeholder="O que está pensando?"
-                onChangeText={Setimpala}
-                value={impala}
-                style={{
-                  backgroundColor: '#eee',
-                  height: 100,
-                  justifyContent: 'flex-start',
-                  borderRadius: 12,
-                  padding: 10,
-                }}
-                numberOfLines={5}
-                multiline={true}
-              />
-              <NewPostBtnSubmit onPress={() => newPost()}>
-                <NewPostBtnSubmitText>Publicar</NewPostBtnSubmitText>
-              </NewPostBtnSubmit>
-            </>
-          )}
-        </View>
+        <ContainerPost>
+          <View
+            style={{
+              backgroundColor: '#fff',
+              padding: 20,
+              borderTopLeftRadius: 25,
+              borderTopRightRadius: 25,
+            }}
+          >
+            {loadingpost ? (
+              <Loadcontent>
+                <Lottie
+                  resizeMode="contain"
+                  autoSize
+                  source={BolaLoad}
+                  autoPlay
+                  loop={true}
+                  style={{
+                    width: 60,
+                    height: 60,
+                  }}
+                />
+                <LoadcontentText>Publicando...</LoadcontentText>
+              </Loadcontent>
+            ) : (
+              <>
+                <TextInput
+                  placeholder="O que está pensando?"
+                  onChangeText={Setimpala}
+                  value={impala}
+                  style={{
+                    backgroundColor: '#eee',
+                    height: 100,
+                    justifyContent: 'flex-start',
+                    borderRadius: 12,
+                    padding: 10,
+                  }}
+                  numberOfLines={5}
+                  multiline={true}
+                />
+                <NewPostBtnSubmit onPress={() => newPost()}>
+                  <NewPostBtnSubmitText>Publicar</NewPostBtnSubmitText>
+                </NewPostBtnSubmit>
+              </>
+            )}
+          </View>
+        </ContainerPost>
       </Modal>
     </SafeAreaView>
   );
@@ -340,7 +312,7 @@ Feed.navigationOptions = {
   title: 'Feed',
   tabBarIcon: ({ tintColor }) => (
     <View style={{ marginBottom: 13 }}>
-      <Svg width="40" height="40" viewBox="0 0 48 48">
+      <Svg width="30" height="30" viewBox="0 0 48 48">
         <Path
           fill={tintColor}
           fillRule="evenodd"

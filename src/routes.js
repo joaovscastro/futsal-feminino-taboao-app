@@ -3,34 +3,10 @@ import { View } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import Svg, {
-  Circle,
-  Ellipse,
-  G,
-  Text,
-  TSpan,
-  TextPath,
-  Path,
-  Polygon,
-  Polyline,
-  Line,
-  Rect,
-  Use,
-  Image,
-  Symbol,
-  Defs,
-  LinearGradient,
-  RadialGradient,
-  Stop,
-  ClipPath,
-  Pattern,
-  Mask,
-} from 'react-native-svg';
+import Svg, { Path, Rect } from 'react-native-svg';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
-
-import Logo from '../assets/img/logo.png';
 
 import Home from './pages/Home';
 import News from './pages/News';
@@ -44,6 +20,7 @@ import ElencoSingle from './pages/ElencoSingle';
 import Profile from './pages/Profile';
 import Main from './pages/Main';
 import Comissao from './pages/Comissao';
+import Projeto from './pages/Projeto';
 
 export default (isSigned = false) =>
   createAppContainer(
@@ -69,7 +46,7 @@ export default (isSigned = false) =>
                   navigationOptions: {
                     headerVisible: false,
                     tabBarIcon: ({ tintColor }) => (
-                      <Svg width="40" height="40" viewBox="0 0 48 48">
+                      <Svg width="30" height="30" viewBox="0 0 48 48">
                         <Path
                           fill={tintColor}
                           d="M33 9c-3.219 0-6.983 3.65-9 6-2.017-2.35-5.781-6-9-6-5.698 0-9 4.444-9 10.1C6 28.5 24 39 24 39s18-10.5 18-19.5C42 13.844 38.698 9 33 9z"
@@ -100,7 +77,7 @@ export default (isSigned = false) =>
                     title: 'Notícias',
                     tabBarIcon: ({ tintColor }) => (
                       <View style={{ marginBottom: 8 }}>
-                        <Svg width="40" height="40" viewBox="0 0 48 48">
+                        <Svg width="30" height="30" viewBox="0 0 48 48">
                           <Path
                             fill={tintColor}
                             fillRule="evenodd"
@@ -126,7 +103,7 @@ export default (isSigned = false) =>
                     headerVisible: false,
                     tabBarIcon: ({ tintColor }) => (
                       <View style={{ marginBottom: 6 }}>
-                        <Svg width="40" height="40" viewBox="0 0 48 48">
+                        <Svg width="30" height="30" viewBox="0 0 48 48">
                           <Rect
                             width="6"
                             height="32"
@@ -175,6 +152,7 @@ export default (isSigned = false) =>
                   ElencoSingle,
                   Profile,
                   Comissao,
+                  Projeto,
                 },
                 {
                   headerMode: 'none',
@@ -182,7 +160,7 @@ export default (isSigned = false) =>
                     headerVisible: false,
                     title: 'Mais',
                     tabBarIcon: ({ tintColor }) => (
-                      <Svg width="48" height="48" viewBox="0 0 48 48">
+                      <Svg width="30" height="30" viewBox="0 0 48 48">
                         <Path
                           fill={tintColor}
                           fillRule="evenodd"

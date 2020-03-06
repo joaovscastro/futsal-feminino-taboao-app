@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, FlatList, Text, ScrollView } from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  FlatList,
+  Text,
+  ScrollView,
+  Button,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 import { format, parseJSON } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 import pt from 'date-fns/locale/pt';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
 import api from '../../services/api';
 import Lottie from 'lottie-react-native';
@@ -42,6 +52,9 @@ import {
   EscalacaoDadosText,
   EscalacaoDadosNumber,
   Disclaimer,
+  Loadcontent,
+  LoadcontentText,
+  Placar,
 } from './styles';
 
 import BolaLoad from '../../../bola-load.json';
@@ -51,9 +64,172 @@ import noticiaPlaceholder from '../../../assets/img/noticias-placeholder.jpg';
 import Brasao from '../../../assets/img/brasao.png';
 
 export default function Jogos({ navigation }) {
+  // Tabs
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    { key: 'first', title: 'Próximos' },
+    { key: 'second', title: 'Anteriores' },
+  ]);
+
+  const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+  });
+
+  function FirstRoute() {
+    return (
+      <FlatList
+        style={{ marginLeft: 20, marginRight: 20 }}
+        data={jogos}
+        keyExtractor={post => String(post.id)}
+        onEndReached={() => loadJogos()}
+        onEndReachedThreshold={0.1}
+        onRefresh={refreshList}
+        refreshing={refreshing}
+        ListFooterComponent={
+          loading && (
+            <Loadcontent>
+              <Lottie
+                resizeMode="contain"
+                autoSize
+                source={BolaLoad}
+                autoPlay
+                loop={true}
+                style={{
+                  width: 60,
+                  height: 60,
+                }}
+              />
+              <LoadcontentText>Carregando...</LoadcontentText>
+            </Loadcontent>
+          )
+        }
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <UltimoJogo
+            style={{
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.2,
+              shadowRadius: 1.41,
+              elevation: 2,
+            }}
+          >
+            <JogoTitulo>{item.nome}</JogoTitulo>
+            <JogoContent>
+              <JogoTimes>
+                <JogoLogo source={Brasao} resizeMode="contain" />
+              </JogoTimes>
+              <JogoInfo>
+                <JogoInfoTime>{item.horaFormatted}</JogoInfoTime>
+                <JogoInfoData>{item.dateFormatted}</JogoInfoData>
+              </JogoInfo>
+              <JogoTimes>
+                <JogoLogo
+                  source={{
+                    uri: item._embedded['wp:featuredmedia'][0].source_url,
+                  }}
+                  resizeMode="contain"
+                />
+              </JogoTimes>
+            </JogoContent>
+            <JogoDetalhesView>
+              <JogoDetalhes
+                underlayColor="#f3f3f3"
+                onPress={() => loadDetalhes(item)}
+              >
+                <JogoDetalhesTitle>Ver detalhes</JogoDetalhesTitle>
+              </JogoDetalhes>
+            </JogoDetalhesView>
+          </UltimoJogo>
+        )}
+      />
+    );
+  }
+
+  function SecondRoute() {
+    return (
+      <FlatList
+        style={{ marginLeft: 20, marginRight: 20 }}
+        data={oldjogos}
+        keyExtractor={post => String(post.id)}
+        onEndReached={() => loadJogos()}
+        onEndReachedThreshold={0.1}
+        onRefresh={refreshList}
+        refreshing={refreshing}
+        ListFooterComponent={
+          loading && (
+            <Loadcontent>
+              <Lottie
+                resizeMode="contain"
+                autoSize
+                source={BolaLoad}
+                autoPlay
+                loop={true}
+                style={{
+                  width: 60,
+                  height: 60,
+                }}
+              />
+              <LoadcontentText>Carregando...</LoadcontentText>
+            </Loadcontent>
+          )
+        }
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <UltimoJogo
+            style={{
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.2,
+              shadowRadius: 1.41,
+              elevation: 2,
+            }}
+          >
+            <JogoTitulo>{item.nome}</JogoTitulo>
+            <JogoContent>
+              <JogoTimes>
+                <JogoLogo source={Brasao} resizeMode="contain" />
+              </JogoTimes>
+              <JogoInfo>
+                <JogoInfoTime>{item.horaFormatted}</JogoInfoTime>
+                <JogoInfoData>{item.dateFormatted}</JogoInfoData>
+              </JogoInfo>
+              <JogoTimes>
+                <JogoLogo
+                  source={{
+                    uri: item._embedded['wp:featuredmedia'][0].source_url,
+                  }}
+                  resizeMode="contain"
+                />
+              </JogoTimes>
+            </JogoContent>
+            <JogoDetalhesView>
+              <JogoDetalhes
+                underlayColor="#f3f3f3"
+                onPress={() => loadDetalhes(item)}
+              >
+                <JogoDetalhesTitle>Ver detalhes</JogoDetalhesTitle>
+              </JogoDetalhes>
+            </JogoDetalhesView>
+          </UltimoJogo>
+        )}
+      />
+    );
+  }
+
+  const initialLayout = { width: Dimensions.get('window').width };
+
   const [loading, Setloading] = useState(false);
   const [loadingdados, Setloadingdados] = useState(false);
   const [jogos, Setjogos] = useState([]);
+  const [oldjogos, Setoldjogos] = useState([]);
   const [page, Setpage] = useState(1);
   const [total, Settotal] = useState(0);
   const [refreshing, Setrefreshing] = useState(false);
@@ -74,28 +250,72 @@ export default function Jogos({ navigation }) {
     Setloading(true);
 
     const responseJogos = await api.get(
-      `sportspress/v2/events?_embed&page=${pageNumber}&per_page=10`
+      `sportspress/v2/events?_embed&page=${pageNumber}&per_page=10&order=asc`
     );
 
     const totalItems = responseJogos.headers['x-wp-totalpages'];
 
     Settotal(totalItems);
 
-    const dataJogo = responseJogos.data.map(jogo => ({
-      ...jogo,
+    const shouldFilter = true;
+    const ProximosJogos = {
+      jogos: responseJogos.data
+        .filter(jogo => (shouldFilter ? jogo.status === 'future' : true))
+        .map(jogo => {
+          return {
+            ...jogo,
+            // logoAdv: jogo._embedded['wp:featuredmedia'][0].source_url,
+            id: jogo.id,
+            nome: jogo.title.rendered,
+            horaFormatted: format(
+              utcToZonedTime(parseJSON(jogo.date)),
+              "HH:mm'h",
+              {
+                timeZone: 'America/Sao_Paulo',
+                locale: pt,
+              }
+            ),
+            dateFormatted: format(
+              utcToZonedTime(parseJSON(jogo.date)),
+              "dd 'de' MMMM 'de' yyyy",
+              { timeZone: 'America/Sao_Paulo', locale: pt }
+            ),
+          };
+        }),
+    };
 
-      horaFormatted: format(utcToZonedTime(parseJSON(jogo.date)), "HH:mm'h", {
-        timeZone: 'America/Sao_Paulo',
-        locale: pt,
-      }),
-      dateFormatted: format(
-        utcToZonedTime(parseJSON(jogo.date)),
-        "dd 'de' MMMM 'de' yyyy",
-        { timeZone: 'America/Sao_Paulo', locale: pt }
-      ),
-    }));
+    const OldJogos = {
+      jogos: responseJogos.data
+        .filter(jogo => (shouldFilter ? jogo.status === 'publish' : true))
+        .map(jogo => {
+          return {
+            ...jogo,
+            // logoAdv: jogo._embedded['wp:featuredmedia'][0].source_url,
+            id: jogo.id,
+            nome: jogo.title.rendered,
+            horaFormatted: format(
+              utcToZonedTime(parseJSON(jogo.date)),
+              "HH:mm'h",
+              {
+                timeZone: 'America/Sao_Paulo',
+                locale: pt,
+              }
+            ),
+            dateFormatted: format(
+              utcToZonedTime(parseJSON(jogo.date)),
+              "dd 'de' MMMM 'de' yyyy",
+              { timeZone: 'America/Sao_Paulo', locale: pt }
+            ),
+          };
+        }),
+    };
 
-    Setjogos(shouldRefresh ? dataJogo : [...jogos, ...dataJogo]);
+    Setjogos(
+      shouldRefresh ? ProximosJogos.jogos : [...jogos, ...ProximosJogos.jogos]
+    );
+    Setoldjogos(
+      shouldRefresh ? OldJogos.jogos : [...oldjogos, ...OldJogos.jogos]
+    );
     Setpage(pageNumber + 1);
     Setloading(false);
   }
@@ -112,10 +332,6 @@ export default function Jogos({ navigation }) {
     Setrefreshing(false);
   }
 
-  //handleNavigate = jogosingle => {
-  // navigation.navigate('JogosSingle', { jogosingle });
-  //};
-
   loadDetalhes = async jogosingle => {
     setisModalVisible(true);
     Setloadingdados(true);
@@ -126,7 +342,26 @@ export default function Jogos({ navigation }) {
     const placarTaboao = jogosingle.results[taboaoId].goals;
     const placarAdversario = jogosingle.results[adversarioId].goals;
 
+    const taboaoGols = jogosingle.performance[taboaoId][0].goals;
+    const taboaoAss = jogosingle.performance[taboaoId][0].assists;
+    const taboaoAmar = jogosingle.performance[taboaoId][0].yellowcards;
+    const taboaoVerm = jogosingle.performance[taboaoId][0].redcards;
+
+    const adversarioGols = jogosingle.performance[adversarioId][0].goals;
+    const adversarioAss = jogosingle.performance[adversarioId][0].assists;
+    const adversarioAmar = jogosingle.performance[adversarioId][0].yellowcards;
+    const adversarioVerm = jogosingle.performance[adversarioId][0].redcards;
+
     setDadosjogo({
+      ...jogosingle,
+      taboaoGols,
+      taboaoAss,
+      taboaoAmar,
+      taboaoVerm,
+      adversarioGols,
+      adversarioAss,
+      adversarioAmar,
+      adversarioVerm,
       placarTaboao,
       placarAdversario,
     });
@@ -173,87 +408,36 @@ export default function Jogos({ navigation }) {
 
   return (
     <>
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#fc1936' }}>
         <Header>
           <HeaderTexts>
             <HeaderTextName>Jogos</HeaderTextName>
           </HeaderTexts>
         </Header>
         <Container>
-          <FlatList
-            data={jogos}
-            keyExtractor={post => String(post.id)}
-            onEndReached={() => loadJogos()}
-            onEndReachedThreshold={0.1}
-            onRefresh={refreshList}
-            refreshing={refreshing}
-            ListFooterComponent={
-              loading && (
-                <View
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginTop: 30,
-                  }}
-                >
-                  <Lottie
-                    resizeMode="contain"
-                    autoSize
-                    source={BolaLoad}
-                    autoPlay
-                    loop={true}
-                    style={{
-                      width: 60,
-                      height: 60,
-                    }}
-                  />
-                  <Text style={{ color: '#666', fontSize: 11 }}>
-                    Carregando...
-                  </Text>
-                </View>
-              )
-            }
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <UltimoJogo
-                style={{
-                  shadowColor: '#000',
-                  shadowOffset: {
-                    width: 0,
-                    height: 1,
-                  },
-                  shadowOpacity: 0.2,
-                  shadowRadius: 1.41,
-                  elevation: 2,
+          <TabView
+            navigationState={{ index, routes }}
+            renderScene={renderScene}
+            onIndexChange={setIndex}
+            initialLayout={initialLayout}
+            renderTabBar={props => (
+              <TabBar
+                {...props}
+                activeColor="#fc1936"
+                inactiveColor="#666"
+                indicatorStyle={{ backgroundColor: '#fc1936' }}
+                labelStyle={{
+                  fontFamily: 'SF Pro Text',
+                  fontWeight: 'normal',
+                  fontSize: 12,
+                  letterSpacing: 1,
                 }}
-              >
-                <JogoTitulo>{item.title.rendered}</JogoTitulo>
-                <JogoContent>
-                  <JogoTimes>
-                    <JogoLogo source={Brasao} resizeMode="contain" />
-                  </JogoTimes>
-                  <JogoInfo>
-                    <JogoInfoTime>{item.horaFormatted}</JogoInfoTime>
-                    <JogoInfoData>{item.dateFormatted}</JogoInfoData>
-                  </JogoInfo>
-                  <JogoTimes>
-                    <JogoLogo
-                      source={{
-                        uri: item._embedded['wp:featuredmedia'][0].source_url,
-                      }}
-                      resizeMode="contain"
-                    />
-                  </JogoTimes>
-                </JogoContent>
-                <JogoDetalhesView>
-                  <JogoDetalhes
-                    underlayColor="#f3f3f3"
-                    onPress={() => loadDetalhes(item)}
-                  >
-                    <JogoDetalhesTitle>Ver detalhes</JogoDetalhesTitle>
-                  </JogoDetalhes>
-                </JogoDetalhesView>
-              </UltimoJogo>
+                style={{
+                  backgroundColor: '#fff',
+                  borderTopLeftRadius: 25,
+                  borderTopRightRadius: 25,
+                }}
+              />
             )}
           />
         </Container>
@@ -277,23 +461,20 @@ export default function Jogos({ navigation }) {
           }}
         >
           {loadingdados ? (
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: 50,
-              }}
-            >
+            <Loadcontent>
               <Lottie
                 resizeMode="contain"
                 autoSize
                 source={BolaLoad}
                 autoPlay
                 loop={true}
-                style={{ width: 80, height: 80 }}
+                style={{
+                  width: 60,
+                  height: 60,
+                }}
               />
-              <Text style={{ marginBottom: 30 }}>Carregando dados...</Text>
-            </View>
+              <LoadcontentText>Carregando dados...</LoadcontentText>
+            </Loadcontent>
           ) : (
             <>
               <UltimoJogo
@@ -319,9 +500,9 @@ export default function Jogos({ navigation }) {
                     <TimeName>{taboao.nome}</TimeName>
                   </JogoTimes>
                   <JogoInfo>
-                    <JogoInfoTime>
+                    <Placar>
                       {dadosjogo.placarTaboao} x {dadosjogo.placarAdversario}
-                    </JogoInfoTime>
+                    </Placar>
                   </JogoInfo>
                   <JogoTimes>
                     <JogoLogo
@@ -337,7 +518,7 @@ export default function Jogos({ navigation }) {
               <Title>Detalhes</Title>
               <View>
                 <View style={{ backgroundColor: '#000000' }}>
-                  <Data> 12/12/12</Data>
+                  <Data>{dadosjogo.dateFormatted}</Data>
                 </View>
                 <View
                   style={{ flexDirection: 'row', backgroundColor: '#eeeeee' }}
@@ -349,7 +530,9 @@ export default function Jogos({ navigation }) {
                 <View
                   style={{ flexDirection: 'row', backgroundColor: '#ffffff' }}
                 >
-                  <DataTextInfo style={{ flex: 1 }}>12/12/12</DataTextInfo>
+                  <DataTextInfo style={{ flex: 1 }}>
+                    {dadosjogo.horaFormatted}
+                  </DataTextInfo>
                   <DataTextInfo style={{ flex: 1 }}>{camp.name}</DataTextInfo>
                   <DataTextInfo style={{ flex: 1 }}>2020</DataTextInfo>
                 </View>
@@ -400,22 +583,22 @@ export default function Jogos({ navigation }) {
                     <EscalacaoDadosText
                       style={{ flex: 1, textAlign: 'center' }}
                     >
-                      10
+                      {dadosjogo.taboaoGols}
                     </EscalacaoDadosText>
                     <EscalacaoDadosText
                       style={{ flex: 1, textAlign: 'center' }}
                     >
-                      10
+                      {dadosjogo.taboaoAss}
                     </EscalacaoDadosText>
                     <EscalacaoDadosText
                       style={{ flex: 1, textAlign: 'center' }}
                     >
-                      10
+                      {dadosjogo.taboaoAmar}
                     </EscalacaoDadosText>
                     <EscalacaoDadosText
                       style={{ flex: 1, textAlign: 'center' }}
                     >
-                      10
+                      {dadosjogo.taboaoVerm}
                     </EscalacaoDadosText>
                   </View>
                 </EscalacaoDados>
@@ -464,89 +647,27 @@ export default function Jogos({ navigation }) {
                     <EscalacaoDadosText
                       style={{ flex: 1, textAlign: 'center' }}
                     >
-                      10
+                      {dadosjogo.adversarioGols}
                     </EscalacaoDadosText>
                     <EscalacaoDadosText
                       style={{ flex: 1, textAlign: 'center' }}
                     >
-                      10
+                      {dadosjogo.adversarioAss}
                     </EscalacaoDadosText>
                     <EscalacaoDadosText
                       style={{ flex: 1, textAlign: 'center' }}
                     >
-                      10
+                      {dadosjogo.adversarioAmar}
                     </EscalacaoDadosText>
                     <EscalacaoDadosText
                       style={{ flex: 1, textAlign: 'center' }}
                     >
-                      10
+                      {dadosjogo.adversarioVerm}
                     </EscalacaoDadosText>
                   </View>
                 </EscalacaoDados>
               </Escalacao>
-              <Escalacao>
-                <EscalacaoJogadora>
-                  <EscalacaoJogadoraAvatar
-                    source={{
-                      uri: adversario.logoUrl,
-                    }}
-                    resizeMode="contain"
-                  />
-                  <View style={{ flex: 1, marginLeft: 10 }}>
-                    <EscalacaoJogadoraNome>
-                      {adversario.nome}
-                    </EscalacaoJogadoraNome>
-                  </View>
-                </EscalacaoJogadora>
 
-                <EscalacaoDados>
-                  <View style={{ flexDirection: 'row' }}>
-                    <EscalacaoDadosText
-                      style={{ flex: 1, textAlign: 'center' }}
-                    >
-                      Gols
-                    </EscalacaoDadosText>
-                    <EscalacaoDadosText
-                      style={{ flex: 1, textAlign: 'center' }}
-                    >
-                      Assistências
-                    </EscalacaoDadosText>
-                    <EscalacaoDadosText
-                      style={{ flex: 1, textAlign: 'center' }}
-                    >
-                      Amarelos
-                    </EscalacaoDadosText>
-                    <EscalacaoDadosText
-                      style={{ flex: 1, textAlign: 'center' }}
-                    >
-                      Vermelhos
-                    </EscalacaoDadosText>
-                  </View>
-
-                  <View style={{ flexDirection: 'row' }}>
-                    <EscalacaoDadosText
-                      style={{ flex: 1, textAlign: 'center' }}
-                    >
-                      10
-                    </EscalacaoDadosText>
-                    <EscalacaoDadosText
-                      style={{ flex: 1, textAlign: 'center' }}
-                    >
-                      10
-                    </EscalacaoDadosText>
-                    <EscalacaoDadosText
-                      style={{ flex: 1, textAlign: 'center' }}
-                    >
-                      10
-                    </EscalacaoDadosText>
-                    <EscalacaoDadosText
-                      style={{ flex: 1, textAlign: 'center' }}
-                    >
-                      10
-                    </EscalacaoDadosText>
-                  </View>
-                </EscalacaoDados>
-              </Escalacao>
               <Disclaimer>
                 Podem ocorrer divergências nos dados mostrados.
               </Disclaimer>
@@ -557,3 +678,9 @@ export default function Jogos({ navigation }) {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  scene: {
+    flex: 1,
+  },
+});

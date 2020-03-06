@@ -1,6 +1,6 @@
 import React from 'react';
-import { SafeAreaView, Text, View, Image, StyleSheet } from 'react-native';
-import HTMLView from 'react-native-htmlview';
+import { SafeAreaView, Text, View, Image, Dimensions } from 'react-native';
+import HTML from 'react-native-render-html';
 
 import {
   Header,
@@ -49,11 +49,11 @@ export default function ElencoSingle({ navigation }) {
   const jogadoraInfo = navigation.getParam('elencosingle');
   console.log(jogadoraInfo.golsJogadora);
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fc1936' }}>
       <Header>
         <BackButton onPress={() => navigation.goBack()}>
           <BackButtonContent>
-            <Icon name="chevron-left" size={30} />
+            <Icon name="chevron-left" size={30} color="#fc1936" />
           </BackButtonContent>
         </BackButton>
         <HeaderTexts>
@@ -107,21 +107,22 @@ export default function ElencoSingle({ navigation }) {
         <Disclaimer>Podem ocorrer divergências nos dados mostrados.</Disclaimer>
         <ElencoDesc>
           <Title>Sobre</Title>
-          <HTMLView value={jogadoraInfo.descJogadora} stylesheet={stylesDesc} />
+          <HTML
+            tagsStyles={{
+              p: {
+                fontFamily: 'SF Pro Text',
+                fontWeight: 'normal',
+                fontSize: 14,
+                color: '#171717',
+                lineHeight: 22,
+                opacity: 0.8,
+              },
+            }}
+            imagesMaxWidth={Dimensions.get('window').width}
+            html={jogadoraInfo.descJogadora}
+          />
         </ElencoDesc>
       </Container>
     </SafeAreaView>
   );
 }
-
-const stylesDesc = StyleSheet.create({
-  p: {
-    fontSize: 14,
-    lineHeight: 15,
-    color: '#666666',
-  },
-  a: {
-    fontWeight: '300',
-    color: '#D3004C',
-  },
-});

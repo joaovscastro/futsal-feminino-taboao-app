@@ -4,7 +4,7 @@ import { RectButton } from 'react-native-gesture-handler';
 
 export const Header = styled.View`
   flex-direction: row;
-  margin: 20px 20px 10px 20px;
+  margin: 20px 0;
 `;
 
 export const HeaderTexts = styled.View`
@@ -192,4 +192,35 @@ export const NewPostBtnSubmitText = styled.Text`
   font-size: 12px;
   color: #ffffff;
   margin: 0 10px 0 0;
+`;
+
+export const ContainerPost = styled.KeyboardAvoidingView.attrs({
+  enabled: Platform.OS === 'ios',
+  behavior: 'padding',
+})`
+  margin-top: 50px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  background: #f9f9f9;
+`;
+
+export const Loadcontent = styled.View`
+  margin: 0 0 10px 0;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LoadcontentText = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
+  font-size: 12px;
+  color: #000000;
 `;

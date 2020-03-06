@@ -4,7 +4,6 @@ import { SafeAreaView, View, ActivityIndicator } from 'react-native';
 import { format, parseJSON } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 import pt from 'date-fns/locale/pt';
-import HTMLView from 'react-native-htmlview';
 
 import api from '../../services/api';
 

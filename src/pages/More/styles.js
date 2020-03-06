@@ -1,9 +1,10 @@
-import styled from 'styled-components/native';
+import { Platform } from 'react-native';
+import styled, { css } from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 
 export const Header = styled.View`
   flex-direction: row;
-  margin: 20px 20px 10px 20px;
+  margin: 20px 0;
 `;
 
 export const HeaderTexts = styled.View`
@@ -13,9 +14,18 @@ export const HeaderTexts = styled.View`
 `;
 
 export const HeaderTextName = styled.Text`
-  font-family: 'Axiforma-Bold';
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
   font-size: 20px;
-  color: #fff;
+  color: #ffffff;
 `;
 
 export const SearchContent = styled.View`
@@ -76,19 +86,47 @@ export const MoreText = styled.View`
 `;
 
 export const MoreTitle = styled.Text`
-  font-family: 'Axiforma-Bold';
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
+
   font-size: 16px;
   color: #000000;
 `;
 
 export const MoreTitleRed = styled.Text`
-  font-family: 'Axiforma-Bold';
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
   font-size: 16px;
   color: #ec2840;
 `;
 
 export const MoreDesc = styled.Text`
-  font-family: 'Axiforma-Regular';
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
   font-size: 14px;
   color: #8f8f8f;
 `;

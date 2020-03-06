@@ -4,7 +4,7 @@ import { RectButton } from 'react-native-gesture-handler';
 
 export const Header = styled.View`
   flex-direction: row;
-  margin: 20px 20px 10px 20px;
+  margin: 20px 0;
 `;
 
 export const HeaderTexts = styled.View`
@@ -54,14 +54,14 @@ export const Noticias = styled(RectButton)`
 `;
 
 export const NoticiasImg = styled.Image`
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 8px;
   margin: 0 15px 0 0;
 `;
 
 export const NoticiasTitle = styled.Text.attrs({
-  numberOfLines: 3,
+  numberOfLines: 2,
 })`
   ${Platform.select({
     ios: css`
@@ -78,10 +78,50 @@ export const NoticiasTitle = styled.Text.attrs({
   color: #171717;
 `;
 
+export const NewsDate = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
+
+  font-size: 12px;
+  color: #989898;
+  opacity: 0.8;
+
+  margin-top: 5px;
+`;
+
 export const NoticiasDesc = styled.Text.attrs({
   numberOfLines: 2,
 })`
   font-family: 'Axiforma-Regular';
   font-size: 13px;
   color: #a8a8a8;
+`;
+
+export const Loadcontent = styled.View`
+  margin: 0 0 10px 0;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LoadcontentText = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
+  font-size: 12px;
+  color: #000000;
 `;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, Text, StyleSheet } from 'react-native';
-import HTMLView from 'react-native-htmlview';
+import { View, SafeAreaView, Text, StyleSheet, FlatList } from 'react-native';
+import HTML from 'react-native-render-html';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
@@ -26,6 +26,8 @@ import {
   ElencoNumero,
   BackButton,
   BackButtonContent,
+  Loadcontent,
+  LoadcontentText,
 } from './styles';
 
 import BolaLoad from '../../../bola-load.json';
@@ -39,7 +41,7 @@ export default function Comissao({ navigation }) {
 
   async function loadElenco() {
     Setloading(true);
-    const response = await api.get('sportspress/v2/staff?_embed');
+    const response = await api.get('sportspress/v2/staff?_embed&per_page=30');
 
     const data = response.data.map(jogadora => ({
       idJogadora: jogadora.id,
@@ -61,7 +63,7 @@ export default function Comissao({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fc1936' }}>
       <Header>
         <BackButton onPress={() => navigation.goBack()}>
           <BackButtonContent>
@@ -74,12 +76,7 @@ export default function Comissao({ navigation }) {
       </Header>
       <Container>
         {loading ? (
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+          <Loadcontent>
             <Lottie
               resizeMode="contain"
               autoSize
@@ -91,28 +88,35 @@ export default function Comissao({ navigation }) {
                 height: 60,
               }}
             />
-            <Text style={{ color: '#666', fontSize: 11 }}>Carregando...</Text>
-          </View>
+            <LoadcontentText>Carregando...</LoadcontentText>
+          </Loadcontent>
         ) : (
-          <>
-            {elenco.map(player => (
-              <ElencoLista key={player.id}>
-                <Foto source={{ uri: player.fotoJogadora }} />
-                <View
-                  style={{
-                    flexDirection: 'column',
-                    marginLeft: 15,
+          <FlatList
+            data={elenco}
+            keyExtractor={item => String(item.id)}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <ElencoLista>
+                <Foto source={{ uri: item.fotoJogadora }} />
+
+                <ElencoNome>{item.nomeJogadora}</ElencoNome>
+                <HTML
+                  tagsStyles={{
+                    p: {
+                      fontFamily: 'SF Pro Text',
+                      fontWeight: 'normal',
+                      fontSize: 11,
+                      textAlign: 'center',
+                      color: '#171717',
+                      opacity: 0.8,
+                    },
                   }}
-                >
-                  <ElencoNome>{player.nomeJogadora}</ElencoNome>
-                  <HTMLView
-                    value={player.descJogadora}
-                    stylesheet={stylesDesc}
-                  />
-                </View>
+                  html={item.descJogadora}
+                />
               </ElencoLista>
-            ))}
-          </>
+            )}
+            numColumns={3}
+          />
         )}
       </Container>
     </SafeAreaView>

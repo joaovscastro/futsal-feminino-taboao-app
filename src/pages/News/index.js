@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, SafeAreaView, FlatList, Text } from 'react-native';
+import { format, parseJSON } from 'date-fns';
+import { utcToZonedTime } from 'date-fns-tz';
+import pt from 'date-fns/locale/pt';
 
 import {
   Header,
@@ -9,11 +12,12 @@ import {
   Noticias,
   NoticiasImg,
   NoticiasTitle,
+  NewsDate,
+  Loadcontent,
+  LoadcontentText,
 } from './styles';
 
 import BolaLoad from '../../../bola-load.json';
-
-import LoadNews from '../../components/LoadNews';
 
 import api from '../../services/api';
 import Lottie from 'lottie-react-native';
@@ -36,15 +40,22 @@ export default function News({ navigation }) {
     const responseNoticias = await api.get(
       `wp/v2/posts?categories=1&page=${pageNumber}&per_page=10`
     );
+
+    const dataNews = responseNoticias.data.map(noticia => ({
+      ...noticia,
+
+      dateFormatted: format(
+        utcToZonedTime(parseJSON(noticia.date)),
+        "dd 'de' MMMM 'de' yyyy",
+        { timeZone: 'America/Sao_Paulo', locale: pt }
+      ),
+    }));
+
     const totalItems = responseNoticias.headers['x-wp-totalpages'];
 
     Settotal(totalItems);
 
-    Setnoticias(
-      shouldRefresh
-        ? responseNoticias.data
-        : [...noticias, ...responseNoticias.data]
-    );
+    Setnoticias(shouldRefresh ? dataNews : [...noticias, ...dataNews]);
     Setpage(pageNumber + 1);
     Setloading(false);
   }
@@ -82,12 +93,7 @@ export default function News({ navigation }) {
           refreshing={refreshing}
           ListFooterComponent={
             loading && (
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
+              <Loadcontent>
                 <Lottie
                   resizeMode="contain"
                   autoSize
@@ -99,10 +105,8 @@ export default function News({ navigation }) {
                     height: 60,
                   }}
                 />
-                <Text style={{ color: '#666', fontSize: 11 }}>
-                  Carregando...
-                </Text>
-              </View>
+                <LoadcontentText>Carregando...</LoadcontentText>
+              </Loadcontent>
             )
           }
           showsVerticalScrollIndicator={false}
@@ -114,6 +118,7 @@ export default function News({ navigation }) {
               <NoticiasImg source={{ uri: item.jetpack_featured_media_url }} />
               <View style={{ flex: 1 }}>
                 <NoticiasTitle>{item.title.rendered}</NoticiasTitle>
+                <NewsDate>{item.dateFormatted}</NewsDate>
               </View>
               <View>
                 <Icon name="chevron-right" size={30} color="#C4C4C4" />
