@@ -48,10 +48,14 @@ import {
   ElencoLink,
 } from './styles';
 
+import LoadNews from '../../components/LoadNews';
+
 import Logo from '../../../assets/img/logo.png';
 import Bg from '../../../bg.jpg';
 import ElencoBg from '../../../assets/img/elenco.png';
 import ElencoTeste from '../../../assets/img/testeelenco.png';
+import ElencoTeste2 from '../../../assets/img/testeelenco2.png';
+import ElencoTeste3 from '../../../assets/img/testeelenco3.png';
 import Projeto from '../../../assets/img/projeto-home.jpg';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -61,28 +65,11 @@ function Main({ navigation, profile }) {
   const [noticias, Setnoticias] = useState([]);
   const [jogos, Setjogos] = useState([]);
   const [loading, Setloading] = useState(false);
-
-  function checkProfile() {
-    if (
-      profile.m_avatar ===
-      'https://i1.wp.com/futsalfemininotaboao.com.br/wp-content/uploads/2020/03/goat-1.jpg?fit=100%2C100&ssl=1'
-    ) {
-      Alert.alert(
-        'Complete seu perfil',
-        'Parece que você ainda não completou seu perfil. É rapidinho (;',
-        [
-          {
-            text: 'Completar meu perfil',
-            onPress: () => navigation.navigate('CompleteProfile'),
-          },
-        ],
-        { cancelable: false }
-      );
-    }
-  }
+  const [loadingnews, Setloadingnews] = useState(false);
 
   async function loadNews() {
     Setloading(true);
+    Setloadingnews(true);
 
     // Jogos
     const user = await api.get(`/buddypress/v1/members/1`);
@@ -118,9 +105,10 @@ function Main({ navigation, profile }) {
     };
 
     Setjogos(ProximosJogos.jogos);
+    Setloading(false);
 
     // Notícias
-    const responseNoticias = await api.get('wp/v2/posts?per_page=3');
+    const responseNoticias = await api.get('wp/v2/posts?per_page=5');
 
     const dataNews = responseNoticias.data.map(noticia => ({
       ...noticia,
@@ -133,11 +121,10 @@ function Main({ navigation, profile }) {
     }));
 
     Setnoticias(dataNews);
-    Setloading(false);
+    Setloadingnews(false);
   }
 
   useEffect(() => {
-    checkProfile();
     loadNews();
   }, []);
 
@@ -215,19 +202,26 @@ function Main({ navigation, profile }) {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             >
-              {noticias.map(noticia => (
-                <News
-                  key={noticia.id}
-                  underlayColor="#ffffff"
-                  onPress={() => handleNavigate(noticia)}
-                >
-                  <NewsImg
-                    source={{ uri: noticia.jetpack_featured_media_url }}
-                  />
-                  <NewsTitle>{noticia.title.rendered}</NewsTitle>
-                  <NewsDate>{noticia.dateFormatted}</NewsDate>
-                </News>
-              ))}
+              {loadingnews ? (
+                <LoadNews />
+              ) : (
+                <>
+                  {noticias.map(noticia => (
+                    <News
+                      key={noticia.id}
+                      underlayColor="#ffffff"
+                      onPress={() => handleNavigate(noticia)}
+                    >
+                      <NewsImg
+                        source={{ uri: noticia.jetpack_featured_media_url }}
+                      />
+                      <NewsTitle>{noticia.title.rendered}</NewsTitle>
+                      <NewsDate>{noticia.dateFormatted}</NewsDate>
+                    </News>
+                  ))}
+                </>
+              )}
+              <View style={{ marginRight: 20 }} />
             </ScrollView>
           </View>
           <NoticiasLink onPress={() => navigation.navigate('News')}>
@@ -267,12 +261,15 @@ function Main({ navigation, profile }) {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             >
-              <ElencoBtn>
+              <ElencoBtn
+                underlayColor="#E71531"
+                onPress={() => navigation.navigate('Elenco')}
+              >
                 <ImageBackground
                   source={ElencoTeste}
                   style={{
                     width: 197,
-                    height: 170,
+                    height: 190,
                     justifyContent: 'center',
                     alignItems: 'flex-end',
                   }}
@@ -289,17 +286,19 @@ function Main({ navigation, profile }) {
 
                     <View>
                       <ElencoName>Luana</ElencoName>
-                      <ElencoName>Matadora</ElencoName>
                     </View>
                   </View>
                 </ImageBackground>
               </ElencoBtn>
-              <ElencoBtn>
+              <ElencoBtn
+                underlayColor="#E71531"
+                onPress={() => navigation.navigate('Elenco')}
+              >
                 <ImageBackground
-                  source={ElencoTeste}
+                  source={ElencoTeste2}
                   style={{
                     width: 197,
-                    height: 170,
+                    height: 190,
                     justifyContent: 'center',
                     alignItems: 'flex-end',
                   }}
@@ -312,21 +311,23 @@ function Main({ navigation, profile }) {
                       marginRight: 20,
                     }}
                   >
-                    <ElencoNumber>12.</ElencoNumber>
+                    <ElencoNumber>8.</ElencoNumber>
 
                     <View>
                       <ElencoName>Lora</ElencoName>
-                      <ElencoName>Matadora</ElencoName>
                     </View>
                   </View>
                 </ImageBackground>
               </ElencoBtn>
-              <ElencoBtn>
+              <ElencoBtn
+                underlayColor="#E71531"
+                onPress={() => navigation.navigate('Elenco')}
+              >
                 <ImageBackground
-                  source={ElencoTeste}
+                  source={ElencoTeste3}
                   style={{
                     width: 197,
-                    height: 170,
+                    height: 190,
                     justifyContent: 'center',
                     alignItems: 'flex-end',
                   }}
@@ -339,15 +340,15 @@ function Main({ navigation, profile }) {
                       marginRight: 20,
                     }}
                   >
-                    <ElencoNumber>12.</ElencoNumber>
+                    <ElencoNumber>22.</ElencoNumber>
 
                     <View>
                       <ElencoName>Flavi</ElencoName>
-                      <ElencoName>Matadora</ElencoName>
                     </View>
                   </View>
                 </ImageBackground>
               </ElencoBtn>
+              <View style={{ marginRight: 20 }} />
             </ScrollView>
             <ElencoLink onPress={() => navigation.navigate('Elenco')}>
               <MaisElenco>Ver elenco completo</MaisElenco>

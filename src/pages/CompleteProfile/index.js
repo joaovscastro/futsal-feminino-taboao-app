@@ -1,17 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import {
-  View,
-  SafeAreaView,
-  Image,
-  Text,
-  Button,
-  Alert,
-  TextInput,
-} from 'react-native';
+import { View, SafeAreaView, Text, Alert } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
+import Lottie from 'lottie-react-native';
 
-import api from '../../services/api';
+import BolaLoad from '../../../bola-load.json';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
@@ -43,17 +36,26 @@ import {
   ChangePhotoText,
   BackButton,
   BackButtonContent,
+  NewComentBtnSubmitDisabled,
+  ChangePhoto,
+  Loadcontent,
+  LoadcontentText,
 } from './styles';
 
 import { updateProfileRequest } from '../../store/modules/user/actions';
 
 function CompleteProfile({ profile, navigation }) {
-  const [nome, Setnome] = useState(profile.name);
+  const loading = useSelector(state => state.user.loading);
+  const profilenav = useSelector(state => state.user.profilenav);
 
+  if (profilenav) {
+    navigation.navigate('Main');
+  }
+
+  const [nome, Setnome] = useState('');
+  const [avatar, SetAvatar] = useState(profile.m_avatar);
   const [avatarsource, SetAvatarsource] = useState(profile.m_avatar);
   const [avatarupload, SetAvatarupload] = useState(profile.m_avatar);
-
-  const [tipo, SetTipo] = useState('url');
 
   const options = {
     title: 'Selecionar avatar',
@@ -76,28 +78,13 @@ function CompleteProfile({ profile, navigation }) {
         Alert.alert('Não foi possível acessar! Verifique sua permissão.');
       } else {
         const sourceView = response.uri;
-        SetAvatarsource(sourceView);
+        SetAvatar(sourceView);
 
-        // You can also display the image using data:
         const source = { uri: 'data:image/jpeg;base64,' + response.data };
 
         SetAvatarupload(source.uri);
-        SetTipo('base64');
       }
     });
-  }
-
-  async function atualizeAvatar() {
-    try {
-      await api.post('wp/v2/m_users/avatar', {
-        base64: avatarupload,
-      });
-    } catch (err) {
-      Alert.alert(
-        'Falha na autenticação',
-        'Houve um erro no login, verifique seus dados'
-      );
-    }
   }
 
   const dispatch = useDispatch();
@@ -108,40 +95,73 @@ function CompleteProfile({ profile, navigation }) {
         id: profile.id,
         nome,
         avatarupload,
+        avatarsource,
       })
     );
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fc1936' }}>
-      <Header>
-        <HeaderTexts>
-          <HeaderTextName>Atualizar perfil</HeaderTextName>
-        </HeaderTexts>
-      </Header>
-      <Container>
-        <HeadProfile>
-          <Avatar source={{ uri: avatarsource }} />
-          <ChangePhotoBtn onPress={() => selecionaAvatar()}>
-            <ChangePhotoText>Atualizar foto</ChangePhotoText>
-            <Icon name="camera" color="#ec2840" size={15} />
-          </ChangePhotoBtn>
-          <NameInput
-            keyboardType="default"
-            autoCorrect={false}
-            autoCapitalize="none"
-            onChangeText={Setnome}
-            placeholder="Digite seu nome"
-          />
-        </HeadProfile>
+    <>
+      <SafeAreaView style={{ backgroundColor: '#fc1936' }}>
+        <Header>
+          <HeaderTexts>
+            <HeaderTextName>Complete seu perfil</HeaderTextName>
+          </HeaderTexts>
+        </Header>
+      </SafeAreaView>
+      <View style={{ backgroundColor: '#fc1936' }}>
+        <Container>
+          {loading ? (
+            <Loadcontent>
+              <Lottie
+                resizeMode="contain"
+                autoSize
+                source={BolaLoad}
+                autoPlay
+                loop={true}
+                style={{
+                  width: 60,
+                  height: 60,
+                }}
+              />
+              <LoadcontentText>Criando perfil...</LoadcontentText>
+            </Loadcontent>
+          ) : (
+            <>
+              <HeadProfile>
+                <ChangePhoto onPress={() => selecionaAvatar()}>
+                  <Avatar source={{ uri: avatar }} />
+                  <ChangePhotoBtn>
+                    <ChangePhotoText>Atualizar foto</ChangePhotoText>
+                    <Icon name="camera" color="#ec2840" size={15} />
+                  </ChangePhotoBtn>
+                </ChangePhoto>
+                <NameInput
+                  keyboardType="default"
+                  autoCorrect={false}
+                  autoCapitalize="none"
+                  value={nome}
+                  onChangeText={Setnome}
+                  placeholder="Digite seu nome"
+                />
+              </HeadProfile>
 
-        <View>
-          <NewComentBtnSubmit onPress={() => handleSubmit()}>
-            <NewComentBtnSubmitText>Atualizar perfil</NewComentBtnSubmitText>
-          </NewComentBtnSubmit>
-        </View>
-      </Container>
-    </SafeAreaView>
+              <View>
+                {nome === '' ? (
+                  <NewComentBtnSubmitDisabled>
+                    <NewComentBtnSubmitText>Continuar</NewComentBtnSubmitText>
+                  </NewComentBtnSubmitDisabled>
+                ) : (
+                  <NewComentBtnSubmit onPress={() => handleSubmit()}>
+                    <NewComentBtnSubmitText>Continuar</NewComentBtnSubmitText>
+                  </NewComentBtnSubmit>
+                )}
+              </View>
+            </>
+          )}
+        </Container>
+      </View>
+    </>
   );
 }
 

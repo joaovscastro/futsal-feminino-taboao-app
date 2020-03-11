@@ -150,7 +150,7 @@ export const MoreBtnText = styled.Text`
 export const GoatButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
-  margin: 30px 20px;
+  margin: 50px 20px;
 `;
 
 export const GoatButtonText = styled.Text`

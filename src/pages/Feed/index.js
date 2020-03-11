@@ -13,7 +13,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import { parseJSON, format, formatRelative, formatDistance } from 'date-fns';
+import { parseJSON, format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import HTMLView from 'react-native-htmlview';
 import HTML from 'react-native-render-html';
@@ -61,30 +61,8 @@ function Feed({ profile, navigation }) {
   const [page, Setpage] = useState(1);
   const [total, Settotal] = useState(0);
   const [refreshing, Setrefreshing] = useState(false);
-
   const [impala, Setimpala] = useState('');
-
   const [isModalVisible, setisModalVisible] = useState(false);
-
-  const [animacao, Setanimacao] = useState(false);
-
-  const [teste, Setteste] = useState(false);
-
-  function checkProfile() {
-    if (profile.name === profile.email) {
-      Alert.alert(
-        'Complete seu perfil',
-        'Parece que você ainda não completou seu perfil. É rapidinho (;',
-        [
-          {
-            text: 'Completar meu perfil',
-            onPress: () => navigation.navigate('Profile'),
-          },
-        ],
-        { cancelable: false }
-      );
-    }
-  }
 
   async function loadFeed(pageNumber = page, shouldRefresh = false) {
     if (total && pageNumber > total) return;
@@ -112,7 +90,6 @@ function Feed({ profile, navigation }) {
   }
 
   useEffect(() => {
-    checkProfile();
     loadFeed();
   }, []);
 
@@ -171,14 +148,14 @@ function Feed({ profile, navigation }) {
         {loading ? (
           <View style={{ alignItems: 'flex-end' }}>
             <NewPostBtnInative>
-              <NewsPostText>Novo post</NewsPostText>
+              <NewsPostText>Nova mensagem</NewsPostText>
               <Icon name="plus-circle" size={20} color="#fff" />
             </NewPostBtnInative>
           </View>
         ) : (
           <View style={{ alignItems: 'flex-end' }}>
             <NewPostBtn onPress={() => toggleModalOpen()}>
-              <NewsPostText>Novo post</NewsPostText>
+              <NewsPostText>Nova mensagem</NewsPostText>
               <Icon name="plus-circle" size={20} color="#fff" />
             </NewPostBtn>
           </View>

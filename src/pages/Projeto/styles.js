@@ -201,11 +201,11 @@ export const LoadcontentText = styled.Text`
   ${Platform.select({
     ios: css`
       font-family: 'SF Pro Text';
-      font-weight: bold;
+      font-weight: normal;
     `,
     android: css`
       font-family: 'SF Pro Text';
-      font-weight: bold;
+      font-weight: normal;
     `,
   })};
   font-size: 12px;

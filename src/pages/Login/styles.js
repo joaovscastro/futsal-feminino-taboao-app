@@ -43,15 +43,32 @@ export const ContainerHome = styled.KeyboardAvoidingView.attrs({
 `;
 
 export const TitleOne = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
   font-size: 22px;
-  font-weight: 600;
   color: #2d2d2d;
   margin: 20px 0 0 0;
 `;
 
 export const TitleDesc = styled.Text`
-  font-style: normal;
-  font-weight: normal;
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
   font-size: 14px;
   color: #a3a3a4;
   margin: 0 0 20px 0;
@@ -63,30 +80,21 @@ export const LoginMail = styled.View`
   align-items: center;
 `;
 
-export const LoginIcon = styled.View`
-  width: 48px;
-  height: 48px;
-  ${Platform.select({
-    ios: css`
-      background: #f5e0e8;
-    `,
-    android: css`
-      background: #f5e0e8;
-    `,
-  })};
-  border-radius: 12px;
-  align-items: center;
-  justify-content: center;
-  margin: 0 10px 0 0;
-`;
-
 export const MailContent = styled.View`
   flex: 1;
 `;
 
 export const TitleMail = styled.Text`
-  font-style: normal;
-  font-weight: normal;
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
   font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -97,15 +105,18 @@ export const MailInput = styled.TextInput`
   ${Platform.select({
     ios: css`
       height: 30px;
+      font-family: 'SF Pro Text';
+      font-weight: normal;
     `,
     android: css`
       height: 40px;
+      font-family: 'SF Pro Text';
+      font-weight: normal;
     `,
   })};
+
   border-bottom-color: rgba(0, 0, 0, 0.2);
   border-bottom-width: 1px;
-  font-style: normal;
-  font-weight: normal;
   font-size: 16px;
   color: #a3a3a4;
 `;
@@ -117,8 +128,16 @@ export const LoginPass = styled.View`
 `;
 
 export const TitlePass = styled.Text`
-  font-style: normal;
-  font-weight: normal;
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
   font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -129,15 +148,18 @@ export const PassInput = styled.TextInput`
   ${Platform.select({
     ios: css`
       height: 30px;
+      font-family: 'SF Pro Text';
+      font-weight: normal;
     `,
     android: css`
       height: 40px;
+      font-family: 'SF Pro Text';
+      font-weight: normal;
     `,
   })};
+
   border-bottom-color: rgba(0, 0, 0, 0.2);
   border-bottom-width: 1px;
-  font-style: normal;
-  font-weight: normal;
   font-size: 16px;
   color: #a3a3a4;
 `;
@@ -151,6 +173,18 @@ export const LoginButton = styled.TouchableOpacity`
 `;
 
 export const LoginButtonText = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
+  font-size: 14px;
+
   color: #fff;
 `;
 
@@ -179,8 +213,16 @@ export const ForgotPassword = styled.TouchableOpacity`
 `;
 
 export const ForgotPasswordText = styled.Text`
-  font-style: normal;
-  font-weight: 600;
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
   font-size: 14px;
   text-align: center;
   color: #2d2d2d;
@@ -194,7 +236,7 @@ export const LoginBtn = styled.TouchableOpacity`
 
 export const LoginBtnModal = styled.TouchableOpacity`
   margin: 5px 20px;
-  padding: 15px 15px 3px 15px;
+  padding: 10px 0;
   background: #d71435;
   align-items: center;
   justify-content: center;
@@ -202,8 +244,18 @@ export const LoginBtnModal = styled.TouchableOpacity`
 `;
 
 export const LoginBtnModalText = styled.Text`
-  font-family: 'Axiforma-Bold';
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
   font-size: 14px;
+  letter-spacing: 1px;
   text-align: center;
   text-transform: uppercase;
   color: #ffffff;
@@ -211,7 +263,7 @@ export const LoginBtnModalText = styled.Text`
 
 export const RegisterBtnModal = styled.TouchableOpacity`
   margin: 5px 20px;
-  padding: 15px 15px 3px 15px;
+  padding: 10px 0;
   background: #fff;
   align-items: center;
   justify-content: center;
@@ -219,9 +271,95 @@ export const RegisterBtnModal = styled.TouchableOpacity`
 `;
 
 export const RegisterBtnModalText = styled.Text`
-  font-family: 'Axiforma-Bold';
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
   font-size: 14px;
+  letter-spacing: 1px;
   text-align: center;
   text-transform: uppercase;
   color: #d71435;
+`;
+
+export const GoatButton = styled.TouchableOpacity``;
+
+export const Loadcontent = styled.View`
+  margin: 0 0 10px 0;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LoadcontentText = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
+  font-size: 14px;
+  color: #ffffff;
+`;
+
+export const ModalContaTitulo = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
+  font-size: 18px;
+  color: #e71531;
+  margin: 16px 0;
+`;
+
+export const ModalContaTexto = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
+  font-size: 14px;
+  color: #000;
+`;
+
+export const ModalContaBtn = styled.TouchableOpacity`
+  margin: 20px 0 0 0;
+  background: #000;
+  padding: 10px 30px;
+  border-radius: 12px;
+`;
+
+export const ModalContaBtnText = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
+  font-size: 14px;
+  color: #fff;
 `;

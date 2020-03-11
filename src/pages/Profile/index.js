@@ -11,7 +11,8 @@ import {
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
-import api from '../../services/api';
+import Lottie from 'lottie-react-native';
+import BolaLoad from '../../../bola-load.json';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
@@ -43,13 +44,18 @@ import {
   ChangePhotoText,
   BackButton,
   BackButtonContent,
+  Loadcontent,
+  LoadcontentText,
+  NewComentBtnSubmitDisabled,
 } from './styles';
 
 import { updateProfileRequest } from '../../store/modules/user/actions';
 
 function Profile({ profile, navigation }) {
+  const loading = useSelector(state => state.user.loading);
   const [nome, Setnome] = useState(profile.name);
 
+  const [avatar, SetAvatar] = useState(profile.m_avatar);
   const [avatarsource, SetAvatarsource] = useState(profile.m_avatar);
   const [avatarupload, SetAvatarupload] = useState(profile.m_avatar);
 
@@ -76,7 +82,7 @@ function Profile({ profile, navigation }) {
         Alert.alert('Não foi possível acessar! Verifique sua permissão.');
       } else {
         const sourceView = response.uri;
-        SetAvatarsource(sourceView);
+        SetAvatar(sourceView);
 
         // You can also display the image using data:
         const source = { uri: 'data:image/jpeg;base64,' + response.data };
@@ -87,19 +93,6 @@ function Profile({ profile, navigation }) {
     });
   }
 
-  async function atualizeAvatar() {
-    try {
-      await api.post('wp/v2/m_users/avatar', {
-        base64: avatarupload,
-      });
-    } catch (err) {
-      Alert.alert(
-        'Falha na autenticação',
-        'Houve um erro no login, verifique seus dados'
-      );
-    }
-  }
-
   const dispatch = useDispatch();
 
   function handleSubmit() {
@@ -108,6 +101,7 @@ function Profile({ profile, navigation }) {
         id: profile.id,
         nome,
         avatarupload,
+        avatarsource,
       })
     );
   }
@@ -125,27 +119,56 @@ function Profile({ profile, navigation }) {
         </HeaderTexts>
       </Header>
       <Container>
-        <HeadProfile>
-          <Avatar source={{ uri: avatarsource }} />
-          <ChangePhotoBtn onPress={() => selecionaAvatar()}>
-            <ChangePhotoText>Atualizar foto</ChangePhotoText>
-            <Icon name="camera" color="#ec2840" size={15} />
-          </ChangePhotoBtn>
-          <NameInput
-            keyboardType="default"
-            autoCorrect={false}
-            autoCapitalize="none"
-            value={nome}
-            onChangeText={Setnome}
-            placeholder="Digite seu nome"
-          />
-        </HeadProfile>
-
-        <View>
-          <NewComentBtnSubmit onPress={() => handleSubmit()}>
-            <NewComentBtnSubmitText>Atualizar perfil</NewComentBtnSubmitText>
-          </NewComentBtnSubmit>
-        </View>
+        {loading ? (
+          <Loadcontent>
+            <Lottie
+              resizeMode="contain"
+              autoSize
+              source={BolaLoad}
+              autoPlay
+              loop={true}
+              style={{
+                width: 60,
+                height: 60,
+              }}
+            />
+            <LoadcontentText>Atualizando perfil...</LoadcontentText>
+          </Loadcontent>
+        ) : (
+          <>
+            <HeadProfile>
+              <Avatar source={{ uri: avatar }} />
+              <ChangePhotoBtn onPress={() => selecionaAvatar()}>
+                <ChangePhotoText>Atualizar foto</ChangePhotoText>
+                <Icon name="camera" color="#ec2840" size={15} />
+              </ChangePhotoBtn>
+              <NameInput
+                keyboardType="default"
+                autoCorrect={false}
+                autoCapitalize="none"
+                value={nome}
+                onChangeText={Setnome}
+                placeholder="Digite seu nome"
+              />
+            </HeadProfile>
+            <View>
+              {nome === '' ? (
+                <NewComentBtnSubmitDisabled>
+                  <NewComentBtnSubmitText>
+                    Atualizar perfil
+                  </NewComentBtnSubmitText>
+                </NewComentBtnSubmitDisabled>
+              ) : (
+                <NewComentBtnSubmit onPress={() => handleSubmit()}>
+                  <NewComentBtnSubmitText>
+                    {' '}
+                    Atualizar perfil
+                  </NewComentBtnSubmitText>
+                </NewComentBtnSubmit>
+              )}
+            </View>
+          </>
+        )}
       </Container>
     </SafeAreaView>
   );

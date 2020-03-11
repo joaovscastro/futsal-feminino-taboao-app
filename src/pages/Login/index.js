@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
   ScrollView,
   Alert,
+  Linking,
 } from 'react-native';
 import Lottie from 'lottie-react-native';
 
@@ -24,6 +25,8 @@ Icon.loadFont();
 import api from '../../services/api';
 
 import BolaLoad from '../../../bola-load.json';
+
+import Happy from '../../../happy.json';
 
 import {
   Container,
@@ -54,6 +57,13 @@ import {
   LoginBtnModalText,
   RegisterBtnModal,
   RegisterBtnModalText,
+  GoatButton,
+  Loadcontent,
+  LoadcontentText,
+  ModalContaTitulo,
+  ModalContaTexto,
+  ModalContaBtn,
+  ModalContaBtnText,
 } from './styles';
 
 import LogoImg from '../../../assets/img/logo.png';
@@ -70,6 +80,9 @@ export default function Login({ navigation }) {
 
   const [registerEmail, setregisterEmail] = useState('');
   const [registerPassword, setregisterPassword] = useState('');
+
+  const [modalcadastro, setModalcadastro] = useState(false);
+  const [loadingcadastro, setLoadingcadastro] = useState(false);
 
   const loading = useSelector(state => state.auth.loading);
 
@@ -97,19 +110,32 @@ export default function Login({ navigation }) {
     setisModalVisibleRegister(true);
   };
 
+  toggleModalCadastro = () => {
+    setModalcadastro(false);
+  };
+
+  toggleModalOpenCadastro = () => {
+    setModalcadastro(true);
+  };
+
   async function registerUser() {
     setisModalVisibleRegister(false);
+    setLoadingcadastro(true);
     try {
       await api.post('wp/v2/users/register', {
         username: registerEmail,
         email: registerEmail,
         password: registerPassword,
       });
-      setisModalVisibleRegister(true);
+      setregisterEmail('');
+      setregisterPassword('');
+      setLoadingcadastro(false);
+      toggleModalOpenCadastro();
     } catch (err) {
+      setLoadingcadastro(false);
       Alert.alert(
-        'Falha na autenticação',
-        'Houve um erro no login, verifique seus dados'
+        'Erro ao criar conta',
+        'Houve um erro na hora de criar a conta, verifique seus dados'
       );
     }
   }
@@ -136,12 +162,31 @@ export default function Login({ navigation }) {
               marginBottom: 40,
             }}
           >
-            <RegisterBtnModal onPress={toggleModalOpenRegister}>
-              <RegisterBtnModalText>Cadastre-se</RegisterBtnModalText>
-            </RegisterBtnModal>
-            <LoginBtnModal onPress={toggleModalOpenPayment}>
-              <LoginBtnModalText>Entrar</LoginBtnModalText>
-            </LoginBtnModal>
+            {loadingcadastro ? (
+              <Loadcontent>
+                <Lottie
+                  resizeMode="contain"
+                  autoSize
+                  source={BolaLoad}
+                  autoPlay
+                  loop={true}
+                  style={{
+                    width: 80,
+                    height: 80,
+                  }}
+                />
+                <LoadcontentText>Criando conta...</LoadcontentText>
+              </Loadcontent>
+            ) : (
+              <>
+                <RegisterBtnModal onPress={toggleModalOpenRegister}>
+                  <RegisterBtnModalText>Criar conta</RegisterBtnModalText>
+                </RegisterBtnModal>
+                <LoginBtnModal onPress={toggleModalOpenPayment}>
+                  <LoginBtnModalText>Entrar</LoginBtnModalText>
+                </LoginBtnModal>
+              </>
+            )}
           </View>
         </View>
       </ImageBackground>
@@ -258,8 +303,8 @@ export default function Login({ navigation }) {
             </View>
           ) : (
             <Form>
-              <TitleOne>Cadastre-se</TitleOne>
-              <TitleDesc>Digite seu e-mail e senha para entrar.</TitleDesc>
+              <TitleOne>Criar conta</TitleOne>
+              <TitleDesc>Crie sua conta em nosso app</TitleDesc>
               <LoginMail>
                 <MailContent>
                   <TitleMail>e-mail</TitleMail>
@@ -302,75 +347,55 @@ export default function Login({ navigation }) {
                 onPress={() => navigation.navigate('LostPassword')}
                 underlayColor="#f9f9f9"
               >
-                <ForgotPasswordText>
-                  Ao cadastrar você concorda com os nossos termos de uso e
-                  política de privacidade.
-                </ForgotPasswordText>
+                <GoatButton
+                  onPress={() =>
+                    Linking.openURL(
+                      'https://privacidade.futsalfemininotaboao.com.br'
+                    )
+                  }
+                >
+                  <ForgotPasswordText>
+                    Ao cadastrar você concorda com os nossos termos de uso e
+                    política de privacidade. Acesse aqui.
+                  </ForgotPasswordText>
+                </GoatButton>
               </ForgotPassword>
             </Form>
           )}
         </Container>
       </Modal>
+      <Modal
+        isVisible={modalcadastro}
+        onBackdropPress={() => toggleModalCadastro()}
+      >
+        <View
+          style={{
+            backgroundColor: '#ffffff',
+            alignItems: 'center',
+            borderRadius: 8,
+            marginLeft: 20,
+            marginRight: 20,
+            padding: 20,
+          }}
+        >
+          <Lottie
+            resizeMode="contain"
+            autoSize
+            source={Happy}
+            autoPlay
+            loop={true}
+            style={{ width: 100, height: 100 }}
+          />
+          <ModalContaTitulo>Eba! Conta criada.</ModalContaTitulo>
+          <ModalContaTexto>
+            Agora você pode aproveitar ao máximo nosso aplicativo. Entre agora
+            mesmo!
+          </ModalContaTexto>
+          <ModalContaBtn onPress={() => toggleModalCadastro()}>
+            <ModalContaBtnText>Ok</ModalContaBtnText>
+          </ModalContaBtn>
+        </View>
+      </Modal>
     </>
   );
 }
-
-/*
- <SafeAreaView>
-          <Button title="Entrar" onPress={toggleModalOpenPayment} />
-        </SafeAreaView>
-<Container>
-        <Form>
-          <TitleOne>Bem-vindo!kk</TitleOne>
-          <TitleDesc>Acesse com seu login para continuar.</TitleDesc>
-          <LoginMail>
-            <LoginIcon>
-              <Icon name="mail-outline" size={30} color="#D3004C" />
-            </LoginIcon>
-            <MailContent>
-              <TitleMail>email</TitleMail>
-              <MailInput
-                keyboardType="email-address"
-                autoCorrect={false}
-                autoCapitalize="none"
-                returnKeyType="next"
-                onSubmitEditing={() => passwordRef.current.focus()}
-                value={username}
-                onChangeText={setUsername}
-              />
-            </MailContent>
-          </LoginMail>
-          <LoginPass>
-            <LoginIcon>
-              <Icon name="lock" size={30} color="#D3004C" />
-            </LoginIcon>
-            <PassContent>
-              <TitlePass>Senha</TitlePass>
-              <PassInput
-                secureTextEntry
-                ref={passwordRef}
-                returnKeyType="go"
-                onSubmitEditing={handleSubmit}
-                value={password}
-                onChangeText={setPassword}
-              />
-            </PassContent>
-            <LoginButton onPress={handleSubmit}>
-              {loading ? (
-                <ActivityIndicator color="#D3004C" />
-              ) : (
-                <Icon name="chevron-right" size={30} color="#D3004C" />
-              )}
-            </LoginButton>
-          </LoginPass>
-          <ForgotPassword
-            onPress={() => navigation.navigate('LostPassword')}
-            underlayColor="#f9f9f9"
-          >
-            <ForgotPasswordText>
-              Perdeu a senha? Solicite outra
-            </ForgotPasswordText>
-          </ForgotPassword>
-        </Form>
-      </Container>
-*/

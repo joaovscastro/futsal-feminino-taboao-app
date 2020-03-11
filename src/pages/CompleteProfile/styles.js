@@ -39,7 +39,7 @@ export const SearchContent = styled.View`
 export const SearchBtn = styled(RectButton)``;
 
 export const Container = styled.ScrollView`
-  background-color: #ffffff;
+  background-color: #f3f6f8;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   padding: 35px 20px 0 20px;
@@ -94,14 +94,15 @@ export const NameInput = styled.TextInput`
       font-weight: bold;
     `,
   })};
-  background: #f9f9f9;
+  background: #ffffff;
 
   text-align: center;
   width: 100%;
-  height: 40px;
+  height: 50px;
 
   font-size: 16px;
-  margin: 10px 0;
+  margin: 20px 0 0 0;
+  border-radius: 12px;
 `;
 
 export const Medalhas = styled.View`
@@ -146,6 +147,14 @@ export const NewComentBtnSubmit = styled.TouchableOpacity`
   margin: 20px 0;
 `;
 
+export const NewComentBtnSubmitDisabled = styled.View`
+  background: #171717;
+  border-radius: 8px;
+  padding: 10px 0;
+  margin: 20px 0;
+  opacity: 0.5;
+`;
+
 export const NewComentBtnSubmitText = styled.Text`
   ${Platform.select({
     ios: css`
@@ -165,7 +174,11 @@ export const NewComentBtnSubmitText = styled.Text`
   margin: 0 10px 0 0;
 `;
 
-export const ChangePhotoBtn = styled.TouchableOpacity`
+export const ChangePhoto = styled.TouchableOpacity`
+  align-items: center;
+`;
+
+export const ChangePhotoBtn = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -204,4 +217,25 @@ export const BackButtonContent = styled.View`
   justify-content: center;
   background-color: #f3f3f3;
   border-radius: 50px;
+`;
+
+export const Loadcontent = styled.View`
+  margin: 0 0 10px 0;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LoadcontentText = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
+  font-size: 12px;
+  color: #000000;
 `;

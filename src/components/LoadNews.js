@@ -5,16 +5,21 @@ export default function LoadNews() {
   return (
     <ContentLoader
       speed={2}
-      width={400}
-      height={130}
-      viewBox="0 0 400 130"
-      backgroundColor="#D9D9D9"
-      foregroundColor="#CACBCC"
+      width={500}
+      height={203}
+      viewBox="0 0 500 203"
+      backgroundColor="#f3f3f3"
+      foregroundColor="#ecebeb"
     >
-      <Rect x="120" y="22" rx="3" ry="3" width="120" height="6" />
-      <Rect x="0" y="10" rx="8" ry="8" width="100" height="100" />
-      <Rect x="228" y="157" rx="0" ry="0" width="0" height="20" />
-      <Rect x="121" y="41" rx="3" ry="3" width="111" height="6" />
+      <Rect x="20" y="154" rx="3" ry="3" width="117" height="4" />
+      <Rect x="20" y="0" rx="8" ry="8" width="146" height="146" />
+      <Rect x="186" y="0" rx="8" ry="8" width="146" height="146" />
+      <Rect x="352" y="0" rx="8" ry="8" width="146" height="146" />
+      <Rect x="186" y="154" rx="3" ry="3" width="117" height="4" />
+      <Rect x="352" y="154" rx="3" ry="3" width="117" height="4" />
+      <Rect x="20" y="165" rx="3" ry="3" width="83" height="4" />
+      <Rect x="186" y="165" rx="3" ry="3" width="83" height="4" />
+      <Rect x="352" y="165" rx="3" ry="3" width="83" height="4" />
     </ContentLoader>
   );
 }

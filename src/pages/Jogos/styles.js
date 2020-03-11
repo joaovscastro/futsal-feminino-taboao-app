@@ -29,7 +29,7 @@ export const HeaderTextName = styled.Text`
 `;
 
 export const Container = styled.View`
-  background-color: #f3f3f3;
+  background-color: #f3f6f8;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   padding: 0;

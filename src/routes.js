@@ -31,7 +31,8 @@ export default (isSigned = false) =>
           Login,
         }),
         Completar: createSwitchNavigator({
-          Main,
+          Home,
+          CompleteProfile,
         }),
         App: createBottomTabNavigator(
           {
@@ -39,7 +40,6 @@ export default (isSigned = false) =>
               screen: createStackNavigator(
                 {
                   Main,
-                  Home,
                   NewsSingle,
                 },
                 {
@@ -154,7 +154,6 @@ export default (isSigned = false) =>
                   Profile,
                   Comissao,
                   Projeto,
-                  CompleteProfile,
                 },
                 {
                   headerMode: 'none',
@@ -184,16 +183,16 @@ export default (isSigned = false) =>
               inactiveTintColor: '#000000',
               style: {
                 backgroundColor: '#ffffff',
-                borderTopColor: '#f6f6f6',
+                borderTopColor: '#ffffff',
                 height: 60,
-                paddingTop: 15,
+                paddingTop: 10,
               },
             },
           }
         ),
       },
       {
-        initialRouteName: isSigned ? 'App' : 'Sign',
+        initialRouteName: isSigned ? 'Completar' : 'Sign',
       }
     )
   );
