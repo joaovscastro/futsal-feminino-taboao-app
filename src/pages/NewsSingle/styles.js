@@ -19,7 +19,7 @@ export const Container = styled.ScrollView`
   background-color: #f3f3f3;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  padding: 20px 20px 0 20px;
+  padding: 20px 0 0 0;
   margin-top: -25px;
 `;
 
@@ -36,6 +36,7 @@ export const Title = styled.Text`
   })};
   font-size: 20px;
   color: #171717;
+  margin: 0 20px;
 `;
 
 export const Data = styled.Text`
@@ -53,7 +54,7 @@ export const Data = styled.Text`
   font-size: 12px;
   color: #989898;
   opacity: 0.8;
-  margin-top: 5px;
+  margin: 5px 20px 0 20px;
 `;
 
 export const Content = styled.Text`

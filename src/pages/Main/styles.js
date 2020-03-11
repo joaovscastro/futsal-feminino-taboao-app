@@ -5,6 +5,7 @@ import { RectButton } from 'react-native-gesture-handler';
 export const Header = styled.ImageBackground`
   background: #fc1936;
   padding: 0 20px;
+  height: 220px;
 `;
 
 export const HeaderProfile = styled.View`
@@ -61,8 +62,6 @@ export const Card = styled.View`
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
   border-radius: 12px;
   padding: 28px;
-
-  margin-bottom: -80px;
 `;
 
 export const CardTitle = styled.Text`
@@ -153,7 +152,7 @@ export const TitleNews = styled.Text`
 
   font-size: 22px;
   color: #171717;
-  margin: 120px 0 15px 20px;
+  margin: 50px 0 15px 20px;
 `;
 
 export const News = styled(RectButton)`
@@ -224,20 +223,6 @@ export const TitleElenco = styled.Text`
   margin: 0 0 0 20px;
 `;
 
-export const Elenco = styled(RectButton)`
-  width: 60px;
-  align-items: center;
-  justify-content: center;
-  margin-left: 19px;
-`;
-
-export const ElencoImg = styled.Image`
-  width: 48px;
-  height: 48px;
-  border-radius: 24px;
-  margin-bottom: 8px;
-`;
-
 export const ElencoName = styled.Text`
   ${Platform.select({
     ios: css`
@@ -274,19 +259,6 @@ export const ElencoNumber = styled.Text`
   margin-right: 2px;
 `;
 
-export const VerElenco = styled.TouchableOpacity`
-  align-items: center;
-  margin-left: 20px;
-  margin-right: 20px;
-`;
-
-export const ElencoLine = styled.View`
-  width: 1px;
-  height: 70px;
-  border-color: #ddd;
-  border-width: 1;
-`;
-
 export const AboutButton = styled(RectButton)`
   margin: 40px 20px;
   border-radius: 12px;
@@ -297,22 +269,6 @@ export const About = styled.ImageBackground`
   border-radius: 12px;
   justify-content: center;
   padding: 10px 15px;
-`;
-
-export const AboutSubtitle = styled.Text`
-  ${Platform.select({
-    ios: css`
-      font-family: 'SF Pro Text';
-      font-weight: normal;
-    `,
-    android: css`
-      font-family: 'SF Pro Text';
-      font-weight: normal;
-    `,
-  })};
-
-  font-size: 12px;
-  color: #ffffff;
 `;
 
 export const AboutTitle = styled.Text`
@@ -367,4 +323,16 @@ export const MaisElenco = styled.Text`
   font-size: 12px;
   color: #fff;
   margin: 0 10px 0 0;
+`;
+
+export const NoticiasLink = styled.TouchableOpacity`
+  flex-direction: row;
+  margin: 50px 0 30px 20px;
+  align-items: center;
+`;
+
+export const ElencoLink = styled.TouchableOpacity`
+  flex-direction: row;
+  margin: 50px 0 30px 20px;
+  align-items: center;
 `;

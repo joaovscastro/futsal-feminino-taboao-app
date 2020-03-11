@@ -39,15 +39,14 @@ import {
 } from './styles';
 
 import BolaLoad from '../../../bola-load.json';
-
-import Brasao from '../../../assets/img/brasao.png';
+import Bg from '../../../assets/img/projeto-interna.jpg';
 
 import api from '../../services/api';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
 
-export default function Projeto() {
+export default function Projeto({ navigation }) {
   // Estados
   const [comentarios, Setcomentarios] = useState([]);
   const [loading, Setloading] = useState(false);
@@ -67,10 +66,7 @@ export default function Projeto() {
   return (
     <>
       <ImageBackground
-        source={{
-          uri:
-            'https://i0.wp.com/futsalfemininotaboao.com.br/wp-content/uploads/2019/08/futsal_feminino_taboao-1.jpg?resize=300%2C300&ssl=1',
-        }}
+        source={Bg}
         style={{
           width: null,
           height: 220,

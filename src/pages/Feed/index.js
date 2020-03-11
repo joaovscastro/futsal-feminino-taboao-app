@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
   SafeAreaView,
@@ -53,7 +54,7 @@ import {
 import BolaLoad from '../../../bola-load.json';
 import Favorite from '../../../favorite.json';
 
-export default function Feed() {
+function Feed({ profile, navigation }) {
   const [loading, Setloading] = useState(false);
   const [loadingpost, Setloadingpost] = useState(false);
   const [feed, Setfeed] = useState([]);
@@ -68,6 +69,22 @@ export default function Feed() {
   const [animacao, Setanimacao] = useState(false);
 
   const [teste, Setteste] = useState(false);
+
+  function checkProfile() {
+    if (profile.name === profile.email) {
+      Alert.alert(
+        'Complete seu perfil',
+        'Parece que você ainda não completou seu perfil. É rapidinho (;',
+        [
+          {
+            text: 'Completar meu perfil',
+            onPress: () => navigation.navigate('Profile'),
+          },
+        ],
+        { cancelable: false }
+      );
+    }
+  }
 
   async function loadFeed(pageNumber = page, shouldRefresh = false) {
     if (total && pageNumber > total) return;
@@ -95,6 +112,7 @@ export default function Feed() {
   }
 
   useEffect(() => {
+    checkProfile();
     loadFeed();
   }, []);
 
@@ -351,3 +369,9 @@ const stylesDesc = StyleSheet.create({
     color: '#666',
   },
 });
+
+const mapStateToProps = state => ({
+  profile: state.user.profile,
+});
+
+export default connect(mapStateToProps)(Feed);

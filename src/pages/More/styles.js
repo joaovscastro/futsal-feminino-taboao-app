@@ -146,3 +146,27 @@ export const MoreBtnText = styled.Text`
   text-align: center;
   padding-top: 6px;
 `;
+
+export const GoatButton = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: center;
+  margin: 30px 20px;
+`;
+
+export const GoatButtonText = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+  color: #8f8f8f;
+  margin-bottom: 5px;
+`;

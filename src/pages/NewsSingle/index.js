@@ -141,13 +141,32 @@ export default function NewsSingle({ navigation }) {
                 color: '#171717',
                 lineHeight: 22,
                 opacity: 0.8,
+                marginRight: 20,
+                marginLeft: 20,
+              },
+              h1: {
+                margin: 20,
+              },
+              h2: {
+                margin: 20,
               },
             }}
             imagesMaxWidth={Dimensions.get('window').width}
+            imagesInitialDimensions={{
+              width: Dimensions.get('window').width,
+              height: 200,
+            }}
             html={noticiasingle.content.rendered}
           />
         </View>
-        <View style={{ marginBottom: 50, marginTop: 30 }}>
+        <View
+          style={{
+            marginBottom: 50,
+            marginTop: 30,
+            marginLeft: 20,
+            marginRight: 20,
+          }}
+        >
           <TitleComent>Comentários</TitleComent>
 
           <View>

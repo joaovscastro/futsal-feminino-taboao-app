@@ -21,6 +21,7 @@ import Profile from './pages/Profile';
 import Main from './pages/Main';
 import Comissao from './pages/Comissao';
 import Projeto from './pages/Projeto';
+import CompleteProfile from './pages/CompleteProfile';
 
 export default (isSigned = false) =>
   createAppContainer(
@@ -153,6 +154,7 @@ export default (isSigned = false) =>
                   Profile,
                   Comissao,
                   Projeto,
+                  CompleteProfile,
                 },
                 {
                   headerMode: 'none',

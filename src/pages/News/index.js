@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, FlatList, Text } from 'react-native';
+import { connect } from 'react-redux';
+import { View, SafeAreaView, FlatList, Alert } from 'react-native';
 import { format, parseJSON } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 import pt from 'date-fns/locale/pt';
@@ -25,12 +26,28 @@ import Lottie from 'lottie-react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
-export default function News({ navigation }) {
+function News({ navigation, profile }) {
   const [loading, Setloading] = useState(false);
   const [noticias, Setnoticias] = useState([]);
   const [page, Setpage] = useState(1);
   const [total, Settotal] = useState(0);
   const [refreshing, Setrefreshing] = useState(false);
+
+  function checkProfile() {
+    if (profile.name === profile.email) {
+      Alert.alert(
+        'Complete seu perfil',
+        'Parece que você ainda não completou seu perfil. É rapidinho (;',
+        [
+          {
+            text: 'Completar meu perfil',
+            onPress: () => navigation.navigate('Profile'),
+          },
+        ],
+        { cancelable: false }
+      );
+    }
+  }
 
   async function loadNoticias(pageNumber = page, shouldRefresh = false) {
     if (total && pageNumber > total) return;
@@ -38,7 +55,7 @@ export default function News({ navigation }) {
     Setloading(true);
 
     const responseNoticias = await api.get(
-      `wp/v2/posts?categories=1&page=${pageNumber}&per_page=10`
+      `wp/v2/posts?page=${pageNumber}&per_page=10`
     );
 
     const dataNews = responseNoticias.data.map(noticia => ({
@@ -61,6 +78,7 @@ export default function News({ navigation }) {
   }
 
   useEffect(() => {
+    checkProfile();
     loadNoticias();
   }, []);
 
@@ -130,3 +148,9 @@ export default function News({ navigation }) {
     </SafeAreaView>
   );
 }
+
+const mapStateToProps = state => ({
+  profile: state.user.profile,
+});
+
+export default connect(mapStateToProps)(News);

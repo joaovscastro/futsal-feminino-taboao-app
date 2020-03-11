@@ -47,7 +47,7 @@ import {
 
 import { updateProfileRequest } from '../../store/modules/user/actions';
 
-function Profile({ profile, navigation }) {
+function CompleteProfile({ profile, navigation }) {
   const [nome, Setnome] = useState(profile.name);
 
   const [avatarsource, SetAvatarsource] = useState(profile.m_avatar);
@@ -115,13 +115,8 @@ function Profile({ profile, navigation }) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fc1936' }}>
       <Header>
-        <BackButton onPress={() => navigation.goBack()}>
-          <BackButtonContent>
-            <Icon name="chevron-left" size={30} color="#fc1936" />
-          </BackButtonContent>
-        </BackButton>
         <HeaderTexts>
-          <HeaderTextName>Perfil</HeaderTextName>
+          <HeaderTextName>Atualizar perfil</HeaderTextName>
         </HeaderTexts>
       </Header>
       <Container>
@@ -135,7 +130,6 @@ function Profile({ profile, navigation }) {
             keyboardType="default"
             autoCorrect={false}
             autoCapitalize="none"
-            value={nome}
             onChangeText={Setnome}
             placeholder="Digite seu nome"
           />
@@ -155,4 +149,4 @@ const mapStateToProps = state => ({
   profile: state.user.profile,
 });
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps)(CompleteProfile);
