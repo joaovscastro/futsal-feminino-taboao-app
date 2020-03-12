@@ -40,6 +40,7 @@ import {
   LoginIcon,
   TitleMail,
   MailInput,
+  MailInputPass,
   LoginPass,
   LoginButton,
   PassInput,
@@ -51,6 +52,7 @@ import {
   RequestAcessText,
   ForgotPassword,
   ForgotPasswordText,
+  ForgotPasswordTextOne,
   ForgotPasswordCont,
   LoginBtn,
   LoginButtonText,
@@ -79,11 +81,16 @@ export default function Login({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const [usernamelost, setUsernamelost] = useState('');
+
   const [registerEmail, setregisterEmail] = useState('');
   const [registerPassword, setregisterPassword] = useState('');
 
   const [modalcadastro, setModalcadastro] = useState(false);
   const [loadingcadastro, setLoadingcadastro] = useState(false);
+
+  const [modalpass, setModalpass] = useState(false);
+  const [loadingpass, setLoadingpass] = useState(false);
 
   const loading = useSelector(state => state.auth.loading);
 
@@ -119,6 +126,14 @@ export default function Login({ navigation }) {
     setModalcadastro(true);
   };
 
+  toggleModalPass = () => {
+    setModalpass(false);
+  };
+
+  async function toggleModalOpenPass() {
+    await setModalpass(true);
+  }
+
   async function registerUser() {
     setisModalVisibleRegister(false);
     setLoadingcadastro(true);
@@ -137,6 +152,27 @@ export default function Login({ navigation }) {
       Alert.alert(
         'Erro ao criar conta',
         'Houve um erro na hora de criar a conta, verifique seus dados'
+      );
+    }
+  }
+
+  async function handleSubmitLostpass() {
+    setLoadingpass(true);
+    try {
+      await api.post('wp/v2/users/lost-password', {
+        user_login: usernamelost,
+      });
+      toggleModalPass();
+      setLoadingpass(false);
+      Alert.alert(
+        'Link enviado',
+        'Um link para redefinição de senha foi enviado para seu e-mail.'
+      );
+    } catch (err) {
+      setLoadingpass(false);
+      Alert.alert(
+        'E-mail não encontrado',
+        'Por favor digite seu e-mail de cadastro.'
       );
     }
   }
@@ -160,7 +196,7 @@ export default function Login({ navigation }) {
             style={{
               flex: 1,
               justifyContent: 'flex-end',
-              marginBottom: 40,
+              marginBottom: 0,
             }}
           >
             {loadingcadastro ? (
@@ -189,6 +225,14 @@ export default function Login({ navigation }) {
               </>
             )}
           </View>
+          <ForgotPassword
+            onPress={() => toggleModalOpenPass()}
+            underlayColor="#f9f9f9"
+          >
+            <ForgotPasswordTextOne>
+              Perdeu a senha? Solicite outra
+            </ForgotPasswordTextOne>
+          </ForgotPassword>
         </View>
       </ImageBackground>
       <Modal
@@ -256,15 +300,7 @@ export default function Login({ navigation }) {
                   <LoginButtonText>Entrar</LoginButtonText>
                 )}
               </LoginButton>
-
-              <ForgotPassword
-                onPress={() => navigation.navigate('LostPassword')}
-                underlayColor="#f9f9f9"
-              >
-                <ForgotPasswordText>
-                  Perdeu a senha? Solicite outra
-                </ForgotPasswordText>
-              </ForgotPassword>
+              <View style={{ marginBottom: 40, marginTop: 20 }} />
             </Form>
           )}
         </Container>
@@ -351,7 +387,7 @@ export default function Login({ navigation }) {
                 <GoatButton
                   onPress={() =>
                     Linking.openURL(
-                      'https://privacidade.futsalfemininotaboao.com.br'
+                      'https://futsalfemininotaboao.com.br/privacidade'
                     )
                   }
                 >
@@ -397,7 +433,7 @@ export default function Login({ navigation }) {
           </ModalContaBtn>
         </View>
       </Modal>
-      <Modal isVisible={false} onBackdropPress={() => toggleModalCadastro()}>
+      <Modal isVisible={modalpass} onBackdropPress={() => toggleModalPass()}>
         <View
           style={{
             backgroundColor: '#ffffff',
@@ -423,21 +459,28 @@ export default function Login({ navigation }) {
           <View style={{ marginTop: 20 }} />
           <MailContent>
             <TitleMail>e-mail</TitleMail>
-            <MailInput
+            <MailInputPass
               keyboardType="email-address"
               autoCorrect={false}
               autoCapitalize="none"
-              returnKeyType="next"
-              onSubmitEditing={() => passwordRef.current.focus()}
-              value={username}
-              onChangeText={setUsername}
+              returnKeyType="send"
+              value={usernamelost}
+              onChangeText={setUsernamelost}
               placeholder="Digite seu e-mail"
             />
           </MailContent>
           <View style={{ marginTop: 20 }} />
-          <ModalContaBtn onPress={() => toggleModalCadastro()}>
-            <ModalContaBtnText>Enviar</ModalContaBtnText>
-          </ModalContaBtn>
+          {loadingpass ? (
+            <ActivityIndicator
+              style={{ marginTop: 20 }}
+              color="#d71435"
+              size={40}
+            />
+          ) : (
+            <ModalContaBtn onPress={() => handleSubmitLostpass()}>
+              <ModalContaBtnText>Enviar</ModalContaBtnText>
+            </ModalContaBtn>
+          )}
         </View>
       </Modal>
     </>

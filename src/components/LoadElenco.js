@@ -5,22 +5,15 @@ export default function LoadElenco() {
   return (
     <ContentLoader
       speed={2}
-      width={400}
-      height={95}
-      viewBox="0 0 400 95"
-      backgroundColor="#D9D9D9"
-      foregroundColor="#CACBCC"
+      width={600}
+      height={150}
+      viewBox="0 0 600 150"
+      backgroundColor="#D0132C"
+      foregroundColor="#F16376"
     >
-      <Rect x="0" y="0" rx="40" ry="40" width="80" height="80" />
-      <Rect x="22" y="87" rx="3" ry="3" width="34" height="7" />
-      <Rect x="92" y="-1" rx="40" ry="40" width="80" height="80" />
-      <Rect x="114" y="86" rx="3" ry="3" width="34" height="7" />
-      <Rect x="184" y="-1" rx="40" ry="40" width="80" height="80" />
-      <Rect x="206" y="86" rx="3" ry="3" width="34" height="7" />
-      <Rect x="275" y="-2" rx="40" ry="40" width="80" height="80" />
-      <Rect x="297" y="85" rx="3" ry="3" width="34" height="7" />
-      <Rect x="365" y="-1" rx="40" ry="40" width="80" height="80" />
-      <Rect x="387" y="86" rx="3" ry="3" width="34" height="7" />
+      <Rect x="20" y="0" rx="10" ry="10" width="182" height="154" />
+      <Rect x="222" y="0" rx="10" ry="10" width="182" height="154" />
+      <Rect x="422" y="0" rx="10" ry="10" width="182" height="154" />
     </ContentLoader>
   );
 }

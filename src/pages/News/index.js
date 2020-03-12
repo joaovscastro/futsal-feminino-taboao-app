@@ -55,7 +55,7 @@ function News({ navigation, profile }) {
     Setloading(true);
 
     const responseNoticias = await api.get(
-      `wp/v2/posts?page=${pageNumber}&per_page=10`
+      `wp/v2/posts?categories=1&page=${pageNumber}&per_page=10`
     );
 
     const dataNews = responseNoticias.data.map(noticia => ({

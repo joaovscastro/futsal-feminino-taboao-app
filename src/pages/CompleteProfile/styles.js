@@ -83,7 +83,9 @@ export const Avatar = styled.Image`
   border-radius: 50px;
 `;
 
-export const NameInput = styled.TextInput`
+export const NameInput = styled.TextInput.attrs({
+  placeholderTextColor: '#ccc',
+})`
   ${Platform.select({
     ios: css`
       font-family: 'SF Pro Text';
@@ -99,7 +101,7 @@ export const NameInput = styled.TextInput`
   text-align: center;
   width: 100%;
   height: 50px;
-
+  color: #000000;
   font-size: 16px;
   margin: 20px 0 0 0;
   border-radius: 12px;

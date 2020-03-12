@@ -7,6 +7,7 @@ import {
   ScrollView,
   ImageBackground,
   Alert,
+  Button,
 } from 'react-native';
 import { format, parseJSON } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
@@ -49,6 +50,7 @@ import {
 } from './styles';
 
 import LoadNews from '../../components/LoadNews';
+import LoadElenco from '../../components/LoadElenco';
 
 import Logo from '../../../assets/img/logo.png';
 import Bg from '../../../bg.jpg';
@@ -66,14 +68,16 @@ function Main({ navigation, profile }) {
   const [jogos, Setjogos] = useState([]);
   const [loading, Setloading] = useState(false);
   const [loadingnews, Setloadingnews] = useState(false);
+  const [loadingelenco, Setloadingelenco] = useState(false);
+
+  const [elenco, Setelenco] = useState([]);
 
   async function loadNews() {
     Setloading(true);
     Setloadingnews(true);
+    Setloadingelenco(true);
 
     // Jogos
-    const user = await api.get(`/buddypress/v1/members/1`);
-
     const responseJogos = await api.get(
       `sportspress/v2/events?per_page=10&order=asc`
     );
@@ -108,7 +112,9 @@ function Main({ navigation, profile }) {
     Setloading(false);
 
     // Notícias
-    const responseNoticias = await api.get('wp/v2/posts?per_page=5');
+    const responseNoticias = await api.get(
+      'wp/v2/posts?categories=1&per_page=5'
+    );
 
     const dataNews = responseNoticias.data.map(noticia => ({
       ...noticia,
@@ -122,6 +128,11 @@ function Main({ navigation, profile }) {
 
     Setnoticias(dataNews);
     Setloadingnews(false);
+
+    const responseElenco = await api.get('sportspress/v2/sponsors?_embed');
+
+    Setelenco(responseElenco.data);
+    Setloadingelenco(false);
   }
 
   useEffect(() => {
@@ -261,93 +272,49 @@ function Main({ navigation, profile }) {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             >
-              <ElencoBtn
-                underlayColor="#E71531"
-                onPress={() => navigation.navigate('Elenco')}
-              >
-                <ImageBackground
-                  source={ElencoTeste}
-                  style={{
-                    width: 197,
-                    height: 190,
-                    justifyContent: 'center',
-                    alignItems: 'flex-end',
-                  }}
-                >
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'flex-end',
-                      marginBottom: 60,
-                      marginRight: 20,
-                    }}
-                  >
-                    <ElencoNumber>12.</ElencoNumber>
+              {loadingelenco ? (
+                <View style={{ marginTop: 30 }}>
+                  <LoadElenco />
+                </View>
+              ) : (
+                <>
+                  {elenco.map(item => (
+                    <ElencoBtn
+                      key={item.id}
+                      underlayColor="#E71531"
+                      onPress={() => navigation.navigate('Elenco')}
+                    >
+                      <ImageBackground
+                        source={{
+                          uri: item._embedded['wp:featuredmedia'][0].source_url,
+                        }}
+                        style={{
+                          width: 197,
+                          height: 190,
+                          justifyContent: 'center',
+                          alignItems: 'flex-end',
+                        }}
+                      >
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'flex-end',
+                            marginBottom: 60,
+                            marginRight: 20,
+                          }}
+                        >
+                          <ElencoNumber>{item.url}.</ElencoNumber>
 
-                    <View>
-                      <ElencoName>Luana</ElencoName>
-                    </View>
-                  </View>
-                </ImageBackground>
-              </ElencoBtn>
-              <ElencoBtn
-                underlayColor="#E71531"
-                onPress={() => navigation.navigate('Elenco')}
-              >
-                <ImageBackground
-                  source={ElencoTeste2}
-                  style={{
-                    width: 197,
-                    height: 190,
-                    justifyContent: 'center',
-                    alignItems: 'flex-end',
-                  }}
-                >
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'flex-end',
-                      marginBottom: 60,
-                      marginRight: 20,
-                    }}
-                  >
-                    <ElencoNumber>8.</ElencoNumber>
+                          <View>
+                            <ElencoName>{item.title.rendered}</ElencoName>
+                          </View>
+                        </View>
+                      </ImageBackground>
+                    </ElencoBtn>
+                  ))}
+                </>
+              )}
 
-                    <View>
-                      <ElencoName>Lora</ElencoName>
-                    </View>
-                  </View>
-                </ImageBackground>
-              </ElencoBtn>
-              <ElencoBtn
-                underlayColor="#E71531"
-                onPress={() => navigation.navigate('Elenco')}
-              >
-                <ImageBackground
-                  source={ElencoTeste3}
-                  style={{
-                    width: 197,
-                    height: 190,
-                    justifyContent: 'center',
-                    alignItems: 'flex-end',
-                  }}
-                >
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'flex-end',
-                      marginBottom: 60,
-                      marginRight: 20,
-                    }}
-                  >
-                    <ElencoNumber>22.</ElencoNumber>
-
-                    <View>
-                      <ElencoName>Flavi</ElencoName>
-                    </View>
-                  </View>
-                </ImageBackground>
-              </ElencoBtn>
               <View style={{ marginRight: 20 }} />
             </ScrollView>
             <ElencoLink onPress={() => navigation.navigate('Elenco')}>
@@ -363,7 +330,11 @@ function Main({ navigation, profile }) {
         </View>
         <View>
           <AboutButton onPress={() => navigation.navigate('Projeto')}>
-            <About source={Projeto}>
+            <About
+              source={{
+                uri: 'https://futsalfemininotaboao.com.br/oprojeto-home.png',
+              }}
+            >
               <AboutTitle>Conheça nosso</AboutTitle>
               <AboutTitle>projeto</AboutTitle>
               <View style={{ marginTop: 20 }}>

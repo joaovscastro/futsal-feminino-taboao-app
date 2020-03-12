@@ -40,7 +40,7 @@ export const SearchContent = styled.View`
 export const SearchBtn = styled(RectButton)``;
 
 export const Container = styled.ScrollView`
-  background-color: #f3f3f3;
+  background-color: #f3f6f8;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   padding: 15px 20px 0 20px;

@@ -121,6 +121,26 @@ export const MailInput = styled.TextInput`
   color: #a3a3a4;
 `;
 
+export const MailInputPass = styled.TextInput`
+  ${Platform.select({
+    ios: css`
+      height: 30px;
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      height: 40px;
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
+
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  border-bottom-width: 1px;
+  font-size: 16px;
+  color: #a3a3a4;
+`;
+
 export const LoginPass = styled.View`
   flex-direction: row;
   margin: 20px 0;
@@ -216,6 +236,22 @@ export const ForgotPasswordText = styled.Text`
   ${Platform.select({
     ios: css`
       font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
+  font-size: 13px;
+  text-align: center;
+  color: #2d2d2d;
+`;
+
+export const ForgotPasswordTextOne = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
       font-weight: bold;
     `,
     android: css`
@@ -225,7 +261,7 @@ export const ForgotPasswordText = styled.Text`
   })};
   font-size: 14px;
   text-align: center;
-  color: #2d2d2d;
+  color: #ffffff;
 `;
 
 export const LoginBtn = styled.TouchableOpacity`

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { View, SafeAreaView, Text, Alert } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 import Lottie from 'lottie-react-native';
 
 import BolaLoad from '../../../bola-load.json';
@@ -72,18 +72,15 @@ function CompleteProfile({ profile, navigation }) {
   };
 
   function selecionaAvatar() {
-    ImagePicker.showImagePicker(options, response => {
-      if (response.didCancel) {
-      } else if (response.error) {
-        Alert.alert('Não foi possível acessar! Verifique sua permissão.');
-      } else {
-        const sourceView = response.uri;
-        SetAvatar(sourceView);
+    ImagePicker.openPicker({
+      width: 100,
+      height: 100,
+      cropping: true,
+      includeBase64: true,
+    }).then(image => {
+      const source = { uri: `data:${image.mime};base64,` + image.data };
 
-        const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-        SetAvatarupload(source.uri);
-      }
+      SetAvatarupload(source.uri);
     });
   }
 

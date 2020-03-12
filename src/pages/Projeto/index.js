@@ -7,6 +7,7 @@ import {
   TextInput,
   Alert,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import { format, parseJSON } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
@@ -50,12 +51,17 @@ export default function Projeto({ navigation }) {
   // Estados
   const [comentarios, Setcomentarios] = useState([]);
   const [loading, Setloading] = useState(false);
+  const [fundo, setFundo] = useState(
+    'https://futsalfemininotaboao.com.br/oprojeto.png'
+  );
 
   async function loadComents() {
     Setloading(true);
-    const coments = await api.get('sportspress/v2/sponsors?_embed');
+    const coments = await api.get('wp/v2/posts?categories=47');
 
+    setFundo(coments.data[0].jetpack_featured_media_url);
     Setcomentarios(coments.data);
+
     Setloading(false);
   }
 
@@ -66,7 +72,7 @@ export default function Projeto({ navigation }) {
   return (
     <>
       <ImageBackground
-        source={Bg}
+        source={{ uri: fundo }}
         style={{
           width: null,
           height: 220,
