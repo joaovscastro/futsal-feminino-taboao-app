@@ -27,6 +27,7 @@ import api from '../../services/api';
 import BolaLoad from '../../../bola-load.json';
 
 import Happy from '../../../happy.json';
+import Senha from '../../../senha.json';
 
 import {
   Container,
@@ -393,6 +394,49 @@ export default function Login({ navigation }) {
           </ModalContaTexto>
           <ModalContaBtn onPress={() => toggleModalCadastro()}>
             <ModalContaBtnText>Ok</ModalContaBtnText>
+          </ModalContaBtn>
+        </View>
+      </Modal>
+      <Modal isVisible={false} onBackdropPress={() => toggleModalCadastro()}>
+        <View
+          style={{
+            backgroundColor: '#ffffff',
+            alignItems: 'center',
+            borderRadius: 8,
+            marginLeft: 20,
+            marginRight: 20,
+            padding: 20,
+          }}
+        >
+          <Lottie
+            resizeMode="contain"
+            autoSize
+            source={Senha}
+            autoPlay
+            loop={true}
+            style={{ width: 100, height: 100 }}
+          />
+          <ModalContaTitulo>Perdeu a senha?</ModalContaTitulo>
+          <ModalContaTexto>
+            Digite seu e-mail abaixo e solicite outra.
+          </ModalContaTexto>
+          <View style={{ marginTop: 20 }} />
+          <MailContent>
+            <TitleMail>e-mail</TitleMail>
+            <MailInput
+              keyboardType="email-address"
+              autoCorrect={false}
+              autoCapitalize="none"
+              returnKeyType="next"
+              onSubmitEditing={() => passwordRef.current.focus()}
+              value={username}
+              onChangeText={setUsername}
+              placeholder="Digite seu e-mail"
+            />
+          </MailContent>
+          <View style={{ marginTop: 20 }} />
+          <ModalContaBtn onPress={() => toggleModalCadastro()}>
+            <ModalContaBtnText>Enviar</ModalContaBtnText>
           </ModalContaBtn>
         </View>
       </Modal>
