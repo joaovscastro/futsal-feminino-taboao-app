@@ -67,7 +67,7 @@ export default function Elenco({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fc1936' }}>
       <Header>
-        <BackButton onPress={() => navigation.goBack()}>
+        <BackButton underlayColor="#E71531" onPress={() => navigation.goBack()}>
           <BackButtonContent>
             <Icon name="chevron-left" size={30} color="#fc1936" />
           </BackButtonContent>

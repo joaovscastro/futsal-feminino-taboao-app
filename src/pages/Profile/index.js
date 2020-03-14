@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import {
-  View,
-  SafeAreaView,
-  Image,
-  Text,
-  Button,
-  Alert,
-  TextInput,
-} from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 
-// import ImagePicker from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
 
 import Lottie from 'lottie-react-native';
@@ -77,24 +68,6 @@ function Profile({ profile, navigation }) {
     },
   };
 
-  function selecionaAvatarOri() {
-    ImagePicker.showImagePicker(options, response => {
-      if (response.didCancel) {
-      } else if (response.error) {
-        Alert.alert('Não foi possível acessar! Verifique sua permissão.');
-      } else {
-        const sourceView = response.uri;
-        SetAvatar(sourceView);
-
-        // You can also display the image using data:
-        const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-        SetAvatarupload(source.uri);
-        SetTipo('base64');
-      }
-    });
-  }
-
   function selecionaAvatar() {
     ImagePicker.openPicker({
       width: 100,
@@ -104,6 +77,7 @@ function Profile({ profile, navigation }) {
     }).then(image => {
       const source = { uri: `data:${image.mime};base64,` + image.data };
 
+      SetAvatar(image.path);
       SetAvatarupload(source.uri);
     });
   }
@@ -124,7 +98,7 @@ function Profile({ profile, navigation }) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fc1936' }}>
       <Header>
-        <BackButton onPress={() => navigation.goBack()}>
+        <BackButton underlayColor="#E71531" onPress={() => navigation.goBack()}>
           <BackButtonContent>
             <Icon name="chevron-left" size={30} color="#fc1936" />
           </BackButtonContent>

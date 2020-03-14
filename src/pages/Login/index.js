@@ -213,6 +213,7 @@ export default function Login({ navigation }) {
                   }}
                 />
                 <LoadcontentText>Criando conta...</LoadcontentText>
+                <View style={{ marginBottom: 50 }} />
               </Loadcontent>
             ) : (
               <>
@@ -222,17 +223,17 @@ export default function Login({ navigation }) {
                 <LoginBtnModal onPress={toggleModalOpenPayment}>
                   <LoginBtnModalText>Entrar</LoginBtnModalText>
                 </LoginBtnModal>
+                <ForgotPassword
+                  onPress={() => toggleModalOpenPass()}
+                  underlayColor="#f9f9f9"
+                >
+                  <ForgotPasswordTextOne>
+                    Perdeu a senha? Solicite outra
+                  </ForgotPasswordTextOne>
+                </ForgotPassword>
               </>
             )}
           </View>
-          <ForgotPassword
-            onPress={() => toggleModalOpenPass()}
-            underlayColor="#f9f9f9"
-          >
-            <ForgotPasswordTextOne>
-              Perdeu a senha? Solicite outra
-            </ForgotPasswordTextOne>
-          </ForgotPassword>
         </View>
       </ImageBackground>
       <Modal

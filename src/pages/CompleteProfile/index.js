@@ -80,6 +80,7 @@ function CompleteProfile({ profile, navigation }) {
     }).then(image => {
       const source = { uri: `data:${image.mime};base64,` + image.data };
 
+      SetAvatar(image.path);
       SetAvatarupload(source.uri);
     });
   }

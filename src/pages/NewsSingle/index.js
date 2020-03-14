@@ -121,7 +121,10 @@ export default function NewsSingle({ navigation }) {
         }}
       >
         <SafeAreaView>
-          <BackButton onPress={() => navigation.goBack()}>
+          <BackButton
+            underlayColor="#ffffff"
+            onPress={() => navigation.goBack()}
+          >
             <BackButtonContent>
               <Icon name="chevron-left" size={30} />
             </BackButtonContent>
