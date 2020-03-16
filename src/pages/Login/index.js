@@ -52,9 +52,9 @@ Icon.loadFont();
 
 import LogoImg from '../../../assets/img/logo.png';
 import BgLogin from '../../../assets/img/bglogin.jpg';
-import BolaLoad from '../../../bola-load.json';
-import Happy from '../../../happy.json';
-import Senha from '../../../senha.json';
+import BolaLoad from '../../../assets/animations/bola-load.json';
+import Happy from '../../../assets/animations/happy.json';
+import Senha from '../../../assets/animations/senha.json';
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();

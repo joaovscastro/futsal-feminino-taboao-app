@@ -4,7 +4,7 @@ import { View, SafeAreaView, Text, Alert } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import Lottie from 'lottie-react-native';
 
-import BolaLoad from '../../../bola-load.json';
+import BolaLoad from '../../../assets/animations/bola-load.json';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();

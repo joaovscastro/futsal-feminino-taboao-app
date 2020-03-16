@@ -21,7 +21,7 @@ import {
   LoadcontentText,
 } from './styles';
 
-import BolaLoad from '../../../bola-load.json';
+import BolaLoad from '../../../assets/animations/bola-load.json';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();

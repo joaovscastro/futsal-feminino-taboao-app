@@ -50,7 +50,7 @@ import LoadNews from '../../components/LoadNews';
 import LoadElenco from '../../components/LoadElenco';
 
 import Logo from '../../../assets/img/logo.png';
-import Bg from '../../../bg.jpg';
+import Bg from '../../../assets/img/bg.jpg';
 import ElencoBg from '../../../assets/img/elenco.png';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

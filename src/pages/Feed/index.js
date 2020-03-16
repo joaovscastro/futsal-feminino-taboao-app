@@ -42,8 +42,8 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
 
-import BolaLoad from '../../../bola-load.json';
-import Favorite from '../../../favorite.json';
+import BolaLoad from '../../../assets/animations/bola-load.json';
+import Favorite from '../../../assets/animations/favorite.json';
 
 function Feed({ profile, navigation }) {
   const [loading, Setloading] = useState(false);

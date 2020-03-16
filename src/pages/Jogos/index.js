@@ -52,8 +52,8 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
 
-import BolaLoad from '../../../bola-load.json';
-import Brasao from '../../../assets/img/brasao.png';
+import BolaLoad from '../../../assets/animations/bola-load.json';
+import Brasao from '../../../assets/img/logo.png';
 
 function Jogos({ navigation, profile }) {
   // Tabs
