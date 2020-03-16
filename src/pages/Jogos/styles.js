@@ -282,13 +282,6 @@ export const EscalacaoJogadoraNome = styled.Text`
   color: #000000;
 `;
 
-export const EscalacaoJogadoraPosicao = styled.Text`
-  font-family: 'Axiforma-Regular';
-  font-size: 12px;
-  color: #aab2b7;
-  margin-top: -7px;
-`;
-
 export const EscalacaoDados = styled.View`
   background-color: #000;
   padding: 10px 0;
@@ -307,25 +300,6 @@ export const EscalacaoDadosText = styled.Text`
       font-weight: bold;
     `,
   })};
-  font-size: 12px;
-  color: #ffffff;
-  flex: 1;
-  text-align: center;
-  margin: 5px 0;
-`;
-
-export const EscalacaoDadosNumber = styled.Text`
-  ${Platform.select({
-    ios: css`
-      font-family: 'SF Pro Text';
-      font-weight: bold;
-    `,
-    android: css`
-      font-family: 'SF Pro Text';
-      font-weight: bold;
-    `,
-  })};
-
   font-size: 12px;
   color: #ffffff;
   flex: 1;

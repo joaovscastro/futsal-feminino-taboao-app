@@ -28,17 +28,6 @@ export const HeaderTextName = styled.Text`
   color: #ffffff;
 `;
 
-export const SearchContent = styled.View`
-  width: 30px;
-  height: 30px;
-  align-items: center;
-  justify-content: center;
-  background-color: #f3f3f3;
-  border-radius: 50px;
-`;
-
-export const SearchBtn = styled(RectButton)``;
-
 export const Container = styled.View`
   background-color: #ffffff;
   border-top-left-radius: 25px;
@@ -95,14 +84,6 @@ export const NewsDate = styled.Text`
   opacity: 0.8;
 
   margin-top: 5px;
-`;
-
-export const NoticiasDesc = styled.Text.attrs({
-  numberOfLines: 2,
-})`
-  font-family: 'Axiforma-Regular';
-  font-size: 13px;
-  color: #a8a8a8;
 `;
 
 export const Loadcontent = styled.View`

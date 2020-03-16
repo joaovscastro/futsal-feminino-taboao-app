@@ -1,38 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, Text, Image, FlatList } from 'react-native';
-
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-Icon.loadFont();
+import { SafeAreaView, FlatList } from 'react-native';
+import Lottie from 'lottie-react-native';
 
 import api from '../../services/api';
-import Lottie from 'lottie-react-native';
 
 import {
   Header,
   HeaderTexts,
   HeaderTextName,
-  HeaderTextDesc,
-  SearchContent,
-  SearchBtn,
   Container,
-  Noticias,
-  NoticiasImg,
-  NoticiasTitle,
-  NoticiasDesc,
   Foto,
   ElencoLista,
   ElencoNome,
-  ElencoNumero,
   BackButton,
   BackButtonContent,
   Loadcontent,
   LoadcontentText,
 } from './styles';
 
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+Icon.loadFont();
+
 import BolaLoad from '../../../bola-load.json';
-import fotoAvatar from '../../../assets/img/avatar.png';
-import noticiaPlaceholder from '../../../assets/img/noticias-placeholder.jpg';
-import Brasao from '../../../assets/img/brasao.png';
 
 export default function Elenco({ navigation }) {
   const [loading, Setloading] = useState(false);

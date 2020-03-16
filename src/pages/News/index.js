@@ -4,6 +4,9 @@ import { View, SafeAreaView, FlatList, Alert } from 'react-native';
 import { format, parseJSON } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 import pt from 'date-fns/locale/pt';
+import Lottie from 'lottie-react-native';
+
+import api from '../../services/api';
 
 import {
   Header,
@@ -20,9 +23,6 @@ import {
 
 import BolaLoad from '../../../bola-load.json';
 
-import api from '../../services/api';
-import Lottie from 'lottie-react-native';
-
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
@@ -32,22 +32,6 @@ function News({ navigation, profile }) {
   const [page, Setpage] = useState(1);
   const [total, Settotal] = useState(0);
   const [refreshing, Setrefreshing] = useState(false);
-
-  function checkProfile() {
-    if (profile.name === profile.email) {
-      Alert.alert(
-        'Complete seu perfil',
-        'Parece que você ainda não completou seu perfil. É rapidinho (;',
-        [
-          {
-            text: 'Completar meu perfil',
-            onPress: () => navigation.navigate('Profile'),
-          },
-        ],
-        { cancelable: false }
-      );
-    }
-  }
 
   async function loadNoticias(pageNumber = page, shouldRefresh = false) {
     if (total && pageNumber > total) return;
@@ -78,7 +62,6 @@ function News({ navigation, profile }) {
   }
 
   useEffect(() => {
-    checkProfile();
     loadNoticias();
   }, []);
 

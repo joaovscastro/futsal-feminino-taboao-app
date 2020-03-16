@@ -2,10 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { View, Text, SafeAreaView, Alert, Image, Linking } from 'react-native';
-import Svg, { Path, Rect } from 'react-native-svg';
-
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-Icon.loadFont();
+import Svg, { Path } from 'react-native-svg';
 
 import {
   Header,
@@ -18,15 +15,12 @@ import {
   MoreTitle,
   MoreDesc,
   MoreTitleRed,
-  MoreBtn,
-  MoreBtnText,
   GoatButton,
   GoatButtonText,
 } from './styles';
 
-import fotoAvatar from '../../../assets/img/avatar.png';
-import noticiaPlaceholder from '../../../assets/img/noticias-placeholder.jpg';
-import Brasao from '../../../assets/img/brasao.png';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+Icon.loadFont();
 
 import { signOut } from '../../store/modules/auth/actions';
 
@@ -42,26 +36,6 @@ function More({ profile, navigation }) {
       { cancelable: false }
     );
   }
-
-  function checkProfile() {
-    if (profile.name === profile.email) {
-      Alert.alert(
-        'Complete seu perfil',
-        'Parece que você ainda não completou seu perfil. É rapidinho (;',
-        [
-          {
-            text: 'Completar meu perfil',
-            onPress: () => navigation.navigate('CompleteProfile'),
-          },
-        ],
-        { cancelable: false }
-      );
-    }
-  }
-
-  useEffect(() => {
-    checkProfile();
-  }, []);
 
   const dispatch = useDispatch();
 

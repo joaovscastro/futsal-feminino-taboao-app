@@ -27,49 +27,11 @@ export const HeaderTextName = styled.Text`
   color: #ffffff;
 `;
 
-export const SearchContent = styled.View`
-  width: 30px;
-  height: 30px;
-  align-items: center;
-  justify-content: center;
-  background-color: #f3f3f3;
-  border-radius: 50px;
-`;
-
-export const SearchBtn = styled(RectButton)``;
-
 export const Container = styled.ScrollView`
   background-color: #f3f6f8;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   padding: 35px 20px 0 20px;
-`;
-
-export const Noticias = styled(RectButton)`
-  flex-direction: row;
-  align-items: center;
-  margin: 0 0 20px 0;
-`;
-
-export const NoticiasImg = styled.Image`
-  width: 100px;
-  height: 100px;
-  border-radius: 8px;
-  margin: 0 15px 0 0;
-`;
-
-export const NoticiasTitle = styled.Text`
-  font-family: 'Axiforma';
-  font-weight: bold;
-  font-size: 15px;
-  color: #000000;
-`;
-
-export const NoticiasDesc = styled.Text`
-  font-family: 'Axiforma';
-  font-weight: normal;
-  font-size: 13px;
-  color: #a8a8a8;
 `;
 
 export const HeadProfile = styled.View`
@@ -104,41 +66,6 @@ export const NameInput = styled.TextInput.attrs({
   color: #000000;
   font-size: 16px;
   margin: 10px 0;
-`;
-
-export const Medalhas = styled.View`
-  background: #000;
-  border-radius: 8px;
-  padding: 20px;
-`;
-
-export const MedalhaTitle = styled.Text`
-  font-family: 'Axiforma-SemiBold';
-  font-size: 18px;
-  color: #000000;
-`;
-
-export const Pontos = styled.View`
-  background: #ec2840;
-  border-radius: 18px;
-  padding: 10px 10px 0 10px;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-export const PontosTitle = styled.Text`
-  font-family: 'Axiforma-Regular';
-  font-size: 16px;
-  color: #ffffff;
-  margin-right: 10px;
-`;
-
-export const PontosNumero = styled.Text`
-  font-family: 'Axiforma-SemiBold';
-  font-size: 16px;
-  color: #ffffff;
 `;
 
 export const NewComentBtnSubmit = styled.TouchableOpacity`

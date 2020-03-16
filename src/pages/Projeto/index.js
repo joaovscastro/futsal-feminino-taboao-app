@@ -1,48 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import {
-  SafeAreaView,
-  View,
-  ImageBackground,
-  Dimensions,
-  TextInput,
-  Alert,
-  ActivityIndicator,
-  Image,
-} from 'react-native';
-import { format, parseJSON } from 'date-fns';
-import { utcToZonedTime } from 'date-fns-tz';
-import pt from 'date-fns/locale/pt';
+import { SafeAreaView, View, ImageBackground, Dimensions } from 'react-native';
 import HTML from 'react-native-render-html';
-import Modal from 'react-native-modal';
 import Lottie from 'lottie-react-native';
+
+import api from '../../services/api';
 
 import {
   BackButton,
   BackButtonContent,
   Container,
   Title,
-  Data,
-  Content,
-  Share,
-  TitleComent,
-  Comentario,
-  ComentarioCont,
-  DataComent,
-  ComentName,
-  ComentCont,
-  ComentAvatar,
-  NewComentBtnSubmit,
-  NewComentBtnSubmitText,
-  ContainerComent,
   Loadcontent,
   LoadcontentText,
-  ComentEmpty,
 } from './styles';
 
 import BolaLoad from '../../../bola-load.json';
-import Bg from '../../../assets/img/projeto-interna.jpg';
-
-import api from '../../services/api';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();

@@ -1,43 +1,25 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Image,
   View,
-  TextInput,
-  Button,
   Text,
-  SafeAreaView,
   ImageBackground,
   ActivityIndicator,
-  ScrollView,
   Alert,
   Linking,
 } from 'react-native';
 import Lottie from 'lottie-react-native';
-
 import Modal from 'react-native-modal';
 
 import { signInRequest } from '../../store/modules/auth/actions';
-
-import Icon from 'react-native-vector-icons/MaterialIcons';
-Icon.loadFont();
-
 import api from '../../services/api';
-
-import BolaLoad from '../../../bola-load.json';
-
-import Happy from '../../../happy.json';
-import Senha from '../../../senha.json';
 
 import {
   Container,
   Form,
-  Header,
   Logo,
-  ContainerHome,
   MailContent,
   LoginMail,
-  LoginIcon,
   TitleMail,
   MailInput,
   MailInputPass,
@@ -48,13 +30,9 @@ import {
   PassContent,
   TitleOne,
   TitleDesc,
-  RequestAcess,
-  RequestAcessText,
   ForgotPassword,
   ForgotPasswordText,
   ForgotPasswordTextOne,
-  ForgotPasswordCont,
-  LoginBtn,
   LoginButtonText,
   LoginBtnModal,
   LoginBtnModalText,
@@ -69,8 +47,14 @@ import {
   ModalContaBtnText,
 } from './styles';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
+Icon.loadFont();
+
 import LogoImg from '../../../assets/img/logo.png';
 import BgLogin from '../../../assets/img/bglogin.jpg';
+import BolaLoad from '../../../bola-load.json';
+import Happy from '../../../happy.json';
+import Senha from '../../../senha.json';
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();

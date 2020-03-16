@@ -3,11 +3,7 @@ import { connect } from 'react-redux';
 import {
   View,
   SafeAreaView,
-  Image,
-  Text,
   StyleSheet,
-  Dimensions,
-  Button,
   FlatList,
   Alert,
   TouchableOpacity,
@@ -17,28 +13,20 @@ import { parseJSON, format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import HTMLView from 'react-native-htmlview';
 import HTML from 'react-native-render-html';
-
+import Modal from 'react-native-modal';
+import Lottie from 'lottie-react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import api from '../../services/api';
-import Lottie from 'lottie-react-native';
-
-import Modal from 'react-native-modal';
-
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-Icon.loadFont();
 
 import {
   Container,
   Header,
   HeaderTexts,
   HeaderTextName,
-  FeedContent,
   FeedItem,
   FeedHeader,
   FeedAvatar,
-  FeedName,
-  FeedContentText,
   FeedIcons,
   FeedData,
   NewPostBtn,
@@ -50,6 +38,9 @@ import {
   LoadcontentText,
   ContainerPost,
 } from './styles';
+
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+Icon.loadFont();
 
 import BolaLoad from '../../../bola-load.json';
 import Favorite from '../../../favorite.json';

@@ -4,25 +4,17 @@ import {
   View,
   SafeAreaView,
   FlatList,
-  Text,
   ScrollView,
-  Button,
-  StyleSheet,
   Dimensions,
-  Alert,
 } from 'react-native';
 import { format, parseJSON } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 import pt from 'date-fns/locale/pt';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-
-import api from '../../services/api';
 import Lottie from 'lottie-react-native';
-
 import Modal from 'react-native-modal';
 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-Icon.loadFont();
+import api from '../../services/api';
 
 import {
   Header,
@@ -49,20 +41,18 @@ import {
   EscalacaoJogadora,
   EscalacaoJogadoraAvatar,
   EscalacaoJogadoraNome,
-  EscalacaoJogadoraPosicao,
   EscalacaoDados,
   EscalacaoDadosText,
-  EscalacaoDadosNumber,
   Disclaimer,
   Loadcontent,
   LoadcontentText,
   Placar,
 } from './styles';
 
-import BolaLoad from '../../../bola-load.json';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+Icon.loadFont();
 
-import fotoAvatar from '../../../assets/img/avatar.png';
-import noticiaPlaceholder from '../../../assets/img/noticias-placeholder.jpg';
+import BolaLoad from '../../../bola-load.json';
 import Brasao from '../../../assets/img/brasao.png';
 
 function Jogos({ navigation, profile }) {
@@ -237,30 +227,12 @@ function Jogos({ navigation, profile }) {
   const [refreshing, Setrefreshing] = useState(false);
   const [isModalVisible, setisModalVisible] = useState(false);
 
-  const [teste, setTeste] = useState('');
-
   const [taboao, Settaboao] = useState([(nome = ''), (logoUrl = '')]);
   const [adversario, Setadversario] = useState([(nome = ''), (logoUrl = '')]);
   const [camp, Setcamp] = useState([]);
   const [local, Setlocal] = useState([]);
 
   const [dadosjogo, setDadosjogo] = useState([]);
-
-  function checkProfile() {
-    if (profile.name === profile.email) {
-      Alert.alert(
-        'Complete seu perfil',
-        'Parece que você ainda não completou seu perfil. É rapidinho (;',
-        [
-          {
-            text: 'Completar meu perfil',
-            onPress: () => navigation.navigate('Profile'),
-          },
-        ],
-        { cancelable: false }
-      );
-    }
-  }
 
   async function loadJogos(pageNumber = page, shouldRefresh = false) {
     if (total && pageNumber > total) return;
@@ -339,7 +311,6 @@ function Jogos({ navigation, profile }) {
   }
 
   useEffect(() => {
-    checkProfile();
     loadJogos();
   }, []);
 
@@ -387,8 +358,6 @@ function Jogos({ navigation, profile }) {
 
     const campId = jogosingle.leagues;
     const localId = jogosingle.venues;
-
-    setTeste(taboaoId);
 
     const responseTaboao = await api.get(
       `sportspress/v2/teams/${taboaoId}?_embed`

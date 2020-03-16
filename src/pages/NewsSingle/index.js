@@ -3,9 +3,6 @@ import {
   SafeAreaView,
   View,
   ImageBackground,
-  Text,
-  Image,
-  TouchableOpacity,
   Dimensions,
   TextInput,
   Alert,
@@ -18,14 +15,14 @@ import HTML from 'react-native-render-html';
 import Modal from 'react-native-modal';
 import Lottie from 'lottie-react-native';
 
+import api from '../../services/api';
+
 import {
   BackButton,
   BackButtonContent,
   Container,
   Title,
   Data,
-  Content,
-  Share,
   TitleComent,
   Comentario,
   ComentarioCont,
@@ -42,8 +39,6 @@ import {
 } from './styles';
 
 import BolaLoad from '../../../bola-load.json';
-
-import api from '../../services/api';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();

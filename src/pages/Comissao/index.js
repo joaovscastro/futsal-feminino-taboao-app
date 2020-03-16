@@ -1,39 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, Text, StyleSheet, FlatList } from 'react-native';
+import { SafeAreaView, FlatList } from 'react-native';
 import HTML from 'react-native-render-html';
-
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-Icon.loadFont();
+import Lottie from 'lottie-react-native';
 
 import api from '../../services/api';
-import Lottie from 'lottie-react-native';
 
 import {
   Header,
   HeaderTexts,
   HeaderTextName,
-  HeaderTextDesc,
-  SearchContent,
-  SearchBtn,
   Container,
-  Noticias,
-  NoticiasImg,
-  NoticiasTitle,
-  NoticiasDesc,
   Foto,
   ElencoLista,
   ElencoNome,
-  ElencoNumero,
   BackButton,
   BackButtonContent,
   Loadcontent,
   LoadcontentText,
 } from './styles';
 
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+Icon.loadFont();
+
 import BolaLoad from '../../../bola-load.json';
-import fotoAvatar from '../../../assets/img/avatar.png';
-import noticiaPlaceholder from '../../../assets/img/noticias-placeholder.jpg';
-import Brasao from '../../../assets/img/brasao.png';
 
 export default function Comissao({ navigation }) {
   const [loading, Setloading] = useState(false);
@@ -122,13 +111,3 @@ export default function Comissao({ navigation }) {
     </SafeAreaView>
   );
 }
-
-const stylesDesc = StyleSheet.create({
-  p: {
-    height: 20,
-    fontSize: 14,
-    margin: 0,
-    padding: 0,
-    color: '#666666',
-  },
-});

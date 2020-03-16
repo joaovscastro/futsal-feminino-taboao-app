@@ -131,22 +131,6 @@ export const MoreDesc = styled.Text`
   color: #8f8f8f;
 `;
 
-export const MoreBtn = styled.View`
-  background-color: #2948fa;
-  width: 150px;
-  border-radius: 50px;
-`;
-
-export const MoreBtnText = styled.Text`
-  font-family: 'Axiforma-Bold';
-  text-transform: uppercase;
-  font-size: 10px;
-  color: #ffffff;
-
-  text-align: center;
-  padding-top: 6px;
-`;
-
 export const GoatButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;

@@ -6,16 +6,13 @@ import {
   SafeAreaView,
   ScrollView,
   ImageBackground,
-  Alert,
-  Button,
 } from 'react-native';
 import { format, parseJSON } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 import pt from 'date-fns/locale/pt';
+import Svg, { Path } from 'react-native-svg';
 
 import api from '../../services/api';
-
-import Svg, { Path } from 'react-native-svg';
 
 import {
   Header,
@@ -55,10 +52,6 @@ import LoadElenco from '../../components/LoadElenco';
 import Logo from '../../../assets/img/logo.png';
 import Bg from '../../../bg.jpg';
 import ElencoBg from '../../../assets/img/elenco.png';
-import ElencoTeste from '../../../assets/img/testeelenco.png';
-import ElencoTeste2 from '../../../assets/img/testeelenco2.png';
-import ElencoTeste3 from '../../../assets/img/testeelenco3.png';
-import Projeto from '../../../assets/img/projeto-home.jpg';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();

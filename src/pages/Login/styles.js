@@ -22,24 +22,9 @@ export const Form = styled.View`
   margin: 0 20px;
 `;
 
-export const Header = styled.View`
-  align-items: center;
-  justify-content: center;
-`;
-
 export const Logo = styled.Image`
   margin-top: 50px;
   width: 130px;
-`;
-
-export const ContainerHome = styled.KeyboardAvoidingView.attrs({
-  enabled: Platform.OS === 'ios',
-  behavior: 'padding',
-})`
-  border-top-left-radius: 32px;
-  border-top-right-radius: 32px;
-  background: #f9f9f9;
-  background: #f00;
 `;
 
 export const TitleOne = styled.Text`
@@ -212,22 +197,6 @@ export const PassContent = styled.View`
   flex: 1;
 `;
 
-export const RequestAcess = styled.TouchableOpacity`
-  height: 58px;
-  border-radius: 10px;
-  align-items: center;
-  justify-content: center;
-  margin: 10px 25px;
-  border: 2px solid rgba(211, 0, 76, 0.1);
-`;
-
-export const RequestAcessText = styled.Text`
-  font-style: normal;
-  font-weight: bold;
-  font-size: 15px;
-  color: #d3004c;
-`;
-
 export const ForgotPassword = styled.TouchableOpacity`
   margin: 20px 0 40px 0;
 `;
@@ -262,12 +231,6 @@ export const ForgotPasswordTextOne = styled.Text`
   font-size: 14px;
   text-align: center;
   color: #ffffff;
-`;
-
-export const LoginBtn = styled.TouchableOpacity`
-  padding: 20px;
-  margin: 10px;
-  background: #f00;
 `;
 
 export const LoginBtnModal = styled.TouchableOpacity`

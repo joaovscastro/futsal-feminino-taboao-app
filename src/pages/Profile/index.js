@@ -1,35 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { View, SafeAreaView } from 'react-native';
-
 import ImagePicker from 'react-native-image-crop-picker';
-
 import Lottie from 'lottie-react-native';
-import BolaLoad from '../../../bola-load.json';
 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-Icon.loadFont();
+import { updateProfileRequest } from '../../store/modules/user/actions';
 
 import {
   Header,
   HeaderTexts,
   HeaderTextName,
-  HeaderTextDesc,
-  SearchContent,
-  SearchBtn,
   Container,
-  Noticias,
-  NoticiasImg,
-  NoticiasTitle,
-  NoticiasDesc,
   HeadProfile,
   Avatar,
-  Name,
-  Medalhas,
-  MedalhaTitle,
-  Pontos,
-  PontosTitle,
-  PontosNumero,
   NewComentBtnSubmit,
   NewComentBtnSubmitText,
   NameInput,
@@ -42,7 +25,10 @@ import {
   NewComentBtnSubmitDisabled,
 } from './styles';
 
-import { updateProfileRequest } from '../../store/modules/user/actions';
+import BolaLoad from '../../../bola-load.json';
+
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+Icon.loadFont();
 
 function Profile({ profile, navigation }) {
   const loading = useSelector(state => state.user.loading);
@@ -51,22 +37,6 @@ function Profile({ profile, navigation }) {
   const [avatar, SetAvatar] = useState(profile.m_avatar);
   const [avatarsource, SetAvatarsource] = useState(profile.m_avatar);
   const [avatarupload, SetAvatarupload] = useState(profile.m_avatar);
-
-  const [tipo, SetTipo] = useState('url');
-
-  const options = {
-    title: 'Selecionar avatar',
-    cancelButtonTitle: 'Cancelar',
-    takePhotoButtonTitle: 'Tirar foto',
-    chooseFromLibraryButtonTitle: 'Escolher da biblioteca',
-    tintColor: '#0a84ff',
-    maxWidth: 100,
-    maxHeight: 100,
-    storageOptions: {
-      skipBackup: true,
-      path: 'images',
-    },
-  };
 
   function selecionaAvatar() {
     ImagePicker.openPicker({

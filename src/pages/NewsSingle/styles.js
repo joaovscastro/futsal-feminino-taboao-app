@@ -57,20 +57,6 @@ export const Data = styled.Text`
   margin: 5px 20px 0 20px;
 `;
 
-export const Content = styled.Text`
-  font-family: 'Axiforma-Regular';
-  font-size: 12px;
-  text-align: justify;
-  color: #969393;
-  margin: 15px 0;
-`;
-
-export const Share = styled.Text`
-  font-family: 'Axiforma-Regular';
-  font-size: 12px;
-  color: #000000;
-`;
-
 export const TitleComent = styled.Text`
   font-family: 'Axiforma-Bold';
   font-size: 14px;
@@ -123,13 +109,6 @@ export const DataComent = styled.Text`
   })};
   font-size: 10px;
   color: #969393;
-`;
-
-export const ComentCont = styled.Text`
-  font-family: 'Axiforma-Regular';
-  font-size: 12px;
-  color: #969393;
-  margin: 10px 0 0 0;
 `;
 
 export const ComentAvatar = styled.Image`

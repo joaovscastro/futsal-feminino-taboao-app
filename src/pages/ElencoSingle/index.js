@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, Text, View, Image, Dimensions } from 'react-native';
+import { SafeAreaView, View, Image, Dimensions } from 'react-native';
 import HTML from 'react-native-render-html';
 
 import {
@@ -7,13 +7,6 @@ import {
   HeaderTexts,
   HeaderTextName,
   Container,
-  UltimoJogo,
-  JogoContent,
-  JogoTimes,
-  JogoInfo,
-  TimeName,
-  JogoInfoTime,
-  JogoLogo,
   BackButton,
   BackButtonContent,
   Title,
@@ -21,26 +14,13 @@ import {
   Data,
   DataText,
   DataTextInfo,
-  Escalacao,
-  EscalacaoJogadora,
-  EscalacaoJogadoraAvatar,
-  EscalacaoJogadoraNome,
-  EscalacaoJogadoraPosicao,
-  EscalacaoDados,
-  EscalacaoDadosText,
-  EscalacaoDadosNumber,
   ElencoMain,
   ElencoText,
   ElencoTextTitle,
   ElencoTextCont,
   ElencoDesc,
-  ElencoDescTitle,
   Disclaimer,
 } from './styles';
-
-import fotoAvatar from '../../../assets/img/perfil-teste.jpg';
-import noticiaPlaceholder from '../../../assets/img/noticias-placeholder.jpg';
-import Brasao from '../../../assets/img/brasao.png';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();

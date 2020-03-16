@@ -47,50 +47,6 @@ export const Container = styled.ScrollView`
   padding: 0 20px;
 `;
 
-export const UltimoJogo = styled.View`
-  background-color: #ffffff;
-  margin: 30px 0 0 0;
-  border-radius: 8px;
-`;
-
-export const JogoContent = styled.View`
-  flex-direction: row;
-  margin: 15px 0 0 0;
-`;
-
-export const JogoTimes = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const JogoLogo = styled.Image`
-  width: 70px;
-  height: 70px;
-`;
-
-export const TimeName = styled.Text.attrs({
-  numberOfLines: 2,
-})`
-  font-family: 'Axiforma-Regular';
-  font-size: 13px;
-  color: #000000;
-  margin: 10px 3px 3px 3px;
-  text-align: center;
-`;
-
-export const JogoInfo = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const JogoInfoTime = styled.Text`
-  font-family: 'Axiforma-Bold';
-  font-size: 32px;
-  color: #000000;
-`;
-
 export const JogoDetalhes = styled(RectButton)`
   flex: 1;
   align-items: center;
@@ -183,61 +139,6 @@ export const DataTextInfo = styled.Text`
   text-align: center;
 `;
 
-export const Escalacao = styled.View`
-  margin: 0 0 20px 0;
-`;
-
-export const EscalacaoJogadora = styled.View`
-  flex-direction: row;
-  align-items: center;
-  background-color: #fff;
-  padding: 15px;
-`;
-
-export const EscalacaoJogadoraAvatar = styled.Image`
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-`;
-
-export const EscalacaoJogadoraNome = styled.Text`
-  font-family: 'Axiforma-Bold';
-  font-size: 13px;
-  color: #000000;
-`;
-
-export const EscalacaoJogadoraPosicao = styled.Text`
-  font-family: 'Axiforma-Regular';
-  font-size: 12px;
-  color: #aab2b7;
-  margin-top: -7px;
-`;
-
-export const EscalacaoDados = styled.View`
-  background-color: #000;
-  padding: 10px 0;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-`;
-
-export const EscalacaoDadosText = styled.Text`
-  font-family: 'Axiforma-Bold';
-  font-size: 12px;
-  color: #ffffff;
-  flex: 1;
-  text-align: center;
-  margin-top: 7px;
-`;
-
-export const EscalacaoDadosNumber = styled.Text`
-  font-family: 'Axiforma-Regular';
-  font-size: 12px;
-  color: #ffffff;
-  flex: 1;
-  text-align: center;
-  margin-top: 7px;
-`;
-
 export const ElencoMain = styled.View`
   flex-direction: row;
   margin: 20px 0 0 0;
@@ -281,12 +182,6 @@ export const ElencoTextCont = styled.Text`
 
 export const ElencoDesc = styled.View`
   margin: 0 0 30px 0;
-`;
-
-export const ElencoDescTitle = styled.Text`
-  font-family: 'Axiforma-Bold';
-  font-size: 18px;
-  color: #000000;
 `;
 
 export const Disclaimer = styled.Text`

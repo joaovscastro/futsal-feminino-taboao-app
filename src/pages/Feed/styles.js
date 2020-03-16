@@ -72,8 +72,6 @@ export const NoticiasDesc = styled.Text`
   color: #a8a8a8;
 `;
 
-export const FeedContent = styled.View``;
-
 export const FeedItem = styled.View`
   border-bottom-color: #c9c9c9;
   border-bottom-width: 0.5px;
@@ -89,23 +87,6 @@ export const FeedAvatar = styled.Image`
   width: 30px;
   height: 30px;
   border-radius: 15px;
-`;
-
-export const FeedName = styled.Text`
-  font-family: 'Axiforma-Regular';
-  font-size: 12px;
-  line-height: 13px;
-  color: #000000;
-  margin: 7px 0 0 10px;
-  flex: 1;
-`;
-
-export const FeedContentText = styled.Text`
-  font-family: 'Axiforma-Regular';
-  font-size: 14px;
-  line-height: 13px;
-  color: #000000;
-  margin: 20px;
 `;
 
 export const FeedIcons = styled.View`
