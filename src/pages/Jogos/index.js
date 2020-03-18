@@ -6,6 +6,7 @@ import {
   FlatList,
   ScrollView,
   Dimensions,
+  Text,
 } from 'react-native';
 import { format, parseJSON } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
@@ -46,6 +47,8 @@ import {
   Disclaimer,
   Loadcontent,
   LoadcontentText,
+  LoadcontentTextEmpty,
+  LoadcontentTextEmptyDesc,
   Placar,
 } from './styles';
 
@@ -53,6 +56,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
 
 import BolaLoad from '../../../assets/animations/bola-load.json';
+import Semjogo from '../../../assets/animations/semjogo.json';
 import Brasao from '../../../assets/img/logo.png';
 
 function Jogos({ navigation, profile }) {
@@ -70,75 +74,119 @@ function Jogos({ navigation, profile }) {
 
   function FirstRoute() {
     return (
-      <FlatList
-        style={{ marginLeft: 20, marginRight: 20 }}
-        data={jogos}
-        keyExtractor={post => String(post.id)}
-        onEndReached={() => loadJogos()}
-        onEndReachedThreshold={0.1}
-        onRefresh={refreshList}
-        refreshing={refreshing}
-        ListFooterComponent={
-          loading && (
-            <Loadcontent>
-              <Lottie
-                resizeMode="contain"
-                autoSize
-                source={BolaLoad}
-                autoPlay
-                loop={true}
+      <>
+        {jogos.length ? (
+          <FlatList
+            style={{ marginLeft: 20, marginRight: 20 }}
+            data={jogos}
+            keyExtractor={post => String(post.id)}
+            onEndReached={() => loadJogos()}
+            onEndReachedThreshold={0.1}
+            onRefresh={refreshList}
+            refreshing={refreshing}
+            ListFooterComponent={
+              loading && (
+                <Loadcontent>
+                  <Lottie
+                    resizeMode="contain"
+                    autoSize
+                    source={BolaLoad}
+                    autoPlay
+                    loop={true}
+                    style={{
+                      width: 60,
+                      height: 60,
+                    }}
+                  />
+                  <LoadcontentText>Carregando...</LoadcontentText>
+                </Loadcontent>
+              )
+            }
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <UltimoJogo
                 style={{
-                  width: 60,
-                  height: 60,
+                  shadowColor: '#000',
+                  shadowOffset: {
+                    width: 0,
+                    height: 1,
+                  },
+                  shadowOpacity: 0.2,
+                  shadowRadius: 1.41,
+                  elevation: 2,
                 }}
-              />
-              <LoadcontentText>Carregando...</LoadcontentText>
-            </Loadcontent>
-          )
-        }
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <UltimoJogo
-            style={{
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 1,
-              },
-              shadowOpacity: 0.2,
-              shadowRadius: 1.41,
-              elevation: 2,
-            }}
-          >
-            <JogoTitulo>{item.nome}</JogoTitulo>
-            <JogoContent>
-              <JogoTimes>
-                <JogoLogo source={Brasao} resizeMode="contain" />
-              </JogoTimes>
-              <JogoInfo>
-                <JogoInfoTime>{item.horaFormatted}</JogoInfoTime>
-                <JogoInfoData>{item.dateFormatted}</JogoInfoData>
-              </JogoInfo>
-              <JogoTimes>
-                <JogoLogo
-                  source={{
-                    uri: item._embedded['wp:featuredmedia'][0].source_url,
-                  }}
-                  resizeMode="contain"
-                />
-              </JogoTimes>
-            </JogoContent>
-            <JogoDetalhesView>
-              <JogoDetalhes
-                underlayColor="#f3f3f3"
-                onPress={() => loadDetalhes(item)}
               >
-                <JogoDetalhesTitle>Ver detalhes</JogoDetalhesTitle>
-              </JogoDetalhes>
-            </JogoDetalhesView>
-          </UltimoJogo>
+                <JogoTitulo>{item.nome}</JogoTitulo>
+                <JogoContent>
+                  <JogoTimes>
+                    <JogoLogo source={Brasao} resizeMode="contain" />
+                  </JogoTimes>
+                  <JogoInfo>
+                    <JogoInfoTime>{item.horaFormatted}</JogoInfoTime>
+                    <JogoInfoData>{item.dateFormatted}</JogoInfoData>
+                  </JogoInfo>
+                  <JogoTimes>
+                    <JogoLogo
+                      source={{
+                        uri: item._embedded['wp:featuredmedia'][0].source_url,
+                      }}
+                      resizeMode="contain"
+                    />
+                  </JogoTimes>
+                </JogoContent>
+                <JogoDetalhesView>
+                  <JogoDetalhes
+                    underlayColor="#f3f3f3"
+                    onPress={() => loadDetalhes(item)}
+                  >
+                    <JogoDetalhesTitle>Ver detalhes</JogoDetalhesTitle>
+                  </JogoDetalhes>
+                </JogoDetalhesView>
+              </UltimoJogo>
+            )}
+          />
+        ) : (
+          <>
+            {loading ? (
+              <Loadcontent>
+                <Lottie
+                  resizeMode="contain"
+                  autoSize
+                  source={BolaLoad}
+                  autoPlay
+                  loop={true}
+                  style={{
+                    width: 60,
+                    height: 60,
+                  }}
+                />
+                <LoadcontentText>Carregando...</LoadcontentText>
+              </Loadcontent>
+            ) : (
+              <Loadcontent>
+                <Lottie
+                  resizeMode="contain"
+                  autoSize
+                  source={Semjogo}
+                  autoPlay
+                  loop={true}
+                  style={{
+                    width: 120,
+                    height: 120,
+                  }}
+                />
+                <LoadcontentTextEmpty>
+                  Nenhum jogo para os próximos dias!
+                </LoadcontentTextEmpty>
+                <LoadcontentTextEmptyDesc>
+                  Estamos sem previsão de jogo para os próximos dias, fique
+                  ligado em nosso app.
+                </LoadcontentTextEmptyDesc>
+              </Loadcontent>
+            )}
+          </>
         )}
-      />
+      </>
     );
   }
 

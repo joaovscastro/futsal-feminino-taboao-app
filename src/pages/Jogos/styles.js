@@ -344,3 +344,35 @@ export const LoadcontentText = styled.Text`
   font-size: 12px;
   color: #000000;
 `;
+
+export const LoadcontentTextEmpty = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
+  font-size: 14px;
+  color: #000000;
+`;
+
+export const LoadcontentTextEmptyDesc = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: normal;
+    `,
+  })};
+  font-size: 13px;
+  color: #000000;
+  margin: 5px 30px;
+  text-align: center;
+`;

@@ -180,9 +180,13 @@ function Main({ navigation, profile }) {
                   </View>
                 ) : (
                   <>
-                    {jogos.map(jogo => (
-                      <CardJogo key={jogo.id}>{jogo.title.rendered}</CardJogo>
-                    ))}
+                    {jogos.length ? (
+                      <>
+                        <CardJogo>{jogos[0].title.rendered}</CardJogo>
+                      </>
+                    ) : (
+                      <CardJogo>Nenhum jogo para os próximos dias</CardJogo>
+                    )}
                   </>
                 )}
                 <CardMore onPress={() => navigation.navigate('Jogos')}>
@@ -325,7 +329,8 @@ function Main({ navigation, profile }) {
           <AboutButton onPress={() => navigation.navigate('Projeto')}>
             <About
               source={{
-                uri: 'https://futsalfemininotaboao.com.br/oprojeto-home.png',
+                uri:
+                  'https://app.futsalfemininotaboao.com.br/oprojeto-home.png',
               }}
             >
               <AboutTitle>Conheça nosso</AboutTitle>

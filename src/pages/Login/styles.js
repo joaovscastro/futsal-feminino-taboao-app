@@ -86,7 +86,9 @@ export const TitleMail = styled.Text`
   color: #2d2d2d;
 `;
 
-export const MailInput = styled.TextInput`
+export const MailInput = styled.TextInput.attrs({
+  placeholderTextColor: '#a3a3a4',
+})`
   ${Platform.select({
     ios: css`
       height: 30px;
@@ -106,7 +108,9 @@ export const MailInput = styled.TextInput`
   color: #a3a3a4;
 `;
 
-export const MailInputPass = styled.TextInput`
+export const MailInputPass = styled.TextInput.attrs({
+  placeholderTextColor: '#a3a3a4',
+})`
   ${Platform.select({
     ios: css`
       height: 30px;
@@ -149,7 +153,9 @@ export const TitlePass = styled.Text`
   color: #2d2d2d;
 `;
 
-export const PassInput = styled.TextInput`
+export const PassInput = styled.TextInput.attrs({
+  placeholderTextColor: '#a3a3a4',
+})`
   ${Platform.select({
     ios: css`
       height: 30px;
