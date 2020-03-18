@@ -163,6 +163,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+         releaseSigningConfig {
+            storeFile file('futsaltaboao.keystore')
+            storePassword 'contrasena'
+            keyAlias 'futsaltaboao'
+            keyPassword 'contrasena'
+        }
     }
     buildTypes {
         debug {
