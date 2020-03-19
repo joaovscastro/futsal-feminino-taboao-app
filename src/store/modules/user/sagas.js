@@ -20,13 +20,6 @@ export function* updateProfile({ payload }) {
       description: nome,
     });
 
-    Alert.alert(
-      'Sucesso!',
-      'Perfil atualizado com sucesso',
-
-      { cancelable: false }
-    );
-
     yield put(updateProfileSuccess(response.data));
   } catch (err) {
     Alert.alert(
