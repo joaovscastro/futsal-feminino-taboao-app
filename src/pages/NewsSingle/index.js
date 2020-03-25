@@ -126,7 +126,7 @@ export default function NewsSingle({ navigation }) {
           </BackButton>
         </SafeAreaView>
       </ImageBackground>
-      <Container>
+      <Container showsVerticalScrollIndicator={false}>
         <Title>{noticiasingle.title.rendered}</Title>
         <Data>{dataNoticias}</Data>
         <View style={{ marginTop: 20 }}>
@@ -135,13 +135,16 @@ export default function NewsSingle({ navigation }) {
               p: {
                 fontFamily: 'SF Pro Text',
                 fontWeight: 'normal',
-                fontSize: 14,
+                fontSize: 13,
                 color: '#171717',
                 lineHeight: 22,
                 opacity: 0.8,
+                marginTop: 10,
+                marginBottom: 10,
                 marginRight: 20,
                 marginLeft: 20,
               },
+
               h1: {
                 margin: 20,
               },
@@ -149,9 +152,7 @@ export default function NewsSingle({ navigation }) {
                 margin: 20,
               },
             }}
-            imagesMaxWidth={Dimensions.get('window').width}
             imagesInitialDimensions={{
-              width: Dimensions.get('window').width,
               height: 200,
             }}
             html={noticiasingle.content.rendered}
@@ -251,6 +252,7 @@ export default function NewsSingle({ navigation }) {
                 <>
                   <TextInput
                     placeholder="Faça um comentário"
+                    autoCorrect={false}
                     onChangeText={Setimpala}
                     value={impala}
                     style={{

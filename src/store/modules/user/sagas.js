@@ -7,7 +7,7 @@ import { updateProfileSuccess, updateProfileFailure } from './actions';
 
 export function* updateProfile({ payload }) {
   try {
-    const { id, nome, avatarupload, avatarsource } = payload.data;
+    const { id, nome, avatarupload, avatarsource, password } = payload.data;
 
     if (avatarupload != avatarsource) {
       yield call(api.post, 'wp/v2/m_users/avatar', {
@@ -15,11 +15,20 @@ export function* updateProfile({ payload }) {
       });
     }
 
+    if (password === '') {
+      const response = yield call(api.put, `/wp/v2/users/${id}`, {
+        name: nome,
+        description: nome,
+      });
+      yield put(updateProfileSuccess(response.data));
+      return;
+    }
+
     const response = yield call(api.put, `/wp/v2/users/${id}`, {
       name: nome,
       description: nome,
+      password,
     });
-
     yield put(updateProfileSuccess(response.data));
   } catch (err) {
     Alert.alert(

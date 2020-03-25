@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { View, SafeAreaView } from 'react-native';
+import { View, SafeAreaView, Alert } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import Lottie from 'lottie-react-native';
 
@@ -23,6 +23,8 @@ import {
   Loadcontent,
   LoadcontentText,
   NewComentBtnSubmitDisabled,
+  TitleMail,
+  Disclaimer,
 } from './styles';
 
 import BolaLoad from '../../../assets/animations/bola-load.json';
@@ -33,6 +35,8 @@ Icon.loadFont();
 function Profile({ profile, navigation }) {
   const loading = useSelector(state => state.user.loading);
   const [nome, Setnome] = useState(profile.name);
+  const [password, SetPassword] = useState('');
+  const [confirmpassword, SetConfirmpassword] = useState('');
 
   const [avatar, SetAvatar] = useState(profile.m_avatar);
   const [avatarsource, SetAvatarsource] = useState(profile.m_avatar);
@@ -55,12 +59,17 @@ function Profile({ profile, navigation }) {
   const dispatch = useDispatch();
 
   function handleSubmit() {
+    if (password != confirmpassword) {
+      Alert.alert('Erro ao atualizar', 'As senhas não coincidem');
+      return;
+    }
     dispatch(
       updateProfileRequest({
         id: profile.id,
         nome,
         avatarupload,
         avatarsource,
+        password,
       })
     );
   }
@@ -109,6 +118,28 @@ function Profile({ profile, navigation }) {
                 onChangeText={Setnome}
                 placeholder="Digite seu nome"
               />
+              <TitleMail>Alterar senha</TitleMail>
+              <NameInput
+                secureTextEntry
+                returnKeyType="next"
+                autoCorrect={false}
+                autoCapitalize="none"
+                value={password}
+                onChangeText={SetPassword}
+                placeholder="Senha"
+              />
+              <NameInput
+                secureTextEntry
+                returnKeyType="go"
+                autoCorrect={false}
+                autoCapitalize="none"
+                value={confirmpassword}
+                onChangeText={SetConfirmpassword}
+                placeholder="Confirmar senha"
+              />
+              <Disclaimer>
+                Deixe em branco para não atualizar a senha.
+              </Disclaimer>
             </HeadProfile>
             <View>
               {nome === '' ? (

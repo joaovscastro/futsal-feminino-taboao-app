@@ -45,6 +45,9 @@ import {
   ModalContaTexto,
   ModalContaBtn,
   ModalContaBtnText,
+  NameInput,
+  MailContentLost,
+  BtnLost,
 } from './styles';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -69,6 +72,7 @@ export default function Login({ navigation }) {
 
   const [registerEmail, setregisterEmail] = useState('');
   const [registerPassword, setregisterPassword] = useState('');
+  const [registerPasswordConfirm, setregisterPasswordConfirm] = useState('');
 
   const [modalcadastro, setModalcadastro] = useState(false);
   const [loadingcadastro, setLoadingcadastro] = useState(false);
@@ -141,12 +145,11 @@ export default function Login({ navigation }) {
   }
 
   async function handleSubmitLostpass() {
-    setLoadingpass(true);
     try {
-      await api.post('wp/v2/users/lost-password', {
-        user_login: usernamelost,
+      setLoadingpass(true);
+      await api.post('wp/v2/m_users/password', {
+        username: usernamelost,
       });
-      toggleModalPass();
       setLoadingpass(false);
       Alert.alert(
         'Link enviado',
@@ -346,24 +349,44 @@ export default function Login({ navigation }) {
                   <TitlePass>Senha</TitlePass>
                   <PassInput
                     secureTextEntry
-                    returnKeyType="go"
-                    onSubmitEditing={registerUser}
+                    returnKeyType="next"
                     value={registerPassword}
                     onChangeText={setregisterPassword}
                     placeholder="Crie uma senha"
                   />
                 </PassContent>
               </LoginPass>
-              <LoginButton onPress={registerUser}>
-                {loading ? (
-                  <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ color: '#fff' }}>Entrando...</Text>
-                    <ActivityIndicator color="#fff" size={20} />
-                  </View>
-                ) : (
-                  <LoginButtonText>Cadastrar</LoginButtonText>
-                )}
-              </LoginButton>
+              <LoginPass>
+                <PassContent>
+                  <TitlePass>Confirmar senha</TitlePass>
+                  <PassInput
+                    secureTextEntry
+                    returnKeyType="go"
+                    onSubmitEditing={registerUser}
+                    value={registerPasswordConfirm}
+                    onChangeText={setregisterPasswordConfirm}
+                    placeholder="Confirme sua senha"
+                  />
+                </PassContent>
+              </LoginPass>
+              {registerPassword === registerPasswordConfirm ? (
+                <LoginButton onPress={registerUser}>
+                  {loading ? (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text style={{ color: '#fff' }}>Entrando...</Text>
+                      <ActivityIndicator color="#fff" size={20} />
+                    </View>
+                  ) : (
+                    <LoginButtonText>Cadastrar</LoginButtonText>
+                  )}
+                </LoginButton>
+              ) : (
+                <View style={{ opacity: 0.5 }}>
+                  <LoginButton>
+                    <LoginButtonText>As senhas não coincidem</LoginButtonText>
+                  </LoginButton>
+                </View>
+              )}
 
               <ForgotPassword
                 onPress={() => navigation.navigate('LostPassword')}
@@ -442,9 +465,8 @@ export default function Login({ navigation }) {
             Digite seu e-mail abaixo e solicite outra.
           </ModalContaTexto>
           <View style={{ marginTop: 20 }} />
-          <MailContent>
-            <TitleMail>e-mail</TitleMail>
-            <MailInputPass
+          <MailContentLost>
+            <NameInput
               keyboardType="email-address"
               autoCorrect={false}
               autoCapitalize="none"
@@ -453,7 +475,7 @@ export default function Login({ navigation }) {
               onChangeText={setUsernamelost}
               placeholder="Digite seu e-mail"
             />
-          </MailContent>
+          </MailContentLost>
           <View style={{ marginTop: 20 }} />
           {loadingpass ? (
             <ActivityIndicator
@@ -462,9 +484,9 @@ export default function Login({ navigation }) {
               size={40}
             />
           ) : (
-            <ModalContaBtn onPress={() => handleSubmitLostpass()}>
+            <BtnLost onPress={() => handleSubmitLostpass()}>
               <ModalContaBtnText>Enviar</ModalContaBtnText>
-            </ModalContaBtn>
+            </BtnLost>
           )}
         </View>
       </Modal>

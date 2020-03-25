@@ -60,12 +60,12 @@ export const NameInput = styled.TextInput.attrs({
   })};
   background: #f9f9f9;
 
-  text-align: center;
   width: 100%;
   height: 40px;
   color: #000000;
-  font-size: 16px;
+  font-size: 14px;
   margin: 10px 0;
+  padding: 10px;
 `;
 
 export const NewComentBtnSubmit = styled.TouchableOpacity`
@@ -164,7 +164,9 @@ export const LoadcontentText = styled.Text`
   color: #000000;
 `;
 
-export const TitleMail = styled.Text`
+export const Message = styled.TextInput.attrs({
+  placeholderTextColor: '#ccc',
+})`
   ${Platform.select({
     ios: css`
       font-family: 'SF Pro Text';
@@ -175,25 +177,65 @@ export const TitleMail = styled.Text`
       font-weight: bold;
     `,
   })};
-  margin-top: 20px;
-  font-size: 12px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #2d2d2d;
+  font-size: 14px;
+  color: #000000;
+
+  background: #f9f9f9;
+  height: 100px;
+  justify-content: flex-start;
+  border-radius: 12px;
+  padding: 10px;
+  width: 100%;
 `;
 
-export const Disclaimer = styled.Text`
+export const GolBtn = styled.View`
+  flex-direction: row;
+  align-items: center;
+  border: 2px;
+  border-radius: 8px;
+  border-color: #2ecc71;
+  background-color: #2ecc71;
+  padding: 10px;
+`;
+
+export const GolBtnText = styled.Text`
   ${Platform.select({
     ios: css`
       font-family: 'SF Pro Text';
-      font-weight: normal;
+      font-weight: bold;
     `,
     android: css`
       font-family: 'SF Pro Text';
-      font-weight: normal;
+      font-weight: bold;
     `,
   })};
-  font-size: 12px;
+  font-size: 14px;
+  color: #fff;
+  margin-left: 10px;
+`;
+
+export const GolBtnDisabled = styled.View`
+  flex-direction: row;
+  align-items: center;
+  border: 2px;
+  border-radius: 8px;
+  border-color: #666;
+  padding: 10px;
+  opacity: 0.4;
+`;
+
+export const GolBtnTextDisabled = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
+  font-size: 14px;
   color: #666;
-  text-align: center;
+  margin-left: 10px;
 `;

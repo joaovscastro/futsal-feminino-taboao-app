@@ -368,3 +368,35 @@ export const ModalContaBtnText = styled.Text`
   font-size: 14px;
   color: #fff;
 `;
+
+export const MailContentLost = styled.View``;
+
+export const NameInput = styled.TextInput.attrs({
+  placeholderTextColor: '#ccc',
+})`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
+  background: #f9f9f9;
+
+  text-align: center;
+  width: 250px;
+  height: 40px;
+  color: #000000;
+  font-size: 16px;
+  margin: 0 0 0 0;
+`;
+
+export const BtnLost = styled.TouchableOpacity`
+  margin: 0;
+  background: #000;
+  padding: 10px 30px;
+  border-radius: 12px;
+`;

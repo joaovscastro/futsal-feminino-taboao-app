@@ -22,6 +22,7 @@ import Main from './pages/Main';
 import Comissao from './pages/Comissao';
 import Projeto from './pages/Projeto';
 import CompleteProfile from './pages/CompleteProfile';
+import SendNotification from './pages/SendNotification';
 
 export default (isSigned = false) =>
   createAppContainer(
@@ -154,6 +155,7 @@ export default (isSigned = false) =>
                   Profile,
                   Comissao,
                   Projeto,
+                  SendNotification,
                 },
                 {
                   headerMode: 'none',

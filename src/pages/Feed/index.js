@@ -270,6 +270,7 @@ function Feed({ profile, navigation }) {
               <>
                 <TextInput
                   placeholder="O que está pensando?"
+                  autoCorrect={false}
                   onChangeText={Setimpala}
                   value={impala}
                   style={{

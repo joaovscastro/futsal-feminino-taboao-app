@@ -17,6 +17,8 @@ import {
   MoreTitleRed,
   GoatButton,
   GoatButtonText,
+  MoreBtn,
+  MoreBtnText,
 } from './styles';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -51,6 +53,27 @@ function More({ profile, navigation }) {
         </HeaderTexts>
       </Header>
       <Container>
+        {profile.url === 'http://impala' ? (
+          <MoreItem
+            onPress={() => navigation.navigate('SendNotification')}
+            underlayColor="#f3f3f3"
+          >
+            <MoreContent>
+              <Icon name="send" size={40} style={{ marginTop: -7 }} />
+              <MoreText>
+                <MoreTitle>Enviar notificação</MoreTitle>
+                <MoreDesc>Envie notificações para os usuários</MoreDesc>
+                <MoreBtn>
+                  <MoreBtnText>Administrador</MoreBtnText>
+                </MoreBtn>
+              </MoreText>
+              <Icon name="chevron-right" size={30} color="#C9C9C9" />
+            </MoreContent>
+          </MoreItem>
+        ) : (
+          <View />
+        )}
+
         <MoreItem
           onPress={() => navigation.navigate('Profile')}
           underlayColor="#f3f3f3"

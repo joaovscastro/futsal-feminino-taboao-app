@@ -154,3 +154,28 @@ export const GoatButtonText = styled.Text`
   color: #8f8f8f;
   margin-bottom: 5px;
 `;
+
+export const MoreBtn = styled.View`
+  background-color: #2948fa;
+  width: 150px;
+  border-radius: 50px;
+  margin-top: 5px;
+`;
+
+export const MoreBtnText = styled.Text`
+  ${Platform.select({
+    ios: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+    android: css`
+      font-family: 'SF Pro Text';
+      font-weight: bold;
+    `,
+  })};
+  text-transform: uppercase;
+  font-size: 10px;
+  color: #ffffff;
+  text-align: center;
+  padding: 6px;
+`;
